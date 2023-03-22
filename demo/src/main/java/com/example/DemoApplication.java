@@ -117,6 +117,8 @@ public class DemoApplication implements CommandLineRunner {
 		
 		
 		System.out.println("--------");
+		var valor = 12;
+		var otro = "hola!";
 		System.out.println("Se agrego esto para GIT");
 
 		
