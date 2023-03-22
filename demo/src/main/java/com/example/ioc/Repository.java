@@ -8,6 +8,7 @@ public interface Repository <T>{ // la T lo hace generico
 	
 	T load();
 	void save(T item);
+	//
 	
 
 }
