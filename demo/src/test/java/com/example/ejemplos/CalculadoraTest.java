@@ -2,14 +2,18 @@ package com.example.ejemplos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.mysql.cj.xdevapi.Result;
 
-import lombok.experimental.var;
 
+//import lombok.experimental.var;
+
+@DisplayName("Banco de pruebas - Calculadora")
 class CalculadoraTest {
 
 	@BeforeEach
@@ -21,48 +25,49 @@ class CalculadoraTest {
 	}
 
 	@Test
+	@DisplayName("Primer prueba suma positivo")
 	void testSumaPositivoPositivo() {
 		var calc = new Calculadora();
 		
-		var result = calc.suma(2, 2);
+		var result = calc.suma(BigDecimal.valueOf(2), BigDecimal.valueOf(2));
 		
-		assertEquals(4, result);
+		assertEquals(BigDecimal.valueOf(4), result);
 	}
 
 	@Test
 	void testSumaPositivoNegativo() {
 		var calc = new Calculadora();
 		
-		var result = calc.suma(3, -1);
+		var result = calc.suma(BigDecimal.valueOf(3), BigDecimal.valueOf(-1));
 		
-		assertEquals(2, result);
+		assertEquals(BigDecimal.valueOf(2), result);
 	}
 	
 	@Test
 	void testSumaNegativoPositivo() {
 		var calc = new Calculadora();
 		
-		var result = calc.suma(-2, 22);
+		var result = calc.suma(BigDecimal.valueOf(-2), BigDecimal.valueOf(22));
 		
-		assertEquals(20, result);
+		assertEquals(BigDecimal.valueOf(20), result);
 	}
 	
 	@Test
 	void testSumaDecimales() {
 		var calc = new Calculadora();
 		
-		var result = calc.suma(0.1, 0.22);
+		var result = calc.suma(BigDecimal.valueOf(0.1), BigDecimal.valueOf(0.2));
 		
-		assertEquals(0.32, result);
+		assertEquals(BigDecimal.valueOf(0.3), result);
 	}
 	
 	@Test
 	void testSumaCeros() {
 		var calc = new Calculadora();
 		
-		var result = calc.suma(0, 0);
+		var result = calc.suma(BigDecimal.valueOf(0), BigDecimal.valueOf(0));
 		
-		assertEquals(0, result);
+		assertEquals(BigDecimal.valueOf(0), result);
 	}
 	
 	
@@ -70,9 +75,25 @@ class CalculadoraTest {
 	void testDividir() {
 		var calc = new Calculadora();
 		
-		var result = calc.divide(1, 2);
+		var result = calc.divide(BigDecimal.valueOf(1), BigDecimal.valueOf(2));
 		
-		assertEquals(0.5, result);
+		assertEquals(BigDecimal.valueOf(0.5), result);
+	}
+	
+	@Test
+	void testDividirPorCero() {
+		var calc = new Calculadora();
+				
+		assertThrows(ArithmeticException.class, ()-> calc.divide(BigDecimal.valueOf(1), BigDecimal.valueOf(0)));
+	}
+	
+	@Test
+	void testResta() {
+		var calc = new Calculadora();
+		
+		assertEquals(BigDecimal.valueOf(-5.2), calc.restar(BigDecimal.valueOf(0),BigDecimal.valueOf(5.2)));
+		
+		
 	}
 	
 }
