@@ -3,6 +3,9 @@ package com.example.ioc;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.example.exceptions.InvalidDataException;
+import com.example.exceptions.NotFoundException;
+
 @Service
 @Qualifier("Local")
 //aca vemos que tenemos 2 service para 1 misma interface
@@ -24,18 +27,32 @@ public class StringServiceImpl implements StringService {
 	}
 
 	@Override
-	public void add(String item) {
-		dao.save(item);
+	public void add(String item) throws NotFoundException {
+		try {
+			dao.save(item);
+		} catch (InvalidDataException e) {
+			throw new NotFoundException("No encontrado", e);
+		}
 	}
 
 	@Override
 	public void modify(String item) {
-		dao.save(item);
+		try {
+			dao.save(item);
+		} catch (InvalidDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void remove(Integer id) {
-		dao.save(id.toString());
+		try {
+			dao.save(id.toString());
+		} catch (InvalidDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

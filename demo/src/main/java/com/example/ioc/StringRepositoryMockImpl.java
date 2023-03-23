@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import com.example.exceptions.InvalidArgumentException;
+import com.example.exceptions.InvalidDataException;
+
 @Repository
 @Primary
 // OJO!!! Porque primario?? Porque tenemos 2 implementaciones, entonces
@@ -22,7 +25,10 @@ public class StringRepositoryMockImpl implements StringRepository {
 	}
 
 	@Override
-	public void save(String item) {
+	public void save(String item) throws InvalidDataException {
+		//if(item == "") throw new InvalidArgumentException();
+		if(item == "") throw new InvalidDataException("La cadena no puede estar vacia");
+
 		System.out.println("Anterior : "+ultimo);
 		this.ultimo=item;
 		System.out.println("Guardado en item  : "+item);

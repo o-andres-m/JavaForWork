@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.example.exceptions.InvalidDataException;
+
 @Service
 @Qualifier("Remoto")
 public class StringRemoteServiceImpl implements StringService {
@@ -20,17 +22,32 @@ public class StringRemoteServiceImpl implements StringService {
 
 	@Override
 	public void add(String item) {
-		dao.save(item);
+		try {
+			dao.save(item);
+		} catch (InvalidDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void modify(String item) {
-		dao.save(item);
+		try {
+			dao.save(item);
+		} catch (InvalidDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void remove(Integer id) {
-		dao.save(id.toString());
+		try {
+			dao.save(id.toString());
+		} catch (InvalidDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
