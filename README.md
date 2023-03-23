@@ -10,5 +10,5 @@ General Readme for all packages and folders.
 
 - First demo with comments.
 - Git usage.
-- Tests.
+- Tests (With Fail tests!)
 

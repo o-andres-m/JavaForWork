@@ -18,11 +18,6 @@ import com.example.ioc.UnaTonteria;
 import lombok.Data;
 import lombok.experimental.var;
 
-/**
- * 
- * @author osvmarti
- *
- */
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
@@ -34,7 +29,6 @@ public class DemoApplication implements CommandLineRunner {
 		
 	}
 		
-	//vamos a inyectar un local, y un remoto
 	@Autowired
 	@Qualifier("Local")
 	@Lazy //Esto hace que NO LO INYECTE hasta tanto NO LO NECESITE

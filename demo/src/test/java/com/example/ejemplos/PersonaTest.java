@@ -2,12 +2,17 @@ package com.example.ejemplos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+
+import com.example.core.test.Smoke;
 
 class PersonaTest {
 
@@ -77,6 +82,20 @@ class PersonaTest {
 			()-> assertEquals("Pepito Nº "+repetitionInfo.getCurrentRepetition(), p.getNombre(),"Fallo getNombre"),
 			()-> assertEquals("Grillo", p.getApellidos(),"Fallo getApellido")
 		);
+	}
+	
+	@Nested
+	class TimeOutTest{
+		
+		@Test
+		@Timeout(value = 100, unit = TimeUnit.MILLISECONDS)
+		void tryTimeOut(){
+			try {
+				Thread.sleep(120);
+			}catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
