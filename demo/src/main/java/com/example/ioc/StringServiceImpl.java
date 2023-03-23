@@ -20,7 +20,6 @@ public class StringServiceImpl implements StringService {
 
 	@Override
 	public String get(Integer id) {
-		// TODO Auto-generated method stub
 		return dao.load() + " en LOCAL";
 	}
 

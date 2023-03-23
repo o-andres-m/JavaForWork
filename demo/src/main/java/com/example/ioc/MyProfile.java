@@ -18,7 +18,6 @@ public class MyProfile{
 			
 			@Override
 			public String dimeAlgo() {
-				// TODO Auto-generated method stub
 				return "Dice una tonteria POR DEFAULT";
 			}
 		};
@@ -31,7 +30,6 @@ public class MyProfile{
 			
 			@Override
 			public String dimeAlgo() {
-				// TODO Auto-generated method stub
 				return "Dice una tonteria DESDE TEST";
 			}
 		};
@@ -44,7 +42,6 @@ public class MyProfile{
 			
 			@Override
 			public String dimeAlgo() {
-				// TODO Auto-generated method stub
 				return "Dice una tonteria DESDE PRODUCCION";
 			}
 		};

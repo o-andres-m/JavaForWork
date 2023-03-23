@@ -16,7 +16,6 @@ public class MyConfig{
 			
 			@Override
 			public String dimeAlgo() {
-				// TODO Auto-generated method stub
 				return "Dice una tonteria";
 			}
 		};
@@ -29,7 +28,6 @@ public class MyConfig{
 			
 			@Override
 			public String dimeAlgo() {
-				// TODO Auto-generated method stub
 				return "Dice OTRA tonteria";
 			}
 		};

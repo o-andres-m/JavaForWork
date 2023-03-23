@@ -18,13 +18,11 @@ public class StringRepositoryMockImpl implements StringRepository {
 	
 	@Override
 	public String load() {
-		// TODO Auto-generated method stub
 		return "Soy el StringRepository Mockeado";
 	}
 
 	@Override
 	public void save(String item) {
-		// TODO Auto-generated method stub
 		System.out.println("Anterior : "+ultimo);
 		this.ultimo=item;
 		System.out.println("Guardado en item  : "+item);

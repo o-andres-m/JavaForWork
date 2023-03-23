@@ -17,13 +17,11 @@ public class StringRepositoryImpl implements StringRepository {
 
 	@Override
 	public String load() {
-		// TODO Auto-generated method stub
 		return "Soy el StringRepositoryImpl";
 	}
 
 	@Override
 	public void save(String item) {
-		// TODO Auto-generated method stub
 		System.out.println("Guardado el String -> " + item);
 
 	}

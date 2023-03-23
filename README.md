@@ -1,6 +1,6 @@
 # CapgeminiProjects
 
-## General Readme
+## General ReadMe
 
 ### demo:
 
