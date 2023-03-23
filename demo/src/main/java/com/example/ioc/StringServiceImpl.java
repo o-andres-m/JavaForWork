@@ -1,5 +1,6 @@
 package com.example.ioc;
 
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import com.example.exceptions.NotFoundException;
 public class StringServiceImpl implements StringService {
 	
 	
-	private StringRepository dao; //data acceso object
+	private StringRepository dao;
 	
 	//no usamos autowired, lo asignamos en constructr
 	public StringServiceImpl(StringRepository dao) {
