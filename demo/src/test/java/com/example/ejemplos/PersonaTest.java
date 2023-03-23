@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 
 class PersonaTest {
@@ -38,6 +40,43 @@ class PersonaTest {
 			()-> assertEquals("Grillo", p.getApellidos(),"Fallo getApellido")
 		);
 
+	}
+	
+	@RepeatedTest(value = 4, name = "{displayName} {currentRepetition}/{totalRepetitions}")
+	void testCreatePerson4Times(RepetitionInfo repetitionInfo) {
+		
+		var p = Persona.builder()
+				.id(repetitionInfo.getCurrentRepetition())
+				.nombre("Pepito Nº "+repetitionInfo.getCurrentRepetition())
+				.apellidos("Grillo")
+				.build();
+		
+		assertTrue(p instanceof Persona, "No es una instancia de clase Persona");
+		
+		assertAll("Validar Propiedades",
+			()-> assertEquals(repetitionInfo.getCurrentRepetition(), p.getId(),"Fallo getId"),
+			()-> assertEquals("Pepito Nº "+repetitionInfo.getCurrentRepetition(), p.getNombre(),"Fallo getNombre"),
+			()-> assertEquals("Grillo", p.getApellidos(),"Fallo getApellido")
+		);
+
+	}
+	
+	@RepeatedTest(value = 4, name = "{displayName} {currentRepetition}/{totalRepetitions}")
+	void testCreatePerson4TimesWithOneFailName(RepetitionInfo repetitionInfo) {
+		
+		var p = Persona.builder()
+				.id(repetitionInfo.getCurrentRepetition())
+				.nombre("Pepito Nº "+(repetitionInfo.getCurrentRepetition() % 3 == 0 ? "" : repetitionInfo.getCurrentRepetition()))
+				.apellidos("Grillo")
+				.build();
+		
+		assertTrue(p instanceof Persona, "No es una instancia de clase Persona");
+		
+		assertAll("Validar Propiedades",
+			()-> assertEquals(repetitionInfo.getCurrentRepetition(), p.getId(),"Fallo getId"),
+			()-> assertEquals("Pepito Nº "+repetitionInfo.getCurrentRepetition(), p.getNombre(),"Fallo getNombre"),
+			()-> assertEquals("Grillo", p.getApellidos(),"Fallo getApellido")
+		);
 	}
 
 }
