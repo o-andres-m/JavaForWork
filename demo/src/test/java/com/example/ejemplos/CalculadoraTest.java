@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -242,7 +243,14 @@ class CalculadoraTest {
 		class OK{
 
 			@ParameterizedTest(name = "{displayName} -> {0} + {1} = {2}")
-			@CsvSource(value = {"1,1,2" , "0.1,0.2,0.3" , "4,-2,2"})
+			@CsvSource(value = {
+					"1,1,2" , 
+					"0.1,0.2,0.3" ,
+					"1,-1,0",
+					"-1,1,0",
+					"-1,-2,-3",
+					"a,-2,-3",
+					})
 			void testSumaDecimalesWithParameterizedTest(double op1, double op2, double result) {
 								
 				assertEquals(result, calc.sumaDouble(op1, op2));
@@ -252,6 +260,20 @@ class CalculadoraTest {
 		@Nested
 		class KO{
 			
+		}
+	}
+	
+	@Nested
+	@Disabled
+	class SumaDisabled{
+		
+		@Nested
+		class OK{
+			@Test
+			void testDisabled() {
+								
+				assertEquals(2, calc.sumaDouble(1, 1));
+			}
 		}
 	}
 
