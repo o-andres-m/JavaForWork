@@ -21,14 +21,14 @@ public class Persona {
 	
 	public Persona(int id, String nombre, String apellidos) {
 		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		setNombre(nombre);
+		setApellidos(apellidos);
 	}
 	
 	
 	public Persona(int id, String nombre) {
 		this.id = id;
-		this.nombre = nombre;
+		setNombre(nombre);
 	}
 
 	
@@ -46,7 +46,8 @@ public class Persona {
 	}
 
 	public void setNombre(String nombre) {
-		if(nombre == null) throw new IllegalArgumentException();
+		if(nombre == null || "".equals(nombre) || nombre.length() < 2) 
+			throw new IllegalArgumentException();
 		this.nombre = nombre;
 	}
 

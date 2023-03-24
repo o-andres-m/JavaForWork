@@ -1,6 +1,9 @@
 package com.example.ejemplos;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 
@@ -284,6 +287,39 @@ class CalculadoraTest {
 				assertEquals(2, calc.sumaDouble(1, 1));
 			}
 		}
+	}
+	
+	@Nested
+	class MockTests{
+		
+		@Test
+		void testSumaMock() {
+			Calculadora calc = mock(Calculadora.class);
+			
+			when(calc.sumaDouble(2, 2)).thenReturn(4.0);
+			
+			assertEquals(4, calc.sumaDouble(2, 2));
+			
+		}
+		
+		@Test
+		void testSumaMock2() {
+			Calculadora calc = mock(Calculadora.class);
+			
+			when(calc.sumaDouble(anyDouble(), anyDouble()))
+				.thenReturn(4.0)
+				.thenReturn(1.0)
+				.thenReturn(5.0)
+				.thenReturn(-2.0);
+			
+			assertEquals(4, calc.sumaDouble(2, 2));
+			assertEquals(1, calc.sumaDouble(0, 1));
+			assertEquals(5, calc.sumaDouble(2, 3));
+			assertEquals(-2, calc.sumaDouble(-1, -1));
+
+			
+		}
+		
 	}
 
 	
