@@ -9,14 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.ioc.Rango;
-import com.example.ioc.StringRepository;
-import com.example.ioc.StringRepositoryImpl;
 import com.example.ioc.StringService;
-import com.example.ioc.StringServiceImpl;
 import com.example.ioc.UnaTonteria;
-
-import lombok.Data;
-import lombok.experimental.var;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
