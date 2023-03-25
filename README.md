@@ -12,6 +12,6 @@ General Readme for all packages and folders.
 - Git usage.
 - Tests (With Fail tests!)
 
-### gildedRose:
+### gildedRose (kata :martial_arts_uniform:):
 
 - Exercise for testing and code refactor
