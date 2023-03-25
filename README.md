@@ -12,3 +12,6 @@ General Readme for all packages and folders.
 - Git usage.
 - Tests (With Fail tests!)
 
+### gildedRose:
+
+- Exercise for testing and code refactor
