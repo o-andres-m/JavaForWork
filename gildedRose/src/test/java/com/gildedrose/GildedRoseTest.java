@@ -27,4 +27,6 @@ class GildedRoseTest {
         		()-> assertEquals(80, app.items[0].quality)
         		);
     }
+    
+    
 }
