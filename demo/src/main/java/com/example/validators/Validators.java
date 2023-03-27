@@ -3,40 +3,41 @@ package com.example.validators;
 
 public class Validators {
 
-	public Validators() {
-		// TODO Auto-generated constructor stub
-	}
-	
 
-    public boolean validar(String dni) {
+    public boolean isNif(String value) {
  
-        boolean esValido = false;
+        boolean isValid = false;
         int i = 0;
         int caracterASCII = 0;
-        char letra = ' ';
+        char letter = ' ';
         int miDNI = 0;
         int resto = 0;
-        char[] asignacionLetra = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X','B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+        char[] assignLetter = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X','B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+        
+        if(value == null) return true;
  
- 
-        if(dni.length() == 9 && Character.isLetter(dni.charAt(8))) {
+        if(value.length() == 9 && Character.isLetter(value.charAt(8))) {
  
             do {
-                caracterASCII = dni.codePointAt(i);
-                esValido = (caracterASCII > 47 && caracterASCII < 58);
+                caracterASCII = value.codePointAt(i);
+                isValid = (caracterASCII > 47 && caracterASCII < 58);
                 i++;
             } 
-            while(i < dni.length() - 1 && esValido);     
+            while(i < value.length() - 1 && isValid);     
         }
  
-        if(esValido) {
-            letra = Character.toUpperCase(dni.charAt(8));
-            miDNI = Integer.parseInt(dni.substring(0,8));
+        if(isValid) {
+            letter = Character.toUpperCase(value.charAt(8));
+            miDNI = Integer.parseInt(value.substring(0,8));
             resto = miDNI % 23;
-            esValido = (letra == asignacionLetra[resto]);
+            isValid = (letter == assignLetter[resto]);
         }
  
-        return esValido;
+        return isValid;
+    }
+    
+    public boolean isNotNif(String value) {
+    	return !isNif(value);
     }
 
 
