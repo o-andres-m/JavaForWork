@@ -133,6 +133,7 @@ public class DemoApplication implements CommandLineRunner {
 
 		///////////////7
 
+		/*
 		var lst = jdbcTemplate.query("""
 				SELECT actor_id, first_name, last_name
 				from actor
@@ -143,7 +144,7 @@ public class DemoApplication implements CommandLineRunner {
 				SELECT concat(first_name, ' ', last_name)
 				from actor
 				""", String.class).forEach(System.out::println);
-		
+		*/
 	}
 
 }
