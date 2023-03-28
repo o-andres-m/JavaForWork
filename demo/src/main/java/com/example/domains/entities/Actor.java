@@ -32,8 +32,10 @@ public class Actor implements Serializable {
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	private Timestamp lastUpdate;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="actor")
+	//fetch = EAGER - > Ansioso! Carga todos los datos de filmActors cuando buscamos el actor
+	// A veces es necesario tenerlo, pero consume mas recursos
+	// Si le ponemos el LAZY, podemos usar el @Transactional en donde usamos el ORM
+	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
 	private List<FilmActor> filmActors = new ArrayList<>();
 
 	public Actor() {
