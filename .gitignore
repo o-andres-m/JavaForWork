@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .metadata
-
+RECURSOS_NO_SUBIDOS/**
+kk/**
 
 ### STS ###
 .apt_generated
