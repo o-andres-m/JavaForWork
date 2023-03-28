@@ -14,4 +14,6 @@ General Readme for all packages and folders.
 
 ### gildedRose (kata :martial_arts_uniform:):
 
+Original: [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
+
 - Exercise for testing and code refactor
