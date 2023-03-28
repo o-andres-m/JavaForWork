@@ -84,8 +84,9 @@ public class DemoApplication implements CommandLineRunner {
 		
 		var srv = new StringServiceImpl(dao);
 		
-		*/
 		
+		///////////////////////////77
+
 		//Inyeccion automatica, ver linea 31
 		//nos trae el srv
 		System.out.println(srvLocal.get(1));
@@ -104,7 +105,8 @@ public class DemoApplication implements CommandLineRunner {
 		
 		srvRemoto.add("Desde Remoto");
 		System.out.println("-------------");
-		
+		///////////////////////////77
+
 		System.out.println(valor);
 		
 		System.out.println("--------");
@@ -145,6 +147,8 @@ public class DemoApplication implements CommandLineRunner {
 				from actor
 				""", String.class).forEach(System.out::println);
 		*/
+		
+		System.out.println("Aplicacion Running...");
 	}
 
 }
