@@ -57,6 +57,31 @@ class GildedRoseTest {
 	    }
 	}
 	
+    @Nested
+    class Days{
+		@ParameterizedTest(name = "{0} - {1} to {3}")
+		@CsvSource(value = {
+				"+5 Dexterity Vest, 1, 0, 0" , 
+				"Aged Brie, 2, 0, 1" ,
+				"Elixir of the Mongoose, 1, 0, 0",
+				"'Sulfuras, Hand of Ragnaros', 0, 0, 0",
+				"Backstage passes to a TAFKAL80ETC concert, 1, 0, 0",
+				"Conjured Mana Cake, 0, 0, 0",
+				"Other, 0, 0, 0",
+				})
+		void testSellInDays(String name, int sellin, int quality, int finalDays){
+	        
+	        Item[] items = new Item[] {
+	                new Item(name,sellin,quality)};
+	        
+	        GildedRose app = new GildedRose(items);
+	        
+	        app.updateQuality();
+	        assertEquals(finalDays,app.items[0].sellIn);
+
+	    }
+    }
+	
 
     @Nested
     class Brie{

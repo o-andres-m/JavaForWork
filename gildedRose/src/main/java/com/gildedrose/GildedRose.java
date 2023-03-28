@@ -7,20 +7,18 @@ class GildedRose {
         this.items = items;
     }
     
-    private final int BRIE_MAX_QUALITY = 50;
+    private final int MAX_QUALITY = 50;
+    private final int MIN_QUALITY = 0;
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
         	
         	switch(items[i].name) {
         		case "Aged Brie":
-    				if(items[i].quality<BRIE_MAX_QUALITY) {
+    				if(items[i].quality<MAX_QUALITY) {
         				items[i].quality += 1;
         				if(items[i].sellIn==0) {
             				items[i].quality += 1;
-        				}
-        				else {
-            				items[i].sellIn -= 1;
         				}
     				}
         			break;
@@ -46,16 +44,16 @@ class GildedRose {
         			}
         			break;
         		default:
-        			if(items[i].sellIn==0) {
-	    				items[i].quality -= 2;
-        			}else {
+    				if(items[i].quality>MIN_QUALITY){
         				items[i].quality -= 1;
-        				items[i].sellIn -= 1;
-        			}
-        			
-        	
-        			
+        				if(items[i].sellIn==0) {
+            				items[i].quality -= 1;
+        				}
+    				}
+        			break;
         	}
+        	if (items[i].sellIn>0 && items[i].name != "Sulfuras, Hand of Ragnaros")items[i].sellIn -= 1;
+
         		
         	/*
             if (!items[i].name.equals("Aged Brie")
