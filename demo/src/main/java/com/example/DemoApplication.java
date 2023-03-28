@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
@@ -50,6 +51,23 @@ public class DemoApplication implements CommandLineRunner {
 		var actorList = dao.findTop5ByFirstNameStartingWithOrderByLastNameDesc("P");
 		
 		actorList.forEach(System.out::println);
+		
+		
+		var actorList2 = dao.findTop10ByFirstNameStartingWith("",Sort.by("ActorId"));
+		
+		actorList2.forEach(System.out::println);
+		
+		var actorList3 = dao.findJPQL(12);
+		
+		actorList3.forEach(System.out::println);
+		
+		var actorList4 = dao.findAllConJPQL();
+		
+		actorList4.forEach(System.out::println);
+		
+		var actorList5 = dao.findActorConNativeSQL(7);
+		
+		actorList5.forEach(System.out::println);
 		
 	}
 
