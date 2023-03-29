@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDto;
+import com.example.domains.entities.dtos.ActorShort;
 
 
 public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor>{
@@ -24,6 +26,17 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	
 	@Query(value="SELECT * FROM actor WHERE actor_id < ?1" ,nativeQuery = true)
 	List<Actor> findActorConNativeSQL(int actorId);
+	
+	// Proyecciones, se hacen para devolver solo lo que necesitamos
+	// ActorShort solo tiene ID NOMBRE APELLIDO, no obtiene mas datos sin sentido
+	
+	List<ActorShort> findByActorIdNotNull();
+	
+	// Le mandamos QUE CLASE necesitamos que nos devuelva, y nos devuelve una lista de esa clase
+	// Entonces, podemos pedirle que nos devuelva una lista de Actor, o ActorDto o ActorShort
+	// Esto se hace para que a la DB no le pida informacion que no necesitamos.
+	
+	<T> List<T> findAllBy(Class <T> type);
 	
 	
 	

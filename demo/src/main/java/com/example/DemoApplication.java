@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDto;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validation;
@@ -124,16 +126,41 @@ public class DemoApplication implements CommandLineRunner {
 		// Para probar el VALIDADOR DE NIF
 		// Se le pone el decorador @Nif a LastName de Actor para esta prueba:
 		
-		var actor = new Actor(0, "4G", "OSCAR");
-		if (actor.isInvalid()) {
-			System.out.println(actor.getErrorsMessage());		
-		}else {
-			dao.save(actor);
-			System.out.println(actor);
+//		var actor = new Actor(0, "4G", "OSCAR");
+//		if (actor.isInvalid()) {
+//			System.out.println(actor.getErrorsMessage());		
+//		}else {
+//			dao.save(actor);
+//			System.out.println(actor);
+//
+//		}
+//		
+//		
+		
+		////////////////////// 
+		
+		// DTOS
+		//Obtenemos todos, con el PageRequest, empieza en pagina 1, con 20 resultados por pagina
+		//Ordenados por actorId
+		//OJO!! Devuelve un objeto Page
+//		var result = dao.findAll(PageRequest.of(0, 20,Sort.by("actorId")));
+//		result.getContent().stream().map(item->ActorDto.from(item)).forEach(System.out::println);
+//		
+//		
+		//Hay que hacerle el getContent, para que se convierta en listado. Sino es tipo PAGE
+		
+		//////////////////////////
+		
+		// Devuelve ActorDto
+//		dao.findByActorIdNotNull().forEach(System.out::println);
+		
+		// Devuelve ActorShorts ! Que son Actores, pero cada item tiene su metodo, ejemplo GET NOMBRE
 
-		}
+//		dao.findByActorIdNotNull().forEach(item-> System.out.println(item.getNombre()));
 		
-		
+		// Devuelve lo que YO LE PIDA, en este caso ActorDto (se pone la clase .class)
+		dao.findAllBy(ActorDto.class).forEach(System.out::println);
+
 		
 	}
 
