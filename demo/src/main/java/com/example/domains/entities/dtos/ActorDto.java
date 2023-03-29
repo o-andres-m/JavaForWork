@@ -1,5 +1,7 @@
 package com.example.domains.entities.dtos;
 
+import com.example.domains.entities.Actor;
+
 import lombok.Value;
 
 //Si le ponemos VALUE es como un "DATA" pero sin SETTERS y con un constructor completo
@@ -19,8 +21,20 @@ public class ActorDto {
 	private String firstName;
 
 	private String lastName;
-
-	private int edad;
 	
+	
+	
+	public static ActorDto from(Actor target) {
+		
+		return new ActorDto(target.getActorId(),target.getFirstName(),target.getLastName());
+		
+	}
+	
+	
+	public static Actor from(ActorDto target) {
+		
+		return new Actor(target.getActorId(),target.getFirstName(),target.getLastName());
+		
+	}
 
 }
