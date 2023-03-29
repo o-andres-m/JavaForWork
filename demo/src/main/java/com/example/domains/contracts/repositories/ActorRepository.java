@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.domains.core.repositories.contracts.RepositoryWithProjections;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDto;
 import com.example.domains.entities.dtos.ActorShort;
 
 
-public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor>{
+public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor>, RepositoryWithProjections{
 	
 	List<Actor> findTop5ByFirstNameStartingWithOrderByLastNameDesc(String str);
 
@@ -36,7 +37,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	// Entonces, podemos pedirle que nos devuelva una lista de Actor, o ActorDto o ActorShort
 	// Esto se hace para que a la DB no le pida informacion que no necesitamos.
 	
-	<T> List<T> findAllBy(Class <T> type);
+	//<T> List<T> findAllBy(Class <T> type);
 	
 	
 	

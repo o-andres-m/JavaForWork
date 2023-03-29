@@ -1,6 +1,7 @@
 package com.example.domains.entities.dtos;
 
 import com.example.domains.entities.Actor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -16,10 +17,13 @@ import lombok.Value;
  */
 public class ActorDto {
 	
+	@JsonProperty("id")
 	private int actorId;
-
+	
+	@JsonProperty("nombre")
 	private String firstName;
-
+	
+	@JsonProperty("apellido")
 	private String lastName;
 	
 	

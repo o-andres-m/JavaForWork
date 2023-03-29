@@ -10,8 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
+import com.example.domains.contracts.repositories.ActorService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validation;
@@ -29,8 +32,12 @@ public class DemoApplication implements CommandLineRunner {
 		
 	}
 		
+//	@Autowired
+//	ActorRepository dao;
+	
 	@Autowired
-	ActorRepository dao;
+	ActorService srv;
+	
 
 	
 	@Override
@@ -159,9 +166,33 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findByActorIdNotNull().forEach(item-> System.out.println(item.getNombre()));
 		
 		// Devuelve lo que YO LE PIDA, en este caso ActorDto (se pone la clase .class)
-		dao.findAllBy(ActorDto.class).forEach(System.out::println);
+//		dao.findAllBy(ActorDto.class).forEach(System.out::println);
 
 		
-	}
+		/////////////////////7
+		
+		// Serializadores:
+		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		
+//		dao.findAllBy(ActorDto.class).stream().map(
+//				item -> {
+//					try {
+//						return objectMapper.writeValueAsString(item);
+//					} catch (JsonProcessingException e) {
+//						return "";
+//					}
+//				}).forEach(System.out::println);
+//	
+//	
+		
+		
+		/////////////////////7
+		
+		//Todo lo de arriba, lo aplicamos con el servicio:
 
+		srv.add(new Actor(0, "Pepito", "GOMEZ"));
+		
+	
+	}
 }
