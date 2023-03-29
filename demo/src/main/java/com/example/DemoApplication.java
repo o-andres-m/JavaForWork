@@ -12,6 +12,8 @@ import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 
 
 
@@ -82,14 +84,55 @@ public class DemoApplication implements CommandLineRunner {
 //		actorList7.forEach(System.out::println);
 		
 		
-		var item = dao.findById(1);
-		if(item.isPresent()) {
-			var actor = item.get();
-			System.out.println(actor);
-			actor.getFilmActors().forEach(valor-> System.out.println(valor.getFilm().getTitle()));
+//		var item = dao.findById(1);
+//		if(item.isPresent()) {
+//			var actor = item.get();
+//			System.out.println(actor);
+//			actor.getFilmActors().forEach(valor-> System.out.println(valor.getFilm().getTitle()));
+//		}else {
+//			System.out.println("Actor no encontrado.");
+//		}
+//		
+		//////////////////////////7
+		
+		// Validaciones:
+		
+//		var actor = new Actor(0, "Pepito", "o");
+//		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+//		var err = validator.validate(actor);
+//		if (err.size()>0) {
+//			err.forEach(e -> System.out.println(e.getPropertyPath() + ": " + e.getMessage()));
+//		}else {
+//			dao.save(actor);
+//			System.out.println(actor);
+//		}
+		
+		// Para evitar todo esto
+		
+		//Primero que todo hay que tener un EntityBase que es de donde EXTENDERA nuestra entidad
+		//Por eso vemos que la entidad ACTOR extiende del EntityBase
+		
+//		var actor = new Actor(0, "Pepito", "OSCAR");
+//		if (actor.isInvalid()) {
+//			System.out.println(actor.getErrorsMessage());		
+//		}else {
+//			dao.save(actor);
+//			System.out.println(actor);
+//
+//		}
+		
+		// Para probar el VALIDADOR DE NIF
+		// Se le pone el decorador @Nif a LastName de Actor para esta prueba:
+		
+		var actor = new Actor(0, "4G", "OSCAR");
+		if (actor.isInvalid()) {
+			System.out.println(actor.getErrorsMessage());		
 		}else {
-			System.out.println("Actor no encontrado.");
+			dao.save(actor);
+			System.out.println(actor);
+
 		}
+		
 		
 		
 	}

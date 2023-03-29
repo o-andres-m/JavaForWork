@@ -2,6 +2,8 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="category_id", insertable=false, updatable=false, unique=true, nullable=false)
+	@Max(255)
 	private int categoryId;
 
 	@Column(name="last_update", nullable=false)
