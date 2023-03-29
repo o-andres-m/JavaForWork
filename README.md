@@ -1,4 +1,4 @@
-# CapgeminiProjects
+# WorkProjects
 
 Osvaldo Andres Martinez
 
@@ -11,9 +11,11 @@ General Readme for all packages and folders.
 - First demo with comments.
 - Git usage.
 - Tests (With Fail tests!)
+- DniValidator
+- Entities
+- Repository (JPA)
+- Validators
 
-### gildedRose (kata :martial_arts_uniform:):
+### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
 
-Original: [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
-
-- Exercise for testing and code refactor
+- Exercise for testing and refactoring.
