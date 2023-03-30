@@ -3,6 +3,9 @@ package com.films.domains.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+
+import com.films.domains.core.entities.EntityBase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 
 /**
@@ -21,7 +25,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="language")
 @NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
-public class Language implements Serializable {
+public class Language extends EntityBase<Language> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,6 +37,7 @@ public class Language implements Serializable {
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=20)
+	@Size(min =2, max = 20)
 	private String name;
 
 	//bi-directional many-to-one association to Film
@@ -44,6 +49,17 @@ public class Language implements Serializable {
 	private List<Film> filmsVO;
 
 	public Language() {
+	}
+	
+	public Language(int languageId) {
+		super();
+		this.languageId = languageId;
+	}
+
+	public Language(int languageId, @Size(min = 2, max = 20) String name) {
+		super();
+		this.languageId = languageId;
+		this.name = name;
 	}
 
 	public int getLanguageId() {
@@ -112,6 +128,23 @@ public class Language implements Serializable {
 		filmsVO.setLanguageVO(null);
 
 		return filmsVO;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(languageId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Language other = (Language) obj;
+		return languageId == other.languageId;
 	}
 
 }
