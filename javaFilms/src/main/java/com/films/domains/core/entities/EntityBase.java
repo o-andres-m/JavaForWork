@@ -1,4 +1,4 @@
-package com.example.domains.core.entities;
+package com.films.domains.core.entities;
 
 import java.util.Set;
 
