@@ -15,7 +15,17 @@ General Readme for all packages and folders.
 - Entities
 - Repository (JPA)
 - Validators
+- Dtos
+- CoreEntities
+- CoreRepositories
+- Services
+- ServicesImplementations
 
 ### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
 
 - Exercise for testing and refactoring.
+
+### javaFilms :film_projector:
+
+- Exercise for DDD
+- Using SakilaDb
