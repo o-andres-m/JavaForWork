@@ -56,14 +56,14 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	
 	public Actor(int actorId) {
 		super();
-		this.actorId = actorId;
+		setActorId(actorId);
 	}
 	
 	public Actor(int actorId, String firstName, String lastName) {
 		super();
-		this.actorId = actorId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		setActorId(actorId);
+		setFirstName(firstName);
+		setLastName(lastName);
 	}
 
 	public int getActorId() {

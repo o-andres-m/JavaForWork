@@ -51,14 +51,14 @@ public class Category extends EntityBase<Category> implements Serializable {
 	
 	public Category(int categoryId) {
 		super();
-		this.categoryId = categoryId;
-	}
+		setCategoryId(categoryId);
+}
 
 	public Category(int categoryId, @Size(min = 2, max = 25) @NotBlank String name) {
 		super();
-		this.categoryId = categoryId;
-		this.name = name;
-	}
+		setCategoryId(categoryId);
+		setName(name);
+}
 
 
 	public int getCategoryId() {
