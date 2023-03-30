@@ -22,10 +22,5 @@ class CategoryTest {
 		assertNotNull(cat);
 	}
 
-	@Test
-	void testCategoryIntString() {
-		var cat = new Category(1,"Name");
-		assertNotNull(cat);
-		assertEquals("Name", cat.getName());
-		}
+
 }

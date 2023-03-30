@@ -1,9 +1,10 @@
 package com.films.domains.services;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.boot.model.naming.ImplicitMapKeyColumnNameSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,10 @@ import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.Film;
+
+import jakarta.transaction.Transactional;
+import lombok.NonNull;
+import lombok.experimental.var;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -61,19 +66,35 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
+	@Transactional
 	public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
-		if (item == null) throw new InvalidDataException("Item cannot be null.");
-		if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-		if (dao.existsById(item.getFilmId())) throw new DuplicateKeyException(item.getErrorsMessage());
-		return dao.save(item);
+		if(item == null)
+			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage());
+		if(dao.existsById(item.getFilmId()))
+			throw new DuplicateKeyException(item.getErrorsMessage());
+		var actores = item.getActors();
+		var categorias = item.getCategories();
+		item.clearActors();
+		item.clearCategories();
+		var newItem = dao.save(item);
+		newItem.setActors(actores);
+		newItem.setCategories(categorias);
+		return dao.save(newItem);
 	}
 
 	@Override
+	@Transactional
 	public Film modify(Film item) throws NotFoundException, InvalidDataException {
-		if (item == null) throw new InvalidDataException("Item cannot be null.");
-		if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-		if (!dao.existsById(item.getFilmId())) throw new NotFoundException();
-		return dao.save(item);
+		if(item == null)
+			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage());
+		var leido = dao.findById(item.getFilmId());
+		if(leido.isEmpty())
+			throw new NotFoundException();
+		return dao.save(item.merge(leido.get()));
 	}
 
 	@Override
@@ -89,9 +110,8 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public List<Film> novedades(Timestamp timestamp) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Film> novedades(@NonNull Timestamp timestamp) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(timestamp);
 	}
 
 }

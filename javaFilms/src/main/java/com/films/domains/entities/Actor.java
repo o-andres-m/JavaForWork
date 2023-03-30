@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.ArrayList;
+
 
 import com.films.domains.core.entities.EntityBase;
 
@@ -18,6 +20,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -25,8 +29,6 @@ import jakarta.validation.constraints.Size;
 @Table(name="actor")
 @NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
 public class Actor extends EntityBase<Actor> implements Serializable {
-
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -36,35 +38,37 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 	@Column(name="first_name", nullable=false, length=45)
 	@NotBlank
-	@Size(min = 2, max = 45)
+	@Size(max=45, min=2)
 	private String firstName;
 
 	@Column(name="last_name", nullable=false, length=45)
-	@NotNull
-	@Size(min = 2, max = 45)
+	@Size(max=45, min=2)
+	@Pattern(regexp = "[A-Z]+", message = "Tiene que estar en mayusculas")
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
-	private List<FilmActor> filmActors;
+	private List<FilmActor> filmActors = new ArrayList<>();
 
 	public Actor() {
 	}
 	
 	public Actor(int actorId) {
 		super();
-		setActorId(actorId);
+		this.actorId = actorId;
 	}
-	
+
 	public Actor(int actorId, String firstName, String lastName) {
 		super();
-		setActorId(actorId);
-		setFirstName(firstName);
-		setLastName(lastName);
+		this.actorId = actorId;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
+
 
 	public int getActorId() {
 		return this.actorId;
@@ -119,7 +123,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 		return filmActor;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(actorId);
@@ -141,6 +145,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	public String toString() {
 		return "Actor [actorId=" + actorId + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
+
 
 
 }

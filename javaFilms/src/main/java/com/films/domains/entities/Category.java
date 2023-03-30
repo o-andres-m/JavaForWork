@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.films.domains.core.entities.EntityBase;
 
 import jakarta.persistence.Column;
@@ -16,6 +18,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 
@@ -31,35 +34,32 @@ public class Category extends EntityBase<Category> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="category_id", unique=true, nullable=false)
+	@Column(name="category_id")
+	@JsonProperty("id")
 	private int categoryId;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name="last_update", insertable = false, updatable = false)
+	@PastOrPresent
+	@JsonIgnore
 	private Timestamp lastUpdate;
 
-	@Column(nullable=false, length=25)
-	@Size(min = 2, max = 25)
 	@NotBlank
+	@Size(max=25)
+	@JsonProperty("categoria")
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="category")
+	@JsonIgnore
 	private List<FilmCategory> filmCategories;
 
 	public Category() {
 	}
-	
+
 	public Category(int categoryId) {
 		super();
-		setCategoryId(categoryId);
-}
-
-	public Category(int categoryId, @Size(min = 2, max = 25) @NotBlank String name) {
-		super();
-		setCategoryId(categoryId);
-		setName(name);
-}
-
+		this.categoryId = categoryId;
+	}
 
 	public int getCategoryId() {
 		return this.categoryId;
@@ -107,7 +107,6 @@ public class Category extends EntityBase<Category> implements Serializable {
 		return filmCategory;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(categoryId);
@@ -129,7 +128,5 @@ public class Category extends EntityBase<Category> implements Serializable {
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", name=" + name + "]";
 	}
-	
-	
 
 }

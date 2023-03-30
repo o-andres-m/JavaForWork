@@ -1,6 +1,6 @@
 package com.films.domains.services;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +16,8 @@ import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.Language;
+
+import lombok.NonNull;
 
 @Service
 public class LanguageServiceImpl implements LanguageService{
@@ -86,9 +88,8 @@ public class LanguageServiceImpl implements LanguageService{
 	}
 
 	@Override
-	public List<Language> novedades(Timestamp timestamp) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Language> novedades(@NonNull Timestamp fecha) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
 	}
 
 }

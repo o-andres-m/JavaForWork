@@ -1,6 +1,6 @@
 package com.films.domains.services;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,9 +86,9 @@ public class CategoryServiceImp implements CategoryService{
 	}
 
 	@Override
-	public List<Category> novedades(Timestamp timestamp) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Category> novedades(Timestamp fecha) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
 	}
+
 
 }

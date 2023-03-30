@@ -26,20 +26,27 @@ public class FilmActor implements Serializable {
 	@EmbeddedId
 	private FilmActorPK id;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name="last_update", insertable = false, updatable = false)
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Actor
 	@ManyToOne
-	@JoinColumn(name="actor_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="actor_id", insertable=false, updatable=false)
 	private Actor actor;
 
 	//bi-directional many-to-one association to Film
 	@ManyToOne
-	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="film_id", insertable=false, updatable=false)
 	private Film film;
 
 	public FilmActor() {
+	}
+
+	public FilmActor(Film film, Actor actor) {
+		super();
+		this.film = film;
+		this.actor = actor;
+		setId(new FilmActorPK(film.getFilmId(), actor.getActorId()));
 	}
 
 	public FilmActorPK getId() {
@@ -73,29 +80,5 @@ public class FilmActor implements Serializable {
 	public void setFilm(Film film) {
 		this.film = film;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		FilmActor other = (FilmActor) obj;
-		return Objects.equals(id, other.id);
-	}
-
-	@Override
-	public String toString() {
-		return "FilmActor [id=" + id + ", actor=" + actor + ", film=" + film + "]";
-	}
-	
-	
 
 }

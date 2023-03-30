@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 
 /**
@@ -25,27 +26,28 @@ public class FilmCategory implements Serializable {
 	@EmbeddedId
 	private FilmCategoryPK id;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name="last_update", insertable = false, updatable = false)
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Category
 	@ManyToOne
-	@JoinColumn(name="category_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="category_id", insertable=false, updatable=false)
+	@NotNull
 	private Category category;
 
 	//bi-directional many-to-one association to Film
 	@ManyToOne
-	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="film_id", insertable=false, updatable=false)
+	@NotNull
 	private Film film;
 
 	public FilmCategory() {
 	}
 
-	public FilmCategory(FilmCategoryPK id, Category category, Film film) {
-		super();
-		setId(id);
-		setCategory(category);
-		setFilm(film);
+	public FilmCategory(Film film, Category category) {
+		this.film = film;
+		this.category = category;
+		setId(new FilmCategoryPK(film.getFilmId(), category.getCategoryId()));
 	}
 
 	public FilmCategoryPK getId() {

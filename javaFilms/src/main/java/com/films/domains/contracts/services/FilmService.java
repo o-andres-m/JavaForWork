@@ -1,6 +1,6 @@
 package com.films.domains.contracts.services;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.films.domains.core.services.contracts.ProjectionDomainService;
@@ -10,5 +10,4 @@ public interface FilmService extends ProjectionDomainService<Film, Integer>{
 
 	List<Film> novedades (Timestamp timestamp);
 
-	
 }
