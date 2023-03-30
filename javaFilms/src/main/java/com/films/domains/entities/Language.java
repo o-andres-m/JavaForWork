@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.films.domains.core.entities.EntityBase;
 
 import jakarta.persistence.Column;
@@ -31,6 +33,8 @@ public class Language extends EntityBase<Language> implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="language_id", unique=true, nullable=false)
+	@JsonProperty("id")
+	//@JsonView(Language.Partial.class)
 	private int languageId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
@@ -148,4 +152,10 @@ public class Language extends EntityBase<Language> implements Serializable {
 		return languageId == other.languageId;
 	}
 
+	@Override
+	public String toString() {
+		return "Language [languageId=" + languageId + ", name=" + name + "]";
+	}
+
+	
 }

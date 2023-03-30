@@ -1,5 +1,6 @@
 package com.films.domains.services;
 
+import java.security.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +83,12 @@ public class LanguageServiceImpl implements LanguageService{
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Language> novedades(Timestamp timestamp) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

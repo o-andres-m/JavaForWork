@@ -1,5 +1,6 @@
 package com.films.domains.services;
 
+import java.security.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.films.domains.contracts.repository.FilmRepository;
 import com.films.domains.contracts.services.FilmService;
@@ -15,6 +17,7 @@ import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.Film;
 
+@Service
 public class FilmServiceImpl implements FilmService {
 
 
@@ -83,6 +86,12 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Film> novedades(Timestamp timestamp) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.films.domains.contracts.services.ActorService;
 import com.films.domains.contracts.services.CategoryService;
+import com.films.domains.contracts.services.FilmService;
+import com.films.domains.contracts.services.LanguageService;
 import com.films.domains.entities.Actor;
-import com.films.domains.entities.Category;
 
 @SpringBootApplication
 public class JavaFilmsApplication implements CommandLineRunner {
@@ -18,6 +19,12 @@ public class JavaFilmsApplication implements CommandLineRunner {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	LanguageService languageService;
+	
+	@Autowired
+	FilmService filmService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaFilmsApplication.class, args);
@@ -27,17 +34,22 @@ public class JavaFilmsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		System.out.println("Hello JavaFilms!");
+
+//		actorService.getAll().forEach(System.out::println);
+//		Thread.sleep(3000);
+//		categoryService.getAll().forEach(System.out::println);
+//		Thread.sleep(3000);
+//		filmService.getAll().forEach(System.out::println);
+//		Thread.sleep(3000);
+//		languageService.getAll().forEach(System.out::println);
 		
-		var list = actorService.getAll();
-		
-		for (Actor actor : list) {
-			System.out.println(actor.toString());
-		}
-		
-		
-		//categoryService.add(new Category(0,"Nueva Categoria2"));
-		categoryService.deleteById(19);
-		categoryService.getAll().forEach(System.out::println);
+		var film1 = filmService.getOne(1);
+		System.out.println(film1.get().getTitle());
+		System.out.println(film1.get().getDescription());
+		System.out.println(film1.get().getLanguageVO());
+		film1.get().getFilmActors().forEach(System.out::println);
+		//System.out.println();
+		//System.out.println(film1.get().getFilmCategories());
 
 	}
 

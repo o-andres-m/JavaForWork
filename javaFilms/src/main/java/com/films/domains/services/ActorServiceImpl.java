@@ -1,5 +1,6 @@
 package com.films.domains.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,5 +85,13 @@ public class ActorServiceImpl implements ActorService {
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
 	}
+
+	@Override
+	public List<Actor> novedades(Timestamp timestamp) {
+		//TODO Fix
+		//return dao.findByLastUpdateGreaterThanEqualsOrderByLastUpdate(timestamp);
+		return dao.findAll();
+	}
+
 
 }

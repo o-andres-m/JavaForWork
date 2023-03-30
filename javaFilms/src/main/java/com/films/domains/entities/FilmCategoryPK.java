@@ -56,4 +56,6 @@ public class FilmCategoryPK implements Serializable {
 		
 		return hash;
 	}
+	
+	
 }

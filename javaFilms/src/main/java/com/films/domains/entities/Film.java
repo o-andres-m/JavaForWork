@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,10 +16,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -36,6 +37,31 @@ import com.films.domains.core.entities.EntityBase;
 @NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
 public class Film extends EntityBase<Film> implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static enum Rating {
+		GENERAL_AUDIENCES("G"),
+		PARENTAL_GUIDANCE_SUGGESTED("PG"),
+		PARENTS_STRONGLY_CAUTIONED("PG-13"),
+		RESTRICTED("R"),
+		ADULTS_ONLY("NC-17");
+		
+		String value;
+		
+		private Rating(String value) {
+			this.value = value;
+		}
+		
+		
+		public String getValue() {
+			return value;
+		}
+		
+		
+		public static Rating getEnum(String value) {
+			return null;
+		}
+		
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -85,17 +111,28 @@ public class Film extends EntityBase<Film> implements Serializable {
 	private Language languageVO;
 
 	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="film")
-	private List<FilmActor> filmActors;
+	@OneToMany(mappedBy="film", fetch = FetchType.EAGER)
+	private List<FilmActor> filmActors = new ArrayList<FilmActor>();
 
 	//bi-directional many-to-one association to FilmCategory
-	@OneToMany(mappedBy="film")
-	private List<FilmCategory> filmCategories;
+	@OneToMany(mappedBy="film", fetch = FetchType.EAGER)
+	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
 
 	public Film() {
 	}
 	
-	
+	public Film(@Size(max = 5) int filmId, String description, @Size(max = 5) int length, String rating,
+			Date releaseYear, Object specialFeatures, Language languageVO) {
+		super();
+		setFilmId(filmId);
+		setDescription(description);
+		setLength(length);
+		setRating(rating);
+		setReleaseYear(releaseYear);
+		setSpecialFeatures(specialFeatures);
+		setLanguageVO(languageVO);
+
+	}
 
 	public int getFilmId() {
 		return this.filmId;
