@@ -43,11 +43,11 @@ public class JavaFilmsApplication implements CommandLineRunner {
 //		Thread.sleep(3000);
 //		languageService.getAll().forEach(System.out::println);
 		
-		var film1 = filmService.getOne(1);
-		System.out.println(film1.get().getTitle());
-		System.out.println(film1.get().getDescription());
-		System.out.println(film1.get().getLanguageVO());
-		film1.get().getFilmActors().forEach(System.out::println);
+//		var film1 = filmService.getOne(1);
+//		System.out.println(film1.get().getTitle());
+//		System.out.println(film1.get().getDescription());
+//		System.out.println(film1.get().getLanguageVO());
+//		film1.get().getFilmActors().forEach(System.out::println);
 		//System.out.println();
 		//System.out.println(film1.get().getFilmCategories());
 
