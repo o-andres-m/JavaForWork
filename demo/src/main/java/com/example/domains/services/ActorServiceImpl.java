@@ -21,7 +21,7 @@ public class ActorServiceImpl implements ActorService{
 
 	@Autowired
 	ActorRepository dao;
-	
+
 
 	@Override
 	public <T> List<T> getByProjection(Class<T> type) {

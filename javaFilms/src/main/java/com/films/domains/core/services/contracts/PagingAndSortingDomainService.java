@@ -1,4 +1,4 @@
-package com.film.domains.core.services.contracts;
+package com.films.domains.core.services.contracts;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

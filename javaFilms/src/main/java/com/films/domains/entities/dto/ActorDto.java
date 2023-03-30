@@ -1,4 +1,4 @@
-package com.films.domains.core.entities.dto;
+package com.films.domains.entities.dto;
 
 import com.films.domains.entities.Actor;
 import com.fasterxml.jackson.annotation.JsonProperty;

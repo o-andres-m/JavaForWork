@@ -3,6 +3,9 @@ package com.films.domains.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+
+import com.films.domains.core.entities.EntityBase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 /**
@@ -21,7 +26,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="category")
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
-public class Category implements Serializable {
+public class Category extends EntityBase<Category> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,6 +38,8 @@ public class Category implements Serializable {
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=25)
+	@Size(min = 2, max = 25)
+	@NotBlank
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory
@@ -41,6 +48,18 @@ public class Category implements Serializable {
 
 	public Category() {
 	}
+	
+	public Category(int categoryId) {
+		super();
+		this.categoryId = categoryId;
+	}
+
+	public Category(int categoryId, @Size(min = 2, max = 25) @NotBlank String name) {
+		super();
+		this.categoryId = categoryId;
+		this.name = name;
+	}
+
 
 	public int getCategoryId() {
 		return this.categoryId;
@@ -87,5 +106,30 @@ public class Category implements Serializable {
 
 		return filmCategory;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoryId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		return categoryId == other.categoryId;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", name=" + name + "]";
+	}
+	
+	
 
 }
