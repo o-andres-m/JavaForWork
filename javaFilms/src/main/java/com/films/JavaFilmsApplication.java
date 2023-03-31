@@ -1,18 +1,23 @@
 package com.films;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.films.application.services.CatalogoService;
 import com.films.domains.contracts.services.ActorService;
 import com.films.domains.contracts.services.CategoryService;
 import com.films.domains.contracts.services.FilmService;
 import com.films.domains.contracts.services.LanguageService;
 import com.films.domains.entities.Actor;
-import com.films.domains.entities.Film.Rating;
+import com.films.domains.entities.Film;
+import com.films.domains.entities.Film.*;
+
+
 import com.films.domains.entities.Language;
 
 @SpringBootApplication
@@ -29,6 +34,9 @@ public class JavaFilmsApplication implements CommandLineRunner {
 	
 	@Autowired
 	FilmService filmService;
+	
+	@Autowired
+	CatalogoService catalogoService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaFilmsApplication.class, args);
@@ -98,6 +106,23 @@ public class JavaFilmsApplication implements CommandLineRunner {
 ////		peli.setTitle("Adios mundo");
 ////		srv.modify(peli);
 ////		srv.deleteById(1001);
+		
+//		var peli = new Film();
+//		peli.setTitle("Hola Mundo");
+//		peli.setLanguage(new Language(2));
+//		peli.setRentalDuration((byte)3);
+//		peli.setRating(Rating.ADULTS_ONLY);
+//		peli.setLength(10);
+//		peli.setRentalRate(new BigDecimal(10.0));
+//		peli.setReplacementCost(new BigDecimal(10.0));
+//		peli.addActor(1);
+//		peli.addActor(2);
+//		peli.addActor(3);
+//		peli.addCategory(2);
+//		peli.addCategory(4);
+//		filmService.add(peli);
+		
+		System.out.println(catalogoService.novedades(Timestamp.valueOf("2023-01-01 00:00:00")).toString());
 
 	}
 

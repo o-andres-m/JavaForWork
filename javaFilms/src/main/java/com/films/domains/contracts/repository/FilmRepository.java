@@ -12,5 +12,4 @@ import com.films.domains.entities.Film;
 public interface FilmRepository extends JpaRepository<Film, Integer>, JpaSpecificationExecutor<Film>,RepositoryWithProjections{
 
 	List<Film> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp fecha);
-
 }

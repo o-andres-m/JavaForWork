@@ -12,6 +12,4 @@ import com.films.domains.entities.Category;
 public interface CategoryRepository extends JpaRepository<Category, Integer>, JpaSpecificationExecutor<Category>,RepositoryWithProjections{
 
 	List<Category> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp fecha);
-
-
 }

@@ -100,7 +100,6 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Convert(converter = RatingConverter.class)
 	private Rating rating;
 
-	//@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
 	@Min(1895)
 	@Column(name="release_year")
@@ -294,20 +293,25 @@ public class Film extends EntityBase<Film> implements Serializable {
 	public List<Actor> getActors() {
 		return this.filmActors.stream().map(item -> item.getActor()).toList();
 	}
+	
 	public void setActors(List<Actor> source) {
 		if(filmActors == null || !filmActors.isEmpty()) clearActors();
 		source.forEach(item -> addActor(item));
 	}
+	
 	public void clearActors() {
 		filmActors = new ArrayList<FilmActor>() ;
 	}
+	
 	public void addActor(Actor actor) {
 		FilmActor filmActor = new FilmActor(this, actor);
 		filmActors.add(filmActor);
 	}
+	
 	public void addActor(int actorId) {
 		addActor(new Actor(actorId));
 	}
+	
 	public void removeActor(Actor actor) {
 		var filmActor = filmActors.stream().filter(item -> item.getActor().equals(actor)).findFirst();
 		if(filmActor.isEmpty())
@@ -320,20 +324,25 @@ public class Film extends EntityBase<Film> implements Serializable {
 	public List<Category> getCategories() {
 		return this.filmCategories.stream().map(item -> item.getCategory()).toList();
 	}
+	
 	public void setCategories(List<Category> source) {
 		if(filmCategories == null || !filmCategories.isEmpty()) clearCategories();
 		source.forEach(item -> addCategory(item));
 	}
+	
 	public void clearCategories() {
 		filmCategories = new ArrayList<FilmCategory>() ;
 	}
+	
 	public void addCategory(Category item) {
 		FilmCategory filmCategory = new FilmCategory(this, item);
 		filmCategories.add(filmCategory);
 	}
+	
 	public void addCategory(int id) {
 		addCategory(new Category(id));
 	}
+	
 	public void removeCategory(Category ele) {
 		var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
 		if(filmCategory.isEmpty())
@@ -341,6 +350,8 @@ public class Film extends EntityBase<Film> implements Serializable {
 		filmCategories.remove(filmCategory.get());
 	}
 
+	
+	//HashCode & Equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(filmId);
@@ -369,6 +380,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 		target.length = length;
 		target.replacementCost = replacementCost;
 		target.rating = rating;
+		//Busca diferencias entre el anterior y el nuevo:
 		// Borra los actores que sobran
 		target.getActors().stream()
 			.filter(item -> !getActors().contains(item))
@@ -377,6 +389,10 @@ public class Film extends EntityBase<Film> implements Serializable {
 		getActors().stream()
 			.filter(item -> !target.getActors().contains(item))
 			.forEach(item -> target.addActor(item));
+		
+		// Lo mismo para las categorias:
+		//Busca diferencias entre el anterior y el nuevo:
+
 		// Añade los categorias que faltan
 		target.getCategories().stream()
 			.filter(item -> !getCategories().contains(item))

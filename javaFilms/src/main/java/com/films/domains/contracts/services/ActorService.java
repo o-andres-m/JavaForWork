@@ -9,6 +9,4 @@ import com.films.domains.entities.Actor;
 public interface ActorService extends ProjectionDomainService<Actor, Integer>{
 
 	List<Actor> novedades (Timestamp timestamp);
-
-	
 }

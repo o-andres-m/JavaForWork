@@ -65,6 +65,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	@Transactional
+	//
 	public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
 		if(item == null)
 			throw new InvalidDataException("No puede ser nulo");
@@ -72,13 +73,15 @@ public class FilmServiceImpl implements FilmService {
 			throw new InvalidDataException(item.getErrorsMessage());
 		if(dao.existsById(item.getFilmId()))
 			throw new DuplicateKeyException(item.getErrorsMessage());
-		var actores = item.getActors();
-		var categorias = item.getCategories();
+		
+		var actors = item.getActors();
+		var categories = item.getCategories();
 		item.clearActors();
 		item.clearCategories();
+		
 		var newItem = dao.save(item);
-		newItem.setActors(actores);
-		newItem.setCategories(categorias);
+		newItem.setActors(actors);
+		newItem.setCategories(categories);
 		return dao.save(newItem);
 	}
 

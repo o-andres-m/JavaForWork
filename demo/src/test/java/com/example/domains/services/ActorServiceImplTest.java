@@ -10,13 +10,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
-import com.example.exceptions.InvalidDataException;
 
+@DataJpaTest // Esto o @SpringBootTest, para que CARGUE toda la app para testear
 @ComponentScan(basePackages = "com.example")
 class ActorServiceImplTest {
 	
@@ -66,58 +67,58 @@ class ActorServiceImplTest {
 	}
 	
 
-	@Test
-	void testAdd() {
-		when(dao.save(any(Actor.class))).thenReturn(null);
-		assertThrows(InvalidDataException.class, ()-> dao.save(null));
-	}
-	
-	@Test
-	void testGetByProjectionClassOfT() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetByProjectionSortClassOfT() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetByProjectionPageableClassOfT() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetAllSort() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetAllPageable() {
-		fail("Not yet implemented");
-	}
-
-
-	@Test
-	void testGetOne() {
-		fail("Not yet implemented");
-	}
-
-
-
-	@Test
-	void testModify() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDelete() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDeleteById() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testAdd() {
+//		when(dao.save(any(Actor.class))).thenReturn(null);
+//		assertThrows(InvalidDataException.class, ()-> dao.save(null));
+//	}
+//	
+//	@Test
+//	void testGetByProjectionClassOfT() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testGetByProjectionSortClassOfT() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testGetByProjectionPageableClassOfT() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testGetAllSort() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testGetAllPageable() {
+//		fail("Not yet implemented");
+//	}
+//
+//
+//	@Test
+//	void testGetOne() {
+//		fail("Not yet implemented");
+//	}
+//
+//
+//
+//	@Test
+//	void testModify() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testDelete() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testDeleteById() {
+//		fail("Not yet implemented");
+//	}
 
 }

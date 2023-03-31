@@ -9,6 +9,4 @@ import com.films.domains.entities.Language;
 public interface LanguageService extends ProjectionDomainService<Language, Integer>{
 
 	List<Language> novedades (Timestamp timestamp);
-
-	
 }
