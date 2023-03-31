@@ -6,6 +6,9 @@ Osvaldo Andres Martinez
 
 General Readme for all packages and folders.
 
+---
+
+
 ### demo :atom:
 
 - First demo with comments.
@@ -23,16 +26,22 @@ General Readme for all packages and folders.
 - DataJpaTest + TestEntityManager
 - MockBean
 
+---
+
+
 
 ### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
 
 - Exercise for testing and refactoring.
 
+---
+
+
 
 ### javaFilms :film_projector:
 
 - Exercise for DDD
-- Using SakilaDb -> 
+- Using SakilaDb
 - Entities + Dto
 - Services
 - Catalogue
@@ -41,3 +50,8 @@ General Readme for all packages and folders.
 Note: For run SakilaDb with docker:
 
 `docker run -d --name mysql-sakila -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 jamarton/mysql-sakila`
+
+
+---
+
+
