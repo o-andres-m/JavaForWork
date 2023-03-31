@@ -9,5 +9,5 @@ import com.films.domains.entities.Category;
 
 public interface CategoryService extends ProjectionDomainService<Category, Integer>{
 	
-	List<Category> novedades (Timestamp timestamp);
+	List<Category> news(Timestamp time);
 }

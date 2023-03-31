@@ -8,6 +8,7 @@ import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 
 public interface DomainService<E, K> {
+	
 	List<E> getAll();
 	
 	Optional<E> getOne(K id);

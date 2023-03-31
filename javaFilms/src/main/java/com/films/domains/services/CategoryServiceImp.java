@@ -86,7 +86,7 @@ public class CategoryServiceImp implements CategoryService{
 	}
 
 	@Override
-	public List<Category> novedades(Timestamp fecha) {
+	public List<Category> news(Timestamp fecha) {
 		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
 	}
 

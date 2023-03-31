@@ -22,10 +22,6 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 
-/**
- * The persistent class for the category database table.
- * 
- */
 @Entity
 @Table(name="category")
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
@@ -45,7 +41,7 @@ public class Category extends EntityBase<Category> implements Serializable {
 
 	@NotBlank
 	@Size(max=25)
-	@JsonProperty("categoria")
+	@JsonProperty("category")
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory

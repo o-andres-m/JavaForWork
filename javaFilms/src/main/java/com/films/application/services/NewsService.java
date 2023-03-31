@@ -6,6 +6,6 @@ import com.films.domains.entities.dto.NewsDto;
 
 public interface NewsService {
 
-	NewsDto novedades(Timestamp fecha);
+	NewsDto news(Timestamp fecha);
 
 }

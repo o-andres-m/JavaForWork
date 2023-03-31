@@ -28,6 +28,8 @@ import jakarta.validation.constraints.Size;
 @Table(name="actor")
 @NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
 public class Actor extends EntityBase<Actor> implements Serializable {
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -42,7 +44,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 	@Column(name="last_name", nullable=false, length=45)
 	@Size(max=45, min=2)
-	@Pattern(regexp = "[A-Z]+", message = "Tiene que estar en mayusculas")
+	//@Pattern(regexp = "[A-Z]+", message = "Last Name must be capitalized.")
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
@@ -144,7 +146,4 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	public String toString() {
 		return "Actor [actorId=" + actorId + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
-
-
-
 }

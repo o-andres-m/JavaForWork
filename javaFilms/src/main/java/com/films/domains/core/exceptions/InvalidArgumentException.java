@@ -17,7 +17,6 @@ public class InvalidArgumentException extends RuntimeException {
 
 	public InvalidArgumentException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	public InvalidArgumentException(Throwable cause) {

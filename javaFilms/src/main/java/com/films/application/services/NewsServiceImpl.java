@@ -33,20 +33,23 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public NewsDto novedades(Timestamp fecha) {
+	public NewsDto news(Timestamp time) {
 		
-		// Si no se envia Fecha de novedades, busca las novedades de los ultimos 10 dias
-		if(fecha == null)
-			fecha = Timestamp.from(Instant.now().minusSeconds(864000));
+		/**
+		 * Default Time: 864.000 -> 10 days
+		 */
+		
+		if(time == null)
+			time = Timestamp.from(Instant.now().minusSeconds(864000));
 		
 		
 		return new NewsDto(
-				filmSrv.novedades(fecha).stream()
-					.map(item -> FilmDetailsDTO.from(item)).toList(), 
-				artorSrv.novedades(fecha).stream()
-					.map(item -> ActorDTO.from(item)).toList(), 
-				categorySrv.novedades(fecha), 
-				languageSrv.novedades(fecha)
+				filmSrv.news(time).stream()
+					.map(item -> FilmDetailsDTO.from(item)).toList(),
+				artorSrv.news(time).stream()
+					.map(item -> ActorDTO.from(item)).toList(),
+				categorySrv.news(time), 
+				languageSrv.news(time)
 				);
 	}
 
