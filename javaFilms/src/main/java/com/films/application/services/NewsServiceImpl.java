@@ -12,12 +12,12 @@ import com.films.domains.contracts.services.FilmService;
 import com.films.domains.contracts.services.LanguageService;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.FilmDetailsDTO;
-import com.films.domains.entities.dto.NovedadesDTO;
+import com.films.domains.entities.dto.NewsDto;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class CatalogoServiceImpl implements CatalogoService {
+public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private FilmService filmSrv;
@@ -33,11 +33,14 @@ public class CatalogoServiceImpl implements CatalogoService {
 
 	@Override
 	@Transactional
-	public NovedadesDTO novedades(Timestamp fecha) {
-			// Timestamp fecha = Timestamp.valueOf("2019-01-01 00:00:00");
+	public NewsDto novedades(Timestamp fecha) {
+		
+		// Si no se envia Fecha de novedades, busca las novedades de los ultimos 10 dias
 		if(fecha == null)
-			fecha = Timestamp.from(Instant.now().minusSeconds(36000));
-		return new NovedadesDTO(
+			fecha = Timestamp.from(Instant.now().minusSeconds(864000));
+		
+		
+		return new NewsDto(
 				filmSrv.novedades(fecha).stream()
 					.map(item -> FilmDetailsDTO.from(item)).toList(), 
 				artorSrv.novedades(fecha).stream()

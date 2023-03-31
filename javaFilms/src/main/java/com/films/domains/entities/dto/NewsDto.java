@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NovedadesDTO {
+public class NewsDto {
 	
 	//Original:
 	//private List<FilmEditDTO> films;

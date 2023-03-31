@@ -11,5 +11,5 @@ import com.films.domains.entities.Language;
 
 public interface LanguageRepository extends JpaRepository<Language, Integer>, JpaSpecificationExecutor<Language>,RepositoryWithProjections{
 	
-	List<Language> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp fecha);
+	List<Language> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp time);
 }

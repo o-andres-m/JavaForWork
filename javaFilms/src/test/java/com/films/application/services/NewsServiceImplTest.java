@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class CatalogoServiceImplTest {
+class NewsServiceImplTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
