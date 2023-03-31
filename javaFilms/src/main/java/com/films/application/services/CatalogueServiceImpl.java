@@ -17,7 +17,7 @@ import com.films.domains.entities.dto.NewsDto;
 import jakarta.transaction.Transactional;
 
 @Service
-public class NewsServiceImpl implements NewsService {
+public class CatalogueServiceImpl implements CatalogueService {
 
 	@Autowired
 	private FilmService filmSrv;

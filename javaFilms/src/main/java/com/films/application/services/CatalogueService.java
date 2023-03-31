@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.films.domains.entities.dto.NewsDto;
 
-public interface NewsService {
+public interface CatalogueService {
 
 	NewsDto news(Timestamp fecha);
 

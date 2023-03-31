@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.films.application.services.NewsService;
+import com.films.application.services.CatalogueService;
 import com.films.domains.contracts.services.ActorService;
 import com.films.domains.contracts.services.CategoryService;
 import com.films.domains.contracts.services.FilmService;
@@ -36,7 +36,7 @@ public class JavaFilmsApplication implements CommandLineRunner {
 	FilmService filmService;
 	
 	@Autowired
-	NewsService newsService;
+	CatalogueService newsService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaFilmsApplication.class, args);
