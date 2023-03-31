@@ -74,6 +74,8 @@ public class FilmServiceImpl implements FilmService {
 		if(dao.existsById(item.getFilmId()))
 			throw new DuplicateKeyException(item.getErrorsMessage());
 		
+
+
 		var actors = item.getActors();
 		var categories = item.getCategories();
 		item.clearActors();
