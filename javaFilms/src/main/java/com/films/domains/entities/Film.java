@@ -125,7 +125,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Size(max = 128)
 	@Column(nullable=false, length=128)
 	private String title;
-
+	
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id")

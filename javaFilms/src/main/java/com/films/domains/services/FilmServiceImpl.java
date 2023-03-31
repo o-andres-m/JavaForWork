@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.boot.model.naming.ImplicitMapKeyColumnNameSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,6 @@ import com.films.domains.entities.Film;
 
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
-import lombok.experimental.var;
 
 @Service
 public class FilmServiceImpl implements FilmService {

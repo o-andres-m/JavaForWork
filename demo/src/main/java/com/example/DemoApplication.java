@@ -35,8 +35,8 @@ public class DemoApplication implements CommandLineRunner {
 //	@Autowired
 //	ActorRepository dao;
 	
-	@Autowired
-	ActorService srv;
+//	@Autowired
+//	ActorService srv;
 	
 
 	
@@ -191,7 +191,7 @@ public class DemoApplication implements CommandLineRunner {
 		
 		//Todo lo de arriba, lo aplicamos con el servicio:
 
-		srv.add(new Actor(0, "Pepito", "GOMEZ"));
+//		srv.add(new Actor(0, "Pepito", "GOMEZ"));
 		
 		
 	
