@@ -50,7 +50,8 @@ public class FilmEditDTO {
 	
 	private Integer languageVOId;
 	
-	//Estamos en EDIT, al recibir el EDIT, vamos a recibir una LISTA de NUMEROS de los ID de Actores
+	//Estamos en EDIT, al recibir el EDIT, vamos a recibir una 
+	//LISTA de NUMEROS de los ID de Actores
 	private List<Integer> actors = new ArrayList<Integer>();
 	
 	//Idem arriba, pero con categoría.

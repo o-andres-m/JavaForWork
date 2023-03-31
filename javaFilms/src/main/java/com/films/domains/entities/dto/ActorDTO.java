@@ -11,10 +11,10 @@ public class ActorDTO {
 	@JsonProperty("id")
 	private int actorId;
 	
-	@JsonProperty("nombre")
+	@JsonProperty("name")
 	private String firstName;
 	
-	@JsonProperty("apellidos")
+	@JsonProperty("lastName")
 	private String lastName;
 	
 	

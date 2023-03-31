@@ -78,7 +78,7 @@ public class LanguageServiceImpl implements LanguageService{
 
 	@Override
 	public void delete(Language item) throws InvalidDataException {
-		if(item == null) throw new InvalidDataException("Item cannot be null.");
+		if(item == null) throw new InvalidDataException("Language cannot be null.");
 		dao.delete(item);
 	}
 
@@ -88,8 +88,8 @@ public class LanguageServiceImpl implements LanguageService{
 	}
 
 	@Override
-	public List<Language> news(@NonNull Timestamp fecha) {
-		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
+	public List<Language> news(@NonNull Timestamp time) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(time);
 	}
 
 }

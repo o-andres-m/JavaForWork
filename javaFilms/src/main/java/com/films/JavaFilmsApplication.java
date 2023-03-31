@@ -36,7 +36,7 @@ public class JavaFilmsApplication implements CommandLineRunner {
 	FilmService filmService;
 	
 	@Autowired
-	NewsService catalogoService;
+	NewsService newsService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaFilmsApplication.class, args);

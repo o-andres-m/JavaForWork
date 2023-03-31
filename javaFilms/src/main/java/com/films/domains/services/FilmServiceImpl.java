@@ -68,7 +68,7 @@ public class FilmServiceImpl implements FilmService {
 	//
 	public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
 		if(item == null)
-			throw new InvalidDataException("No puede ser nulo");
+			throw new InvalidDataException("Film cannot be null.");
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
 		if(dao.existsById(item.getFilmId()))
@@ -82,6 +82,7 @@ public class FilmServiceImpl implements FilmService {
 		item.clearCategories();
 		
 		var newItem = dao.save(item);
+		
 		newItem.setActors(actors);
 		newItem.setCategories(categories);
 		return dao.save(newItem);
@@ -91,7 +92,7 @@ public class FilmServiceImpl implements FilmService {
 	@Transactional
 	public Film modify(Film item) throws NotFoundException, InvalidDataException {
 		if(item == null)
-			throw new InvalidDataException("No puede ser nulo");
+			throw new InvalidDataException("Film cannot be null.");
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
 		var leido = dao.findById(item.getFilmId());
@@ -102,7 +103,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public void delete(Film item) throws InvalidDataException {
-		if (item == null) throw new InvalidDataException("Item cannot be null.");
+		if (item == null) throw new InvalidDataException("Film cannot be null.");
 		dao.delete(item);
 		
 	}
@@ -113,8 +114,8 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public List<Film> news(@NonNull Timestamp timestamp) {
-		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(timestamp);
+	public List<Film> news(@NonNull Timestamp time) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(time);
 	}
 
 }

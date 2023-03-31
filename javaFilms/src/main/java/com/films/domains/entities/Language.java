@@ -23,35 +23,33 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 
-/**
- * The persistent class for the language database table.
- * 
- */
 @Entity
 @Table(name="language")
 @NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
 public class Language extends EntityBase<Language> implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-    public static class Partial {}
-    public static class Complete extends Partial {}
+	
+	//TODO -> View class and @JsonView || Lines 41, 47, 51
+//    public static class Partial {}
+//    public static class Complete extends Partial {}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="language_id")
 	@JsonProperty("id")
-	@JsonView(Language.Partial.class)
+//	@JsonView(Language.Partial.class)
 	private int languageId;
 
 	@NotBlank
 	@Size(max=20)
-	@JsonProperty("idioma")
-	@JsonView(Language.Partial.class)
+	@JsonProperty("language")
+//	@JsonView(Language.Partial.class)
 	private String name;
 
 	@Column(name="last_update", insertable = false, updatable = false)
-	@JsonView(Language.Complete.class)
+//	@JsonView(Language.Complete.class)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
-	@JsonProperty("ultimaModificacion")
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Film

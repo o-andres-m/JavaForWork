@@ -124,5 +124,4 @@ public class Category extends EntityBase<Category> implements Serializable {
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", name=" + name + "]";
 	}
-
 }
