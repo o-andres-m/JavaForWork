@@ -71,5 +71,4 @@ class FilmEditDTOTest {
 				()-> assertEquals(film.getCategories(),filmDto.getCategories())
 				);
 	}
-
 }
