@@ -2,6 +2,7 @@ package com.films.domains.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +48,7 @@ public class Category extends EntityBase<Category> implements Serializable {
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="category")
 	@JsonIgnore
-	private List<FilmCategory> filmCategories;
+	private List<FilmCategory> filmCategories = new ArrayList<>();
 
 	public Category() {
 	}
