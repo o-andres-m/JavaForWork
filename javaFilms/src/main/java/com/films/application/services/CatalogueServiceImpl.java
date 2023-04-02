@@ -36,7 +36,7 @@ public class CatalogueServiceImpl implements CatalogueService {
 	public NewsDto news(Timestamp time) {
 		
 		/**
-		 * Default Time: 864.000 -> 10 days
+		 * Default Time: 864.000 -> 10 days	
 		 */
 		
 		if(time == null)
