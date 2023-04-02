@@ -1,24 +1,8 @@
 package com.films;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.films.application.services.CatalogueService;
-import com.films.domains.contracts.services.ActorService;
-import com.films.domains.contracts.services.CategoryService;
-import com.films.domains.contracts.services.FilmService;
-import com.films.domains.contracts.services.LanguageService;
-import com.films.domains.entities.Actor;
-import com.films.domains.entities.Film;
-import com.films.domains.entities.Film.*;
-
-
-import com.films.domains.entities.Language;
 
 @SpringBootApplication
 public class JavaFilmsApplication implements CommandLineRunner {

@@ -1,7 +1,6 @@
 package com.films.domains.entities.dto;
 
 import java.util.List;
-import java.util.Map;
 
 import com.films.domains.entities.Category;
 import com.films.domains.entities.Language;
