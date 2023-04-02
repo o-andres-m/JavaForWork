@@ -26,11 +26,10 @@ public class NewsDto {
 	
 	private List<Language> languages;
 
+	
+	
 	@Override
 	public String toString() {
 		return "NovedadesDTO[\nfilms=" + films + ",\nactors=" + actors + ",\ncategories=" + categories + ",\nlanguages=" + languages + "\n]";
 	}
-	
-	
-	
 }
