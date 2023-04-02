@@ -50,10 +50,10 @@ class ActorRepositoryMemoryTest {
 	
 	@Test
 	void testOne() {
-		var item = dao.getById(0);
+		var item = dao.findById(1);
 		
 		assertNotNull(item);
-		assertEquals("Juan",item.getFirstName());
+		assertEquals("Juan",item.get().getActorId());
 	}
 
 }

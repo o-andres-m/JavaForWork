@@ -23,20 +23,20 @@ import com.films.domains.entities.Language;
 @SpringBootApplication
 public class JavaFilmsApplication implements CommandLineRunner {
 	
-	@Autowired
-	ActorService actorService;
-	
-	@Autowired
-	CategoryService categoryService;
-	
-	@Autowired
-	LanguageService languageService;
-	
-	@Autowired
-	FilmService filmService;
-	
-	@Autowired
-	CatalogueService newsService;
+//	@Autowired
+//	ActorService actorService;
+//	
+//	@Autowired
+//	CategoryService categoryService;
+//	
+//	@Autowired
+//	LanguageService languageService;
+//	
+//	@Autowired
+//	FilmService filmService;
+//	
+//	@Autowired
+//	CatalogueService newsService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaFilmsApplication.class, args);
@@ -107,23 +107,23 @@ public class JavaFilmsApplication implements CommandLineRunner {
 ////		srv.modify(peli);
 ////		srv.deleteById(1001);
 		
-		var peli = new Film();
-		peli.setTitle("Prueba Actores");
-		peli.setLanguage(new Language(2));
-		peli.setRentalDuration((byte)3);
-		peli.setRating(Rating.ADULTS_ONLY);
-		peli.setLength(10);
-		peli.setRentalRate(new BigDecimal(10.0));
-		peli.setReplacementCost(new BigDecimal(10.0));
-		
-		peli.addActor(10);
+//		var peli = new Film();
+//		peli.setTitle("Prueba Actores");
+//		peli.setLanguage(new Language(2));
+//		peli.setRentalDuration((byte)3);
+//		peli.setRating(Rating.ADULTS_ONLY);
+//		peli.setLength(10);
+//		peli.setRentalRate(new BigDecimal(10.0));
+//		peli.setReplacementCost(new BigDecimal(10.0));
+//		
+//		peli.addActor(10);
 //		peli.addActor(2);
 //		peli.addActor(4);
 //		
 //		peli.addCategory(2);
 //		peli.addCategory(4);
 		
-		filmService.add(peli);
+//		filmService.add(peli);
 		
 		//System.out.println(catalogoService.novedades(Timestamp.valueOf("2023-01-01 00:00:00")).toString());
 
