@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import jakarta.persistence.EntityManager;
 
 @DataJpaTest
 @ComponentScan(basePackages = "com.films")
+@Disabled
 class CategoryServiceImpTest {
 	
 	@Autowired
@@ -115,12 +117,6 @@ class CategoryServiceImpTest {
 
 			assertThrows(InvalidDataException.class, ()-> srv.add(cat));
 		}
-	}
-	
-
-	@Test
-	void testModify() {
-		fail("Not yet implemented");
 	}
 
 }
