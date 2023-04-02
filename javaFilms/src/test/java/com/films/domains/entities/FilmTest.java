@@ -244,6 +244,61 @@ class FilmTest {
 		@Test
 		void testMerge() {
 			
+			var film = new Film();
+			
+			var date = Timestamp.from(Instant.now());
+			
+			film.setFilmId(1);
+			film.setTitle("Title");
+			film.setDescription("Description");
+			film.setLastUpdate(date);
+			film.setLength(100);
+			film.setRating(Rating.ADULTS_ONLY);
+			film.setReleaseYear(Short.valueOf("0"));
+			film.setRentalDuration(Byte.valueOf("0"));
+			film.setRentalRate(BigDecimal.valueOf(0));
+			film.setReplacementCost(BigDecimal.valueOf(0));
+			film.setLanguage(null);
+			film.setLanguageVO(null);
+			film.setActors(List.of(new Actor(1), new Actor(2)));
+			film.setCategories(List.of(new Category(1),new Category(2)));
+			
+			
+			var film2 = new Film();
+						
+			film2.setFilmId(1);
+			film2.setTitle("Title");
+			film2.setDescription("Description");
+			film2.setLastUpdate(date);
+			film2.setLength(100);
+			film2.setRating(Rating.ADULTS_ONLY);
+			film2.setReleaseYear(Short.valueOf("0"));
+			film2.setRentalDuration(Byte.valueOf("0"));
+			film2.setRentalRate(BigDecimal.valueOf(0));
+			film2.setReplacementCost(BigDecimal.valueOf(0));
+			film2.setLanguage(null);
+			film2.setLanguageVO(null);
+			film2.setActors(List.of(new Actor(1), new Actor(3)));
+			film2.setCategories(List.of(new Category(1), new Category(3)));
+			
+			film.merge(film2);
+			
+			assertAll("Attributes",
+					()-> assertEquals(film.getFilmId(), film2.getFilmId()),
+					()-> assertEquals(film.getTitle(), film2.getTitle()),
+					()-> assertEquals(film.getDescription(), film2.getDescription()),
+					()-> assertEquals(film.getLastUpdate(), film2.getLastUpdate()),
+					()-> assertEquals(film.getLength(), film2.getLength()),
+					()-> assertEquals(film.getRating().getValue(), film2.getRating().getValue()),
+					()-> assertEquals(film.getReleaseYear(), film2.getReleaseYear()),
+					()-> assertEquals(film.getRentalDuration(), film2.getRentalDuration()),
+					()-> assertEquals(film.getRentalRate(), film2.getRentalRate()),
+					()-> assertEquals(film.getReplacementCost(), film2.getReplacementCost()),
+					()-> assertEquals(film.getLanguage(), film2.getLanguage()),
+					()-> assertEquals(film.getLanguageVO(), film2.getLanguageVO()),
+					()-> assertEquals(film.getActors(), film2.getActors()),
+					()-> assertEquals(film.getCategories(), film2.getCategories())				
+					);
 		}
 	}
 	
