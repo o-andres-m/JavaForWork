@@ -35,7 +35,7 @@ class FilmEditDTOTest {
 	}
 	
 	@Test
-	void testAttributes() {
+	void testAttributesReturnDto() {
 		var film = new Film();
 		film.setFilmId(1);
 		film.setDescription("Description");
@@ -69,6 +69,44 @@ class FilmEditDTOTest {
 				()-> assertEquals(Rating.ADULTS_ONLY.getValue(),filmDto.getRating()),
 				()-> assertEquals(film.getActors(),filmDto.getActors()),
 				()-> assertEquals(film.getCategories(),filmDto.getCategories())
+				);
+	}
+	
+	@Test
+	void testAttributesReturnFilm() {
+		var filmDto = new FilmEditDTO();
+		filmDto.setFilmId(1);
+		filmDto.setDescription("Description");
+		filmDto.setLength(1);
+		filmDto.setRating(Rating.ADULTS_ONLY.getValue());
+		filmDto.setReleaseYear(Short.valueOf("2000"));
+		filmDto.setRentalDuration(Byte.valueOf("10"));
+		filmDto.setRentalRate(null);
+		filmDto.setReplacementCost(null);
+		filmDto.setTitle("Title");
+		filmDto.setLanguageId(null);
+		filmDto.setLanguageVOId(null);
+		filmDto.setActors(List.of());
+		filmDto.setCategories(List.of());
+
+		var film = FilmEditDTO.from(filmDto);
+		
+		assertNotNull(film);
+		
+		assertAll("Attributes",
+				()-> assertEquals(filmDto.getFilmId(),film.getFilmId()),
+				()-> assertEquals(filmDto.getTitle(),film.getTitle()),
+				()-> assertEquals(filmDto.getDescription(),film.getDescription()),
+				()-> assertEquals(filmDto.getReleaseYear(),film.getReleaseYear()),
+				()-> assertEquals(filmDto.getLanguageId(),film.getLanguage()),
+				()-> assertEquals(filmDto.getLanguageVOId(),film.getLanguageVO()),
+				()-> assertEquals(filmDto.getRentalDuration(),film.getRentalDuration()),
+				()-> assertEquals(filmDto.getRentalRate(),film.getRentalRate()),
+				()-> assertEquals(filmDto.getLength(),film.getLength()),
+				()-> assertEquals(filmDto.getReplacementCost(),film.getReplacementCost()),
+				()-> assertEquals(Rating.ADULTS_ONLY.getValue(),film.getRating().getValue()),
+				()-> assertEquals(filmDto.getActors(),film.getActors()),
+				()-> assertEquals(filmDto.getCategories(),film.getCategories())
 				);
 	}
 }
