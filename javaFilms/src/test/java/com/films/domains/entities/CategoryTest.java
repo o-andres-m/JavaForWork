@@ -43,7 +43,7 @@ class CategoryTest {
 			cat.setLastUpdate(date);
 			cat.setFilmCategories(null);
 			
-			assertAll("Setters & Getters2",
+			assertAll("Setters & Getters",
 					()-> assertEquals(1, cat.getCategoryId()),
 					()-> assertEquals("Name", cat.getName()),
 					()-> assertEquals(date, cat.getLastUpdate()),

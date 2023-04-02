@@ -2,7 +2,6 @@ package com.films.domains.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
