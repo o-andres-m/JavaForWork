@@ -24,7 +24,7 @@ import jakarta.persistence.EntityManager;
 
 @DataJpaTest
 @ComponentScan(basePackages = "com.films")
-@Disabled
+//@Disabled
 class CategoryServiceImpTest {
 	
 	@Autowired
