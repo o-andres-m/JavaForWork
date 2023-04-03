@@ -28,13 +28,6 @@ General Readme for all packages and folders.
 
 ---
 
-### lotes-batch
-
-- Processor for insert csv data to Db
-- Processor for create csv data from Db
-
----
-
 
 ### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
 
@@ -61,3 +54,9 @@ Note: For run SakilaDb with docker:
 ---
 
 
+### lotes-batch
+
+- Processor for insert csv data to Db
+- Processor for create csv data from Db
+
+---
