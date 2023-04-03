@@ -155,6 +155,8 @@ public class PersonasBatchConfiguration {
 			.incrementer(new RunIdIncrementer())
 			.listener(listener)
 			.start(copyFilesInDir)
+			.next(importCSV2DBStep1)
+			.next(exportDB2CSVStep)
 			.build();
 	}
 	
