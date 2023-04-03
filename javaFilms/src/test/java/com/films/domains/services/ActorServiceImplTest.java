@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.films.domains.contracts.services.ActorService;
@@ -102,9 +103,10 @@ class ActorServiceImplTest {
 		}
 		
 		@Test
-		@Disabled
 		void testAddInvalidData2() throws DuplicateKeyException, InvalidDataException {
-			fail("Not implemented yet...");
+			var actor = new Actor();
+			actor.setFirstName(null);
+			assertThrows(InvalidDataException.class, ()->srv.add(actor));
 		}	
 		
 		@Test
@@ -139,6 +141,13 @@ class ActorServiceImplTest {
 		void testModifyInvalidData() throws InvalidDataException, NotFoundException {
 			
 			assertThrows(InvalidDataException.class, ()-> srv.modify(null));
+		}
+		
+		@Test
+		void testModifyInvalidData2() throws InvalidDataException, NotFoundException {
+			var actor = new Actor(0);
+			actor.setFirstName(null);
+			assertThrows(InvalidDataException.class, ()-> srv.modify(actor));
 		}
 		@Test
 		void testModifyNotFound() throws InvalidDataException, NotFoundException {

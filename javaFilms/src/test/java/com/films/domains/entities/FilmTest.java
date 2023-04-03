@@ -52,6 +52,40 @@ class FilmTest {
 		}
 	}
 	
+	
+	@Nested
+	class ValidateData{
+		
+		@Test
+		void testEptyAttributes() {
+			var film = new Film();
+			assertFalse(film.isValid());
+		}
+		
+		@Test
+		void testLenghtNegative() {
+			var film = new Film();
+			film.setFilmId(1);
+			film.setTitle("Title");
+			film.setDescription("Description");
+			film.setLastUpdate(Timestamp.from(Instant.now()));
+			//Negative:
+			film.setLength(-5);
+			film.setRating(Rating.ADULTS_ONLY);
+			film.setReleaseYear(Short.valueOf("2000"));
+			film.setRentalDuration(Byte.valueOf("1"));
+			film.setRentalRate(BigDecimal.valueOf(1));
+			film.setReplacementCost(BigDecimal.valueOf(1));
+			film.setLanguage(new Language());
+			film.setLanguageVO(new Language());
+			film.setActors(List.of());
+			film.setCategories(List.of());
+			
+			assertTrue(film.isInvalid());
+		}
+		
+	}
+	
 	@Nested
 	class GettersAndSetters{
 		@Test

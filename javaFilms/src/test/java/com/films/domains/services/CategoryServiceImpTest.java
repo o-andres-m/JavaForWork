@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.films.domains.contracts.services.CategoryService;
@@ -24,7 +27,7 @@ import jakarta.persistence.EntityManager;
 
 @DataJpaTest
 @ComponentScan(basePackages = "com.films")
-//@Disabled
+@AutoConfigureTestDatabase(replace = Replace.AUTO_CONFIGURED)
 class CategoryServiceImpTest {
 	
 	@Autowired
