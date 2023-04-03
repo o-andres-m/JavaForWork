@@ -56,7 +56,7 @@ Note: For run SakilaDb with docker:
 - Five tests skkiped not implemented yet.
 - Test Coverage 72,9% (lombok methods lower the percentage)
 
-![Tests](/files/javaFilm_tests1.jpeg)
+![Tests](/files/javaFilm_tests1.jpg)
 
 ---
 
