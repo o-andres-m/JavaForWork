@@ -28,6 +28,12 @@ General Readme for all packages and folders.
 
 ---
 
+### lotes-batch
+
+- Processor for insert csv data to Db
+- Processor for create csv data from Db
+
+---
 
 
 ### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
