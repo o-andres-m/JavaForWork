@@ -16,11 +16,14 @@ public class PersonaItemProcessor implements ItemProcessor<PersonaDTO, Persona> 
 	@Override
 	public Persona process(PersonaDTO item) throws Exception {
 		
+		//Excluye "Male" y los resultados PARES
 		if(item.getId() % 2 == 0 || "Male".equals(item.getSexo())) return null;
 		
+		//Crea el objeto Persona en base a lo LEIDO
 		Persona rslt = new Persona(item.getId(), item.getApellidos() + ", " + item.getNombre(),
 				item.getCorreo(), item.getIp());
 		
+		//Muestra en Log
 		log.info("Procesando: " + item);
 		
 		return rslt;
