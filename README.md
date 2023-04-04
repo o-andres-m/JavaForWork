@@ -64,9 +64,12 @@ Note: For run SakilaDb with docker:
 ---
 
 
-### lotes-batch
+### lotes-batch :robot:
 
-- Processor for insert csv data to Db
-- Processor for create csv data from Db
+- Processor for insert CSV data to DB
+- Processor for create CSV data from DB
+- Processor for create XML data CSV
+- Processor for create CSV data from EXTERNAL API
+
 
 ---
