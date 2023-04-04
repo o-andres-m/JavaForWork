@@ -102,7 +102,6 @@ public class FilmServiceImpl implements FilmService {
 	public void delete(Film item) throws InvalidDataException {
 		if (item == null) throw new InvalidDataException("Film cannot be null.");
 		dao.delete(item);
-		
 	}
 
 	@Override
