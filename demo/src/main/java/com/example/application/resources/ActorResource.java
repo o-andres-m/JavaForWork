@@ -49,6 +49,7 @@ public class ActorResource {
 	
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDto item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
+		
 		//Se convierte a ENTIDAD
 		var actor = ActorDto.from(item);
 		
@@ -61,6 +62,8 @@ public class ActorResource {
 		
 		return ResponseEntity.created(location).build();
 	}
+	
+	
 	
 
 
