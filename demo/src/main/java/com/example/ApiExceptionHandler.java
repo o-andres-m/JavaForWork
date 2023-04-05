@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
@@ -64,6 +65,13 @@ public class ApiExceptionHandler {
     @ResponseBody
     public ErrorMessage invalidData(Exception exception) {
         return new ErrorMessage("Invalid Data.", exception.getMessage());
+    }
+    
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    @ResponseBody
+    public ErrorMessage methodArgument(Exception exception) {
+        return new ErrorMessage("Method not allowed", "Ceck method and url");
     }
 }
 
