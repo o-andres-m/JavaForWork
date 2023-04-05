@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDTO;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -49,6 +50,7 @@ public class ActoresController {
 		model.addAttribute("listado", srv.getAll(page));
 		return "actores/list";
 	}
+	
 	
 	@GetMapping(path="/{id:\\d+}/**")
 	public String view(@PathVariable Integer id, Model model) {
