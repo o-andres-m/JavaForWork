@@ -25,7 +25,9 @@ General Readme for all packages and folders.
 - ServicesImplementations
 - DataJpaTest + TestEntityManager
 - MockBean
-- Controllers (
+- Controllers
+- Resources (Actor CRUD)
+- Controller Advices
 
 ---
 
@@ -77,7 +79,13 @@ Note: For run SakilaDb with docker:
 
 ### demo-web :computer:
 
+
 - Server with Web front
+- Actor actions
+
+Defaults for use:
+user: admin
+password: admin
 
 ---
 
