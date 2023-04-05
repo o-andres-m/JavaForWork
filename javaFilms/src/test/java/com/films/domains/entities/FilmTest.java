@@ -317,22 +317,24 @@ class FilmTest {
 			
 			film.merge(film2);
 			
-			assertAll("Attributes",
-					()-> assertEquals(film.getFilmId(), film2.getFilmId()),
-					()-> assertEquals(film.getTitle(), film2.getTitle()),
-					()-> assertEquals(film.getDescription(), film2.getDescription()),
-					()-> assertEquals(film.getLastUpdate(), film2.getLastUpdate()),
-					()-> assertEquals(film.getLength(), film2.getLength()),
-					()-> assertEquals(film.getRating().getValue(), film2.getRating().getValue()),
-					()-> assertEquals(film.getReleaseYear(), film2.getReleaseYear()),
-					()-> assertEquals(film.getRentalDuration(), film2.getRentalDuration()),
-					()-> assertEquals(film.getRentalRate(), film2.getRentalRate()),
-					()-> assertEquals(film.getReplacementCost(), film2.getReplacementCost()),
-					()-> assertEquals(film.getLanguage(), film2.getLanguage()),
-					()-> assertEquals(film.getLanguageVO(), film2.getLanguageVO()),
-					()-> assertEquals(film.getActors(), film2.getActors()),
-					()-> assertEquals(film.getCategories(), film2.getCategories())				
-					);
+			assertEquals(film,film2);
+			
+//			assertAll("Attributes",
+//					()-> assertEquals(film.getFilmId(), film2.getFilmId()),
+//					()-> assertEquals(film.getTitle(), film2.getTitle()),
+//					()-> assertEquals(film.getDescription(), film2.getDescription()),
+//					()-> assertEquals(film.getLastUpdate(), film2.getLastUpdate()),
+//					()-> assertEquals(film.getLength(), film2.getLength()),
+//					()-> assertEquals(film.getRating().getValue(), film2.getRating().getValue()),
+//					()-> assertEquals(film.getReleaseYear(), film2.getReleaseYear()),
+//					()-> assertEquals(film.getRentalDuration(), film2.getRentalDuration()),
+//					()-> assertEquals(film.getRentalRate(), film2.getRentalRate()),
+//					()-> assertEquals(film.getReplacementCost(), film2.getReplacementCost()),
+//					()-> assertEquals(film.getLanguage(), film2.getLanguage()),
+//					()-> assertEquals(film.getLanguageVO(), film2.getLanguageVO()),
+//					()-> assertEquals(film.getActors(), film2.getActors()),
+//					()-> assertEquals(film.getCategories(), film2.getCategories())				
+//					);
 		}
 	}
 	

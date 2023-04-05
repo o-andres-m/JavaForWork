@@ -15,6 +15,8 @@ import jakarta.servlet.ServletRequest;
 
 @Controller
 public class DemosController {
+	
+	//RequestParam= Lo requiere...
 	@RequestMapping(path="/saluda")
 	public String saludar(@RequestParam(name="nom", defaultValue="Mundo") String nombre, 
 			@RequestHeader("Accept-Language") String language, 
@@ -23,11 +25,16 @@ public class DemosController {
 		model.addAttribute("language", language.substring(0, 2));
 		return "saludar";
 	}
+	
+	//Aca el nombre no viene como parametro, sino como parte de la ruta
+	// Tiene un pattern d+ qie seria numerico y positivo
 	@RequestMapping(path="/saluda*/{nombre:\\d+}/**")
 	public String saludar2(@PathVariable String nombre, Model model) {
 		model.addAttribute("nombre", nombre);
 		return "saludar";
 	}
+	
+	//El ServletRequest es para procesar informacion
 	@RequestMapping(path="/demo/kk")
 	public ModelAndView saludar2(ServletRequest req) {
 		ModelAndView mv = new ModelAndView();

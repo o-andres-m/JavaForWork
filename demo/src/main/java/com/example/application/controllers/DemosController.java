@@ -1,5 +1,10 @@
 package com.example.application.controllers;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.domains.entities.dtos.ActorDto;
+
+import lombok.extern.log4j.Log4j2;
+
 @Controller
 //@RequestMapping(path = "/")
+@Log4j2
 public class DemosController {
 	
 	@GetMapping("/params/{id}")
@@ -27,9 +37,23 @@ public class DemosController {
 		sb.append("language: " + language + "\n");
 		sb.append("cookie: " + cookie + "\n");
 		
+		log.info("WebPage Reloaded....");
+		
 		return sb.toString();
 	}
 	
+	@GetMapping("/actor")
+	@ResponseBody
+	public ActorDto actorDto() {
+		var actor = new ActorDto();
+		actor.setActorId(1);
+		actor.setFirstName("Name");
+		actor.setLastName("Last");
+	
+		log.info("WebPage Reloaded....");
 
+		
+		return actor;
+	}
 
 }

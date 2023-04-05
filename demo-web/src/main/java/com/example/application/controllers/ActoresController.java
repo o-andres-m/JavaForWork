@@ -35,9 +35,12 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(path="/actores")
+//Todo lo que pase por "actores" va aqui...
 public class ActoresController {
+	
 	@Autowired
 	private ActorService srv;
+	
 	@Autowired 
 	private MessageSource ms;
 	
@@ -46,6 +49,7 @@ public class ActoresController {
 		model.addAttribute("listado", srv.getAll(page));
 		return "actores/list";
 	}
+	
 	@GetMapping(path="/{id:\\d+}/**")
 	public String view(@PathVariable Integer id, Model model) {
 		Optional<Actor> item = srv.getOne(id);
@@ -54,6 +58,7 @@ public class ActoresController {
 		model.addAttribute("elemento", item.get());
 		return "actores/view";
 	}
+	
 	@GetMapping("/add")
 	public String addGET(Model model) {
 		model.addAttribute("modo", "add");
@@ -61,21 +66,35 @@ public class ActoresController {
 		model.addAttribute("elemento", new Actor());
 		return "actores/form";
 	}
+	
+	// Recibe y valida
 	@PostMapping("/add")
 	public ModelAndView addPOST(@ModelAttribute("elemento") @Valid Actor item, 
-			BindingResult result, Locale locale) throws DuplicateKeyException, InvalidDataException {
+			BindingResult result, Locale locale){
+		
 		ModelAndView mv = new ModelAndView();
-		if(srv.getOne(item.getActorId()).isPresent())
-			result.addError(new FieldError("elemento", "actorId", ms.getMessage("errormsg.clave.duplicada", null, locale)));
-		if(result.hasErrors()) {
-			mv.addObject("modo", "add");
-			mv.addObject("action", "actores/add");
-			mv.addObject("elemento", item);
-			mv.setViewName("actores/form");
-		} else {
-			srv.add(item);
-			mv.setViewName("redirect:/actores");
+
+		if(!result.hasErrors()) {
+			try {
+
+				srv.add(item);
+				mv.setViewName("redirect:/actores");
+
+			} catch (DuplicateKeyException  e) {
+				result.addError(
+						new FieldError("elemento", "actorId", ms.getMessage("errormsg.clave.duplicada", null, locale)));
+			} catch (InvalidDataException  e) {
+				result.addError(
+						new FieldError("elemento", "actorId", e.getMessage()));
+			}catch (Exception  e) {
+				result.addError(
+						new FieldError("elemento", "actorId", e.getMessage()));
+			}
 		}
+		mv.addObject("modo", "add");
+		mv.addObject("action", "actores/add");
+		mv.addObject("elemento", item);
+		mv.setViewName("actores/form");
 		return mv;
 	}
 
@@ -116,12 +135,13 @@ public class ActoresController {
 	@GetMapping("/{id:\\d+}/delete")
 	public String editGET(@PathVariable Integer id) {
 //		try {
-			srv.getOne(id);
+			srv.deleteById(id);
 //		} catch (Exception e) {
 //			throw new BadRequestException(e.getMessage(), e);
 //		}
 		return "redirect:/actores";
 	}
+	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public void badRequest(Exception e) throws BadRequestException {

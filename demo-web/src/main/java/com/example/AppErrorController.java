@@ -18,10 +18,15 @@ public class AppErrorController implements ErrorController {
     @Autowired
     private ErrorAttributes errorAttributes; // Error Attributes in Application
 
+    
+    // Cuando sea HTML Devolver este:
     @RequestMapping(path = ERROR_PATH, produces = "text/html")
     public ModelAndView errorHtml(WebRequest request) {
         return new ModelAndView("/errorPage", errorAttributes.getErrorAttributes(request, ErrorAttributeOptions.defaults()));
     }
+    
+    
+    //Cuando sea REST (json), devuelve este:
     @ResponseBody
     @RequestMapping(path = ERROR_PATH, produces = "application/json")
     public Map<String, Object> errorJson(WebRequest request) {

@@ -45,6 +45,7 @@ public class AppMvcConfig implements WebMvcConfigurer {
 	}
 
 	@Override
+	//Cuando llegue el "setviewName" redireccionarlo a addview controller
 	public void addViewControllers(ViewControllerRegistry registry) { 
 		registry.addViewController("/home").setViewName("inicio"); 
 		registry.addViewController("/mylogin").setViewName("mylogin");
