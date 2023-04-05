@@ -54,8 +54,8 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ BadRequestException.class, DuplicateKeyException.class })
     @ResponseBody
-    public ErrorMessage badRequest(Exception exception) {
-        return new ErrorMessage(exception.getMessage(), "");
+    public ErrorMessage badRequest(Exception exception,HttpServletRequest request) {
+        return new ErrorMessage(exception.getMessage(), request.getRequestURI());
     }
     
     

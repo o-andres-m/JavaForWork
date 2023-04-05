@@ -63,7 +63,10 @@ public class ActorServiceImpl implements ActorService{
 	public Actor add(Actor item) throws DuplicateKeyException, InvalidDataException {
 		if (item==null) throw new InvalidDataException("No puede ser nulo");
 		if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-		if (dao.existsById(item.getActorId())) throw new DuplicateKeyException(item.getErrorsMessage());
+		//if (dao.existsById(item.getActorId())) throw new DuplicateKeyException(item.getErrorsMessage());
+		
+		//El de arriba no muestra ningun error, por eso le mando aca..
+		if (dao.existsById(item.getActorId())) throw new DuplicateKeyException("Actor ID duplicado.");
 		return dao.save(item);
 		
 	}

@@ -50,7 +50,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	//fetch = EAGER - > Ansioso! Carga todos los datos de filmActors cuando buscamos el actor
 	// A veces es necesario tenerlo, pero consume mas recursos
 	// Si le ponemos el LAZY, podemos usar el @Transactional en donde usamos el ORM
-	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<FilmActor> filmActors = new ArrayList<>();
 
 	public Actor() {

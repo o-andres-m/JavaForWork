@@ -45,14 +45,10 @@ public class DemosController {
 	@GetMapping("/actor")
 	@ResponseBody
 	public ActorDto actorDto() {
-		var actor = new ActorDto();
-		actor.setActorId(1);
-		actor.setFirstName("Name");
-		actor.setLastName("Last");
+		var actor = new ActorDto(1, "Name", "Last");
 	
 		log.info("WebPage Reloaded....");
 
-		
 		return actor;
 	}
 
