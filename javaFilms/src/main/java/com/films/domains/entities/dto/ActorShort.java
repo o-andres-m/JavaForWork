@@ -7,6 +7,6 @@ public interface ActorShort {
 	int getActorId();
 	
 	@Value("#{target.firstName + ' ' + target.lastName}")
-	String getNombre();
+	String getName();
 	
 }

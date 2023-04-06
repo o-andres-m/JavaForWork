@@ -37,6 +37,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.films.domains.contracts.services.ActorService;
+import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.entities.Film;
 import com.films.domains.entities.Actor;
 import com.films.domains.entities.FilmActor;
@@ -60,8 +61,15 @@ class ActorResourceTest {
 	
 	@Value
 	static class ActorShortMock implements ActorShort {
+		
 		int actorId;
-		String nombre;
+		
+		String completeName;
+		
+		@Override
+		public String getName() {
+			return null;
+		}
 	}
 
 	@Nested
@@ -72,14 +80,14 @@ class ActorResourceTest {
 			
 			List<ActorShort> lista = new ArrayList<>(
 			        Arrays.asList(
-			        		new ActorShortMock(1, "Pepito Grillo"),
-			        		new ActorShortMock(2, "Carmelo Coton"),
-			        		new ActorShortMock(3, "Capitan Tan"))
+			        		new ActorShortMock(1, "FirstName LastName"),
+			        		new ActorShortMock(2, "Second Actor"),
+			        		new ActorShortMock(3, "Third NAN"))
 			        		);
 			
 			when(srv.getByProjection(ActorShort.class)).thenReturn(lista);
 			
-			mockMvc.perform(get("/api/actores/v1").accept(MediaType.APPLICATION_JSON))
+			mockMvc.perform(get("/api/actors/v1").accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(
 						status().isOk(), 
 						content().contentType("application/json"),
@@ -90,24 +98,25 @@ class ActorResourceTest {
 		@Test
 		void testGetWithSort() throws Exception {
 			
-			List<ActorShort> listaOrdenadaByName = new ArrayList<>(
+			List<ActorShort> listOrderedByName = new ArrayList<>(
 			        Arrays.asList(
-			        		new ActorShortMock(3, "Capitan Tan"),
-	        				new ActorShortMock(2, "Carmelo Coton"),
-			        		new ActorShortMock(1, "Pepito Grillo")
+			        		new ActorShortMock(3, "FirstName LastName"),
+			        		new ActorShortMock(1, "Second Actor"),
+			        		new ActorShortMock(2, "Third NAN")
 			        		));
 	
 			
-			when(srv.getByProjection(Sort.by("firstName"), ActorShort.class)).thenReturn(listaOrdenadaByName);
+			when(srv.getByProjection(Sort.by("firstName"), ActorShort.class)).thenReturn(listOrderedByName);
 			
-			mockMvc.perform(get("/api/actores/v1")
+			mockMvc.perform(get("/api/actors/v1")
 					.param("sort", "firstName")
 					.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(
 						status().isOk(), 
 						content().contentType("application/json"),
 						jsonPath("$.size()").value(3),
-						jsonPath("$[0].nombre").value("Capitan Tan")
+						jsonPath("$[0].completeName").value("FirstName LastName"),
+						jsonPath("$[0].actorId").value(3)
 						).andDo(print());
 		}
 	}
@@ -115,29 +124,29 @@ class ActorResourceTest {
 
 	@Test
 	void testGetAllPageable() throws Exception {
-		List<ActorDTO> lista = new ArrayList<>(
-		        Arrays.asList(new ActorDTO(1, "Pepito", "Grillo"),
-		        		new ActorDTO(2, "Carmelo", "Coton"),
-		        		new ActorDTO(3, "Capitan", "Tan")));
+		List<ActorDTO> list = new ArrayList<>(
+		        Arrays.asList(new ActorDTO(1, "Name", "Surname"),
+		        		new ActorDTO(2, "Second", "Actor"),
+		        		new ActorDTO(3, "FirstName", "LastName")));
 
 		when(srv.getByProjection(PageRequest.of(0, 20), ActorDTO.class))
-			.thenReturn(new PageImpl<>(lista));
+			.thenReturn(new PageImpl<>(list ));
 		
-		mockMvc.perform(get("/api/actores/v1").queryParam("page", "0"))
+		mockMvc.perform(get("/api/actors/v1").queryParam("page", "0"))
 			.andExpectAll(
 				status().isOk(), 
 				content().contentType("application/json"),
 				jsonPath("$.content.size()").value(3),
 				jsonPath("$.size").value(3)
-				);
+				).andDo(print());
 	}
 	
 	@Nested
-	class Pelis{
+	class ActorFilms{
 		@Test
-		void testGetPelis() throws Exception {
+		void testGetActorFilms() throws Exception {
 			var id = 1;
-			var actor = new Actor(id, "Pepito", "Grillo");
+			var actor = new Actor(id, "Name", "LastName");
 			
 			var actorFilms=new ArrayList<FilmActor>(
 					Arrays.asList(
@@ -149,7 +158,7 @@ class ActorResourceTest {
 			
 			when(srv.getOne(actor.getActorId())).thenReturn(Optional.of(actor));
 			
-			mockMvc.perform(get("/api/actores/v1/{id}/pelis", id))
+			mockMvc.perform(get("/api/actors/v1/{id}/films", id))
 			.andExpectAll(
 				status().isOk(),
 				jsonPath("$.size()").value(2)
@@ -157,96 +166,127 @@ class ActorResourceTest {
 		        .andDo(print());
 		}
 		@Test
-		void testGetPelisActorNotFound() throws Exception {
+		void testGetActorFilmsNotFound() throws Exception {
 			
 			int id = 1;
-			var ele = new Actor(id, "Pepito", "Grillo");
+			var actor = new Actor(id, "Name", "LastName");
 			
 			when(srv.getOne(id)).thenReturn(Optional.empty());
 			
-			mockMvc.perform(get("/api/actores/v1/{id}/pelis", id))
+			mockMvc.perform(get("/api/actors/v1/{id}/films", id))
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.title").value("Not Found"))
 		        .andDo(print());
 		}
 	}
 
-	@Test
-	void testGetOne() throws Exception {
-		int id = 1;
-		var ele = new Actor(id, "Pepito", "Grillo");
+	@Nested
+	class GetOne{
+
+		@Test
+		void testGetOne() throws Exception {
+			int id = 1;
+			var actor = new Actor(id, "Name", "LastName");
+			
+			when(srv.getOne(id)).thenReturn(Optional.of(actor));
+			
+			mockMvc.perform(get("/api/actors/v1/{id}", id))
+				.andExpect(status().isOk())
+		        .andExpect(jsonPath("$.id").value(id))
+		        .andExpect(jsonPath("$.firstName").value(actor.getFirstName()))
+		        .andExpect(jsonPath("$.lastName").value(actor.getLastName()))
+		        .andDo(print());
+		}
 		
-		when(srv.getOne(id)).thenReturn(Optional.of(ele));
-		
-		mockMvc.perform(get("/api/actores/v1/{id}", id))
-			.andExpect(status().isOk())
-	        .andExpect(jsonPath("$.id").value(id))
-	        .andExpect(jsonPath("$.nombre").value(ele.getFirstName()))
-	        .andExpect(jsonPath("$.apellido").value(ele.getLastName()))
-	        .andDo(print());
+		@Test
+		void testGetOneNotFound() throws Exception {
+			
+			int id = 1;
+			var actor = new Actor(id, "Name", "LastName");
+			
+			when(srv.getOne(id)).thenReturn(Optional.empty());
+			
+			mockMvc.perform(get("/api/actors/v1/{id}", id))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.title").value("Not Found"))
+		        .andDo(print());
+		}
 	}
 	
-	@Test
-	void testGetOne404() throws Exception {
+	@Nested
+	class Create{
 		
-		int id = 1;
-		var ele = new Actor(id, "Pepito", "Grillo");
-		
-		when(srv.getOne(id)).thenReturn(Optional.empty());
-		
-		mockMvc.perform(get("/api/actores/v1/{id}", id))
-			.andExpect(status().isNotFound())
-			.andExpect(jsonPath("$.title").value("Not Found"))
-	        .andDo(print());
-	}
 
-	@Test
-	void testCreate() throws Exception {
-		int id = 1;
-		var ele = new Actor(id, "Pepito", "Grillo");
-		
-		when(srv.add(ele)).thenReturn(ele);
-		
-		mockMvc.perform(post("/api/actores/v1")
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(ActorDTO.from(ele)))
-			)
-			.andExpect(status().isCreated())
-	        .andExpect(header().string("Location", "http://localhost/api/actores/v1/1"))
-	        .andDo(print());
-	}
-
-	@Test
-	void testUpdate() throws JsonProcessingException, Exception {
-		
-		var actor = new Actor(1, "Pepito", "Grillo");
-
-		when(srv.modify(actor)).thenReturn(actor);
-		
-		mockMvc.perform(put("/api/actores/v1/1")
+		@Test
+		void testCreate() throws Exception {
+			int id = 1;
+			var actor = new Actor(id, "Name", "LastName");
+			
+			when(srv.add(actor)).thenReturn(actor);
+			
+			mockMvc.perform(post("/api/actors/v1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(ActorDTO.from(actor)))
 				)
-				.andExpect(status().isNoContent())
+				.andExpect(status().isCreated())
+		        .andExpect(header().string("Location", "http://localhost/api/actors/v1/1"))
 		        .andDo(print());
-	}
-
-	@Test
-	void testDelete() throws JsonProcessingException, Exception {
-		var actor = new Actor(1, "Pepito", "Grillo");
-
-
-		doNothing().when(srv).deleteById(1);
+		}
 		
-		mockMvc.perform(delete("/api/actores/v1/1")
+		@Test
+		void testCreateError() throws Exception {
+			int id = 1;
+			var actor = new Actor(id, "", "LastName");
+			
+			when(srv.add(actor)).thenThrow(new InvalidDataException() );
+			
+			mockMvc.perform(post("/api/actors/v1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(ActorDTO.from(actor)))
 				)
-				.andExpect(status().isNoContent())
-		        .andDo(print());	
-		
-		//El verify "verifica" que se ha llamado al metodo mockeado
-		//Hay que ponerlo luego de donde se "llama" al metodo:
-		verify(srv,times(1)).deleteById(1);
-		
-	}
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.title").value("Bad Request"))
+		        .andDo(print());
+		}
 
+	}
+	
+	@Nested
+	class Update{
+
+		@Test
+		void testUpdate() throws JsonProcessingException, Exception {
+			
+			var actor = new Actor(1, "Pepito", "Grillo");
+
+			when(srv.modify(actor)).thenReturn(actor);
+			
+			mockMvc.perform(put("/api/actores/v1/1")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(ActorDTO.from(actor)))
+					)
+					.andExpect(status().isNoContent())
+			        .andDo(print());
+		}
+
+	}
+	
+	@Nested
+	class Delete{
+		@Test
+		void testDelete() throws JsonProcessingException, Exception {
+			var actor = new Actor(1, "Pepito", "Grillo");
+
+
+			doNothing().when(srv).deleteById(1);
+			
+			mockMvc.perform(delete("/api/actores/v1/1")
+					)
+					.andExpect(status().isNoContent())
+			        .andDo(print());	
+			
+			verify(srv,times(1)).deleteById(1);
+	
+		}
+	}
 }

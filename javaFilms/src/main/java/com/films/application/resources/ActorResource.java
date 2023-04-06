@@ -28,7 +28,7 @@ import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.ActorShort;
-import com.films.domains.entities.dto.ElementoDto;
+import com.films.domains.entities.dto.ItemDto;
 
 import jakarta.validation.Valid;
 
@@ -64,12 +64,12 @@ public class ActorResource {
 	
 	
 	@GetMapping(path = {"/{id}/films"}) 
-	public List<ElementoDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
+	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
 		var actor = srv.getOne(id);
 		if (actor.isEmpty()) throw new NotFoundException();
 		
 		return actor.get().getFilmActors().stream()
-				.map(o -> new ElementoDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
 				.toList();
 	}
 	
