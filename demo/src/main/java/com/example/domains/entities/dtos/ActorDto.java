@@ -25,13 +25,13 @@ import lombok.Value;
 //@AllArgsConstructor
 public class ActorDto {
 	
-	//@JsonProperty("id")
+	@JsonProperty("id")
 	private int actorId;
 	
-	//@JsonProperty("nombre")
+	@JsonProperty("nombre")
 	private String firstName;
 	
-	//@JsonProperty("apellido")
+	@JsonProperty("apellido")
 	private String lastName;
 	
 	

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collector;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDto;
+import com.example.domains.entities.dtos.ActorShort;
 import com.example.domains.services.ActorServiceImpl;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
@@ -41,11 +46,27 @@ public class ActorResource {
 	private ActorService srv;
 
 	@GetMapping
-	public List<ActorDto> getAll() {
-		return srv.getByProjection(ActorDto.class);
+	public List<ActorShort> getAll(
+								@RequestParam (required = false) String sort
+								) {
+		if (!sort.isEmpty()) {
+			return (List<ActorShort>)srv.getByProjection(Sort.by(sort) , ActorShort.class);
+		}
+
+		return srv.getByProjection(ActorShort.class);
 	}
 	
-	@GetMapping(path = {"/{id}"})
+	
+	
+	@GetMapping(params = "page")
+	public Page<ActorDto> getAllPageable(Pageable page) {
+		return srv.getByProjection(page, ActorDto.class);
+	}
+	
+	
+	@GetMapping(path = {"/{id:\\d+}"}) //El \\d+ es el regex de solo numeros y positivos
+	//Si le mandamos un STRING ahora a esta ruta, va a decir que NO PERMITE EL METODO GET
+	//porque en realidad, estariamos usando otra ruta, porque no entra por aqui...
 	public ActorDto getOne(@PathVariable int id) throws NotFoundException{
 		var actor = srv.getOne(id);
 		if (actor.isEmpty()) throw new NotFoundException();
@@ -55,6 +76,7 @@ public class ActorResource {
 	@PostMapping
 	//ojo! usa el @Valid, pero como "ActorDTO" no tiene validaciones, pasaria igual..
 	// Despues cuando pasa por srv.add(actor) ahi si valida el metodo add..
+	//El response entity es para "Generar" la respuesta
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDto item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
 		
 		//Se convierte a ENTIDAD
@@ -63,10 +85,13 @@ public class ActorResource {
 		//El ADD VALIDA EL ACTOR!! y lo guarda en DB
 		srv.add(actor);
 		
+		//Crea la cabecera LOCATION, la crea con el ID que obtiene del actor guardado
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(actor.getActorId()).toUri();
 		
+		//Aca responde entiti, crea la respuesta con el build. Le estamos mandando el
+		//location que creamos arriba, que es una URI.
 		return ResponseEntity.created(location).build();
 	}
 	
