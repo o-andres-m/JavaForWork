@@ -27,6 +27,7 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -37,8 +38,9 @@ public class FilmResource {
 	FilmService srv;
 	
 	@GetMapping
-	public List<FilmShortDTO> getAll() {
-		return srv.getByProjection(FilmShortDTO.class);
+	@Transactional
+	public List<FilmDetailsDTO> getAll() {
+		return srv.getByProjection(FilmDetailsDTO.class);
 	}
 	
 	@GetMapping(path = {"/{id}"})

@@ -28,12 +28,14 @@ import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDto;
 import com.example.domains.entities.dtos.ActorShort;
+import com.example.domains.entities.dtos.ElementoDto;
 import com.example.domains.services.ActorServiceImpl;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 
@@ -71,6 +73,18 @@ public class ActorResource {
 		var actor = srv.getOne(id);
 		if (actor.isEmpty()) throw new NotFoundException();
 		return ActorDto.from(actor.get());
+	}
+	
+	
+	@GetMapping(path = {"/{id}/pelis"}) 
+	@Transactional  //TRANSACTIONAL!!! SIno no puede leer las peliculas del actor!!
+	public List<ElementoDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
+		var actor = srv.getOne(id);
+		if (actor.isEmpty()) throw new NotFoundException();
+		
+		return actor.get().getFilmActors().stream()
+				.map(o -> new ElementoDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+				.toList();
 	}
 	
 	@PostMapping
