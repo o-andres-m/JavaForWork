@@ -129,10 +129,12 @@ public class ApiExceptionHandler {
 	public ProblemDetail badRequest(Exception exception) {
 		return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
 	}
+	
+	
 
 	@ExceptionHandler({ InvalidDataException.class, MethodArgumentNotValidException.class })
 	public ProblemDetail invalidData(Exception exception) {
-		var problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Datos invalidos");
+		var problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Invalid Data");
 		if (exception instanceof InvalidDataException ex && ex.hasErrors()) {
 //			ex.getErrors().forEach((n, v) -> problem.setProperty(n, v));
 			problem.setProperty("errors", ex.getErrors());
@@ -141,9 +143,14 @@ public class ApiExceptionHandler {
 			var errors = new HashMap<String, String>();
 			ex.getFieldErrors().forEach(item -> errors.put(item.getField(), item.getDefaultMessage()));
 			problem.setProperty("errors", errors);
-			problem = new ErrorMessage(400, "Datos invalidos","",errors);
+			problem = new ErrorMessage(400, "Invalid Data","",errors);
 		}
 		return problem;
+	}
+
+	@ExceptionHandler({ Exception.class })
+	public ProblemDetail unknow(Exception exception) {
+		return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
 	}
 
 }

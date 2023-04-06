@@ -34,7 +34,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping(path = {"/api/actores/v1", "/api/actores"})
+@RequestMapping(path = {"/api/category/v1", "/api/category"})
 public class CategoryResource {
 	
 	@Autowired

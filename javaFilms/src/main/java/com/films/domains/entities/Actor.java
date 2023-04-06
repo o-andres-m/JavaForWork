@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.films.domains.core.entities.EntityBase;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -51,7 +52,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<FilmActor> filmActors = new ArrayList<>();
 
 	public Actor() {

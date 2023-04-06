@@ -34,23 +34,19 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping(path = {"/api/actores/v1", "/api/actores"})
+@RequestMapping(path = {"/api/actors/v1", "/api/actors"})
 public class ActorResource {
 	
 	@Autowired
 	private ActorService srv;
 
 	@GetMapping
-	public List<ActorShort> getAll(
-								@RequestParam (required = false) String sort
-								) {
+	public List<ActorShort> getAll(@RequestParam (required = false) String sort) {
 		if (sort != null) {
 			return (List<ActorShort>)srv.getByProjection(Sort.by(sort) , ActorShort.class);
 		}
-
 		return srv.getByProjection(ActorShort.class);
 	}
-	
 	
 	
 	@GetMapping(params = "page")
@@ -67,7 +63,7 @@ public class ActorResource {
 	}
 	
 	
-	@GetMapping(path = {"/{id}/pelis"}) 
+	@GetMapping(path = {"/{id}/films"}) 
 	public List<ElementoDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
 		var actor = srv.getOne(id);
 		if (actor.isEmpty()) throw new NotFoundException();
@@ -94,7 +90,7 @@ public class ActorResource {
 	@PutMapping("/{id}")
 	@ResponseStatus (HttpStatus.NO_CONTENT)
 	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
-		if (id != item.getActorId()) throw new BadRequestException("No coincide ID");
+		if (id != item.getActorId()) throw new BadRequestException("ID's doesn't match");
 		srv.modify(ActorDTO.from(item));
 	}
 	
