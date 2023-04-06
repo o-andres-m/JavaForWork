@@ -46,8 +46,11 @@ public class ApiExceptionHandler {
 	}
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
+	//El responseStatus va a ser el STATUS DE RESPUESTA DEL SERVIDOR (404)
     @ExceptionHandler({NotFoundException.class})
+	// El exceptionHandler, es LA EXCEPTION QUE "AGARRA" y hace pasar por este metodo
     @ResponseBody
+    //Va a responder un objeto tiipo JSON. 
     public ErrorMessage notFoundRequest(HttpServletRequest request, Exception exception) {
         return new ErrorMessage(exception.getMessage(), request.getRequestURI());
     }

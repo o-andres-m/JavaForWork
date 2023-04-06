@@ -1,4 +1,4 @@
-package com.example.application.resources;
+	package com.example.application.resources;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -45,10 +45,15 @@ public class ActorResource {
 	private ActorService srv;
 
 	@GetMapping
-	public List<ActorShort> getAll(@RequestParam(required = false) String filter) {
-		if (filter != null) {}
+	public List<ActorDTO> getAll(@RequestParam(required = false) String filter) {
+		if (filter != null) {
+			//Si recibe filtro... Habria que ver como filtrar...
+			//El parametro fRILTRO esta como "required = false" puede no estar.
+			// Este return lo puse yo..
+			return srv.getByProjection(ActorDTO.class);
+		}
 		
-		return srv.getByProjection(ActorShort.class);
+		return srv.getByProjection(ActorDTO.class);
 	}
 
 	@GetMapping(params = "page")
@@ -64,13 +69,16 @@ public class ActorResource {
 		return ActorDTO.from(item.get());
 	}
 	
+	//ElementoDto es un DTO... tiene Key Value unicamente
+	// En el ejemoplo de abajo lo hace en el momento
 	@GetMapping(path = "/{id}/pelis")
 	public List<ElementoDto<Integer, String>> getPelis(@PathVariable int id) throws NotFoundException {
 		return srv.getOne(id).get().getFilmActors().stream()
 				.map(f-> new ElementoDto<>(f.getFilm().getFilmId(), f.getFilm().getTitle()))
 				.toList();
 	}
-
+	
+	//Igual al de arriba, pero formatea la salida
 	@GetMapping(path = "/{id}/peliculas")
 	public List<Map<String, String>> getPeliculas(@PathVariable int id) throws NotFoundException {
 		return srv.getOne(id).get().getFilmActors().stream()
