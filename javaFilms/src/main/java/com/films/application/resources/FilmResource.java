@@ -26,7 +26,6 @@ import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
-import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
