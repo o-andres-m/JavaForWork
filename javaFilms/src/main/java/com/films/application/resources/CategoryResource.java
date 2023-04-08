@@ -4,9 +4,6 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,20 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.films.domains.contracts.services.ActorService;
 import com.films.domains.contracts.services.CategoryService;
 import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.Category;
-import com.films.domains.entities.dto.ActorDTO;
-import com.films.domains.entities.dto.ActorShort;
 import com.films.domains.entities.dto.ItemDto;
 
 import jakarta.validation.Valid;
@@ -47,7 +40,6 @@ public class CategoryResource {
 		return srv.getByProjection(Category.class);
 	}
 	
-	
 	@GetMapping(path = {"/{id:\\d+}"})
 	public Category getOne(@PathVariable int id) throws NotFoundException{
 		var cat = srv.getOne(id);
@@ -55,16 +47,15 @@ public class CategoryResource {
 		return cat.get();
 	}	
 	
-	
-//	@GetMapping(path = {"/{id}/pelis"}) 
-//	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
-//		var actor = srv.getOne(id);
-//		if (actor.isEmpty()) throw new NotFoundException();
-//		
-//		return actor.get().getFilmActors().stream()
-//				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
-//				.toList();
-//	}
+	@GetMapping(path = {"/{id}/films"}) 
+	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
+		var cat = srv.getOne(id);
+		if (cat.isEmpty()) throw new NotFoundException();
+		
+		return cat.get().getFilmCategories().stream()
+				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+				.toList();
+	}
 
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody Category item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
@@ -78,17 +69,16 @@ public class CategoryResource {
 		return ResponseEntity.created(location).build();
 	}
 
-//	@PutMapping("/{id}")
-//	@ResponseStatus (HttpStatus.NO_CONTENT)
-//	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
-//		if (id != item.getActorId()) throw new BadRequestException("No coincide ID");
-//		srv.modify(ActorDTO.from(item));
-//	}
-//	
-//	@DeleteMapping("/{id}")
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public void delete(@PathVariable int id) {
-//		srv.deleteById(id);
-//	}
-
+	@PutMapping("/{id}")
+	@ResponseStatus (HttpStatus.NO_CONTENT)
+	public void update(@PathVariable int id, @Valid @RequestBody Category item) throws BadRequestException, NotFoundException, InvalidDataException {
+		if (id != item.getCategoryId()) throw new BadRequestException("IDs doesnt match");
+		srv.modify(item);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id) {
+		srv.deleteById(id);
+	}
 }
