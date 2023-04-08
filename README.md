@@ -28,6 +28,7 @@ General Readme for all packages and folders.
 - Controllers
 - Resources (Actor CRUD)
 - Controller Advices
+- TestResources
 
 ---
 
@@ -48,6 +49,16 @@ General Readme for all packages and folders.
 - Services
 - Catalogue
 - Testing (MockTest, DataJpaTest, SpringBootTest).
+
+
+ Microservices:
+ 
+- ActorResource
+- ActorResourceTest
+- CategoryResource
+- CategoryResourceTest
+- FilmResource
+- FilmResourceTest
 
 Note: For run SakilaDb with docker:
 
