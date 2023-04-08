@@ -33,6 +33,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.films.domains.contracts.services.CategoryService;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.entities.Category;
+import com.films.domains.entities.Film;
+import com.films.domains.entities.FilmCategory;
 
 @WebMvcTest(CategoryResource.class)
 class CategoryResourceTest {
@@ -182,6 +184,61 @@ class CategoryResourceTest {
 		}
 		
 	}
+	
+	@Nested
+	class Delete{
+		@Test
+		void testDelete() throws Exception{
 
-
+			doNothing().when(srv).deleteById(1);
+			
+			mockMvc.perform(delete("/api/category/v1/1")
+					)
+					.andExpect(status().isNoContent())
+			        .andDo(print());	
+			
+			verify(srv,times(1)).deleteById(1);
+		}
+	}
+	
+	@Nested
+	class FilmsCategory{
+		
+		@Test
+		void testGetFilmsInCategory() throws Exception{
+			
+			var cat = new Category();
+			
+			cat.setCategoryId(1);
+			cat.setName("CategoryName");
+			
+			var filmCategoryList = new ArrayList<FilmCategory>(
+					Arrays.asList(	new FilmCategory(new Film(),cat),
+									new FilmCategory(new Film(),cat),
+									new FilmCategory(new Film(),cat)));
+			
+			cat.setFilmCategories(filmCategoryList);
+			
+			when(srv.getOne(1)).thenReturn(Optional.of(cat));
+			
+			mockMvc.perform(get("/api/category/v1/1/films"))
+				.andExpectAll(
+						status().isOk(), 
+						jsonPath("$.size()").value(3)
+						).andDo(print());
+		}
+		
+		@Test
+		void testGetFilmsInCategoryNoExists() throws Exception{
+			
+			when(srv.getOne(999)).thenReturn(Optional.empty());
+			
+			mockMvc.perform(get("/api/category/v1/999/films"))
+				.andExpectAll(
+						status().isNotFound(), 
+						jsonPath("$.title").value("Not Found")
+						).andDo(print());
+		}
+		
+	}
 }
