@@ -20,12 +20,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Copy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -42,11 +40,8 @@ import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.entities.Actor;
 import com.films.domains.entities.Category;
 import com.films.domains.entities.Film;
-import com.films.domains.entities.FilmActor;
 import com.films.domains.entities.Language;
 import com.films.domains.entities.Film.Rating;
-import com.films.domains.entities.dto.ActorDTO;
-import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
 
@@ -468,7 +463,4 @@ class FilmResourceTest {
 		        .andDo(print());
 		}
 	}
-
-
-
 }
