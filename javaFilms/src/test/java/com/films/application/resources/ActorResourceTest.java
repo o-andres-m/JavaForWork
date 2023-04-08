@@ -181,17 +181,18 @@ class ActorResourceTest {
 
 		@Test
 		void testGetOne() throws Exception {
-			int id = 1;
-			var actor = new Actor(id, "Name", "LastName");
+
+			var actor = new Actor(1, "Name", "LastName");
 			
-			when(srv.getOne(id)).thenReturn(Optional.of(actor));
+			when(srv.getOne(1)).thenReturn(Optional.of(actor));
 			
-			mockMvc.perform(get("/api/actors/v1/{id}", id))
-				.andExpect(status().isOk())
-		        .andExpect(jsonPath("$.id").value(id))
-		        .andExpect(jsonPath("$.firstName").value(actor.getFirstName()))
-		        .andExpect(jsonPath("$.lastName").value(actor.getLastName()))
-		        .andDo(print());
+			mockMvc.perform(get("/api/actors/v1/1"))
+			.andExpectAll(
+				status().isOk(),
+		        jsonPath("$.id").value(1),
+		        jsonPath("$.name").value(actor.getFirstName()),
+		        jsonPath("$.lastName").value(actor.getLastName())
+		        ).andDo(print());
 		}
 		
 		@Test
@@ -263,7 +264,23 @@ class ActorResourceTest {
 					.andExpect(status().isNoContent())
 			        .andDo(print());
 		}
+		
+		@Test
+		void testUpdateDifferentsIDS() throws JsonProcessingException, Exception {
+			
+			var actor = new Actor(2, "Name", "NewLastName");
+			
+			mockMvc.perform(put("/api/actors/v1/1")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(ActorDTO.from(actor)))
+					)
+			.andExpectAll(
+					status().isBadRequest(),
+					jsonPath("$.title").value("Bad Request"),
+					jsonPath("$.detail").value("ID's doesn't match")
 
+			        ).andDo(print());
+		}
 	}
 	
 	@Nested
@@ -273,13 +290,12 @@ class ActorResourceTest {
 
 			doNothing().when(srv).deleteById(1);
 			
-			mockMvc.perform(delete("/api/actores/v1/1")
+			mockMvc.perform(delete("/api/actors/v1/1")
 					)
 					.andExpect(status().isNoContent())
 			        .andDo(print());	
 			
 			verify(srv,times(1)).deleteById(1);
-	
 		}
 	}
 }

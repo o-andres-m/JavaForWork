@@ -95,7 +95,9 @@ Note: For run SakilaDb with docker:
 - Actor actions
 
 Defaults for use:
+
 user: admin
+
 password: admin
 
 ---
