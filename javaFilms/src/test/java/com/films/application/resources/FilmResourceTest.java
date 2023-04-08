@@ -1,5 +1,6 @@
 package com.films.application.resources;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -44,6 +45,7 @@ import com.films.domains.entities.Language;
 import com.films.domains.entities.Film.Rating;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
+import com.mysql.cj.x.protobuf.Mysqlx.Error.Severity;
 
 
 @WebMvcTest(FilmResource.class)
@@ -461,6 +463,93 @@ class FilmResourceTest {
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.title").value("Not Found"))
 		        .andDo(print());
+		}
+	}
+	
+	@Nested
+	class GetNews{
+		
+		@Test
+		void testGetAllNews() throws Exception {
+			
+			var film1 = new Film();
+			film1.setFilmId(1);
+			film1.setTitle("A");
+			
+			var film2= new Film();
+			film2.setFilmId(1);
+			film2.setTitle("A");
+			
+			List<Film> listOfFilms = new ArrayList<>(
+					Arrays.asList(film1, film2));
+			
+			var time = Timestamp.from(Instant.now().minusSeconds(864000));
+			
+			//when(srv.news(time)).thenReturn(listOfFilms);
+			when(srv.news(any())).thenReturn(listOfFilms);
+			
+			mockMvc.perform(get("/api/films/v1/news").accept(MediaType.APPLICATION_JSON))
+				.andExpectAll(
+					status().isOk(), 
+					content().contentType("application/json"),
+					jsonPath("$.size()").value(2)
+					).andDo(print());
+		}
+		
+		@Test
+		void testGetAllWith0Days() throws Exception {
+			
+			var film1 = new Film();
+			film1.setFilmId(1);
+			film1.setTitle("A");
+			
+			var film2= new Film();
+			film2.setFilmId(1);
+			film2.setTitle("A");
+			
+			List<Film> listOfFilms = new ArrayList<>(
+					Arrays.asList(	film1,
+							   		film2));
+			
+			//when(srv.news(Timestamp.from(Instant.now().minusSeconds(864000)))).thenReturn(listOfFilms);
+			when(srv.news(any())).thenReturn(listOfFilms);
+
+			mockMvc.perform(get("/api/films/v1/news")
+					.param("days", "0")
+					.accept(MediaType.APPLICATION_JSON))
+				.andExpectAll(
+					status().isOk(), 
+					content().contentType("application/json"),
+					jsonPath("$.size()").value(2)
+					).andDo(print());
+		}
+		@Test
+		void testGetAllWithDays() throws Exception {
+			
+			var days = 4;
+			
+			var film1 = new Film();
+			film1.setFilmId(1);
+			film1.setTitle("A");
+			
+			var film2= new Film();
+			film2.setFilmId(1);
+			film2.setTitle("A");
+			
+			List<Film> listOfFilms = new ArrayList<>(
+					Arrays.asList(	film1, film2));
+			
+			//when(srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)))).thenReturn(listOfFilms);
+			when(srv.news(any())).thenReturn(listOfFilms);
+
+			mockMvc.perform(get("/api/films/v1/news")
+					.param("days", String.valueOf(days))
+					.accept(MediaType.APPLICATION_JSON))
+				.andExpectAll(
+					status().isOk(), 
+					content().contentType("application/json"),
+					jsonPath("$.size()").value(2)
+					).andDo(print());
 		}
 	}
 }

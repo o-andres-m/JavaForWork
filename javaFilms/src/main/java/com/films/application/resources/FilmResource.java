@@ -1,7 +1,11 @@
 package com.films.application.resources;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.ArrayList;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +30,7 @@ import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
+import com.films.domains.entities.Film;
 import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
@@ -106,5 +111,29 @@ public class FilmResource {
 		srv.deleteById(id);
 	}
 	
+	
+	@GetMapping("/news")
+	public List<FilmShortDTO> getAllNews(@RequestParam (required = false) Integer days) {
+
+		
+		List<Film> filmList = new ArrayList<>();
+		
+		if(days==null || days<=0 ) {
+			
+			/**
+			 * Default Time: 864.000 -> 10 days	
+			 */
+			
+			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(864000)));
+		}else {
+
+			// 1 day = 86400 secs
+			
+			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)));
+		}
+		return filmList.stream()
+				.map(item -> new FilmShortDTO(item.getFilmId(),item.getTitle()))
+				.toList();
+	}
 
 }
