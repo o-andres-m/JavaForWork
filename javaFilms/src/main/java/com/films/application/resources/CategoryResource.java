@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.films.domains.contracts.services.ActorService;
+import com.films.domains.contracts.services.CategoryService;
 import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
+import com.films.domains.entities.Category;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.ActorShort;
 import com.films.domains.entities.dto.ItemDto;
@@ -38,70 +40,55 @@ import jakarta.validation.Valid;
 public class CategoryResource {
 	
 	@Autowired
-	private ActorService srv;
+	private CategoryService srv;
 
 	@GetMapping
-	public List<ActorShort> getAll(
-								@RequestParam (required = false) String sort
-								) {
-		if (sort != null) {
-			return (List<ActorShort>)srv.getByProjection(Sort.by(sort) , ActorShort.class);
-		}
-
-		return srv.getByProjection(ActorShort.class);
-	}
-	
-	
-	
-	@GetMapping(params = "page")
-	public Page<ActorDTO> getAllPageable(Pageable page) {
-		return srv.getByProjection(page, ActorDTO.class);
+	public List<Category> getAll() {
+		return srv.getByProjection(Category.class);
 	}
 	
 	
 	@GetMapping(path = {"/{id:\\d+}"})
-	public ActorDTO getOne(@PathVariable int id) throws NotFoundException{
-		var actor = srv.getOne(id);
-		if (actor.isEmpty()) throw new NotFoundException();
-		return ActorDTO.from(actor.get());
-	}
+	public Category getOne(@PathVariable int id) throws NotFoundException{
+		var cat = srv.getOne(id);
+		if (cat.isEmpty()) throw new NotFoundException();
+		return cat.get();
+	}	
 	
 	
-	@GetMapping(path = {"/{id}/pelis"}) 
-	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
-		var actor = srv.getOne(id);
-		if (actor.isEmpty()) throw new NotFoundException();
-		
-		return actor.get().getFilmActors().stream()
-				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
-				.toList();
-	}
-	
+//	@GetMapping(path = {"/{id}/pelis"}) 
+//	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
+//		var actor = srv.getOne(id);
+//		if (actor.isEmpty()) throw new NotFoundException();
+//		
+//		return actor.get().getFilmActors().stream()
+//				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+//				.toList();
+//	}
+
 	@PostMapping
-	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
-		
-		var actor = ActorDTO.from(item);
-		
-		srv.add(actor);
+	public ResponseEntity<Object> create(@Valid @RequestBody Category item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
+				
+		srv.add(item);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
-				.buildAndExpand(actor.getActorId()).toUri();
+				.buildAndExpand(item.getCategoryId()).toUri();
 
 		return ResponseEntity.created(location).build();
 	}
-	
-	@PutMapping("/{id}")
-	@ResponseStatus (HttpStatus.NO_CONTENT)
-	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
-		if (id != item.getActorId()) throw new BadRequestException("No coincide ID");
-		srv.modify(ActorDTO.from(item));
-	}
-	
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable int id) {
-		srv.deleteById(id);
-	}
+
+//	@PutMapping("/{id}")
+//	@ResponseStatus (HttpStatus.NO_CONTENT)
+//	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
+//		if (id != item.getActorId()) throw new BadRequestException("No coincide ID");
+//		srv.modify(ActorDTO.from(item));
+//	}
+//	
+//	@DeleteMapping("/{id}")
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	public void delete(@PathVariable int id) {
+//		srv.deleteById(id);
+//	}
 
 }
