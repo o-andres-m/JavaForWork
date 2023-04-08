@@ -23,8 +23,8 @@ public abstract class EntityBase<E> {
 	@JsonIgnore
 	public String getErrorsMessage() {
 		if(isValid()) return "";
-		StringBuilder sb = new StringBuilder("ERRORES: \n");
-		getErrors().stream().map(item -> sb.append(item.getPropertyPath() + ": " + item.getMessage() + ". \n"))
+		StringBuilder sb = new StringBuilder("ERRORS: ");
+		getErrors().stream().map(item -> sb.append(item.getPropertyPath() + ": " + item.getMessage() + ". "))
 			.sorted().forEach(sb::append);;
 
 		return sb.toString().trim();

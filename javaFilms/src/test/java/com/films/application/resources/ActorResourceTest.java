@@ -1,6 +1,5 @@
 package com.films.application.resources;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -20,8 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,28 +116,28 @@ class ActorResourceTest {
 						jsonPath("$[0].actorId").value(3)
 						).andDo(print());
 		}
-	}
-
-
-	@Test
-	void testGetAllPageable() throws Exception {
-		List<ActorDTO> list = new ArrayList<>(
-		        Arrays.asList(new ActorDTO(1, "Name", "Surname"),
-		        		new ActorDTO(2, "Second", "Actor"),
-		        		new ActorDTO(3, "FirstName", "LastName")));
-
-		when(srv.getByProjection(PageRequest.of(0, 20), ActorDTO.class))
-			.thenReturn(new PageImpl<>(list ));
 		
-		mockMvc.perform(get("/api/actors/v1").queryParam("page", "0"))
-			.andExpectAll(
-				status().isOk(), 
-				content().contentType("application/json"),
-				jsonPath("$.content.size()").value(3),
-				jsonPath("$.size").value(3)
-				).andDo(print());
+		@Test
+		void testGetAllPageable() throws Exception {
+			List<ActorDTO> list = new ArrayList<>(
+			        Arrays.asList(new ActorDTO(1, "Name", "Surname"),
+			        		new ActorDTO(2, "Second", "Actor"),
+			        		new ActorDTO(3, "FirstName", "LastName")));
+
+			when(srv.getByProjection(PageRequest.of(0, 20), ActorDTO.class))
+				.thenReturn(new PageImpl<>(list ));
+			
+			mockMvc.perform(get("/api/actors/v1").queryParam("page", "0"))
+				.andExpectAll(
+					status().isOk(), 
+					content().contentType("application/json"),
+					jsonPath("$.content.size()").value(3),
+					jsonPath("$.size").value(3)
+					).andDo(print());
+		}
 	}
-	
+
+
 	@Nested
 	class ActorFilms{
 		@Test
@@ -169,7 +166,6 @@ class ActorResourceTest {
 		void testGetActorFilmsNotFound() throws Exception {
 			
 			int id = 1;
-			var actor = new Actor(id, "Name", "LastName");
 			
 			when(srv.getOne(id)).thenReturn(Optional.empty());
 			
@@ -202,7 +198,6 @@ class ActorResourceTest {
 		void testGetOneNotFound() throws Exception {
 			
 			int id = 1;
-			var actor = new Actor(id, "Name", "LastName");
 			
 			when(srv.getOne(id)).thenReturn(Optional.empty());
 			
@@ -257,11 +252,11 @@ class ActorResourceTest {
 		@Test
 		void testUpdate() throws JsonProcessingException, Exception {
 			
-			var actor = new Actor(1, "Pepito", "Grillo");
+			var actor = new Actor(1, "Name", "NewLastName");
 
 			when(srv.modify(actor)).thenReturn(actor);
 			
-			mockMvc.perform(put("/api/actores/v1/1")
+			mockMvc.perform(put("/api/actors/v1/1")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(ActorDTO.from(actor)))
 					)
@@ -275,8 +270,6 @@ class ActorResourceTest {
 	class Delete{
 		@Test
 		void testDelete() throws JsonProcessingException, Exception {
-			var actor = new Actor(1, "Pepito", "Grillo");
-
 
 			doNothing().when(srv).deleteById(1);
 			
