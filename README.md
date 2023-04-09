@@ -94,13 +94,15 @@ Note: For run SakilaDb with docker:
 
 
 - Server with Web front
-- Actor actions
+- Actor List + actions
+- Films List and view Film
 
 Defaults for use:
 
+```
 user: admin
-
 password: admin
+```
 
 ---
 

@@ -65,8 +65,8 @@ public class FilmsController {
 	@GetMapping("/add")
 	public String addGET(Model model) {
 		model.addAttribute("modo", "add");
-		model.addAttribute("action", "actores/add");
-		model.addAttribute("elemento", new Actor());
+		model.addAttribute("action", "peliculas/add");
+		model.addAttribute("elemento", new Film());
 		return "peliculas/form";
 	}
 	
@@ -81,23 +81,23 @@ public class FilmsController {
 			try {
 
 				srv.add(item);
-				mv.setViewName("redirect:/films");
+				mv.setViewName("redirect:/peliculas");
 
 			} catch (DuplicateKeyException  e) {
 				result.addError(
-						new FieldError("elemento", "actorId", ms.getMessage("errormsg.clave.duplicada", null, locale)));
+						new FieldError("elemento", "filmId", ms.getMessage("errormsg.clave.duplicada", null, locale)));
 			} catch (InvalidDataException  e) {
 				result.addError(
-						new FieldError("elemento", "actorId", e.getMessage()));
+						new FieldError("elemento", "filmId", e.getMessage()));
 			}catch (Exception  e) {
 				result.addError(
-						new FieldError("elemento", "actorId", e.getMessage()));
+						new FieldError("elemento", "filmId", e.getMessage()));
 			}
 		}
 		mv.addObject("modo", "add");
-		mv.addObject("action", "films/add");
+		mv.addObject("action", "peliculas/add");
 		mv.addObject("elemento", item);
-		mv.setViewName("films/form");
+		mv.setViewName("peliculas/form");
 		return mv;
 	}
 
@@ -107,21 +107,22 @@ public class FilmsController {
 		if(!item.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		model.addAttribute("modo", "edit");
-		model.addAttribute("action", "actores/" + id + "/edit");
+		model.addAttribute("action", "peliculas/" + id + "/edit");
 		model.addAttribute("elemento", item.get());
-		return "films/form";
+		return "peliculas/form";
 	}
+		
 	@PostMapping("/{id:\\d+}/edit")
-	public ModelAndView editPOST(@PathVariable Long id, @ModelAttribute("elemento") @Valid Film item, 
+	public ModelAndView editPOST(@PathVariable Long id, @ModelAttribute("elemento") Film item, 
 			BindingResult result, Locale locale) throws InvalidDataException {
 		ModelAndView mv = new ModelAndView();
 		if(id != item.getFilmId())
-			result.addError(new FieldError("elemento", "actorId", ms.getMessage("errormsg.clave.invalida", null, locale)));
+			result.addError(new FieldError("elemento", "filmId", ms.getMessage("errormsg.clave.invalida", null, locale)));
 		if(result.hasErrors()) {
 			mv.addObject("modo", "edit");
-			mv.addObject("action", "actores/" + id + "/edit");
+			mv.addObject("action", "peliculas/" + id + "/edit");
 			mv.addObject("elemento", item);
-			mv.setViewName("films/form");
+			mv.setViewName("peliculas/form");
 		} else {
 			if(!srv.getOne(item.getFilmId()).isPresent())
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -130,7 +131,7 @@ public class FilmsController {
 			} catch (NotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			}
-			mv.setViewName("redirect:/films");
+			mv.setViewName("redirect:/peliculas");
 		}
 		return mv;
 	}
@@ -142,7 +143,7 @@ public class FilmsController {
 //		} catch (Exception e) {
 //			throw new BadRequestException(e.getMessage(), e);
 //		}
-		return "redirect:/actores";
+		return "redirect:/peliculas";
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

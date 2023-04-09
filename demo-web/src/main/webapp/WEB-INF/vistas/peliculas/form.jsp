@@ -5,36 +5,52 @@
 <sf:form modelAttribute="elemento" action="${pageContext.request.contextPath}/${action}">
 	
 	<div class="form-group">
-		<sf:label path="actorId"><s:message code="actores.form.id" /></sf:label>
+	
+<%-- 		<sf:label path="filmId"><s:message code="peliculas.form.filmId" /></sf:label> --%>
+
+		<sf:label path="filmId">ID </sf:label>
+
 		<c:if test = '${modo == "add"}'>
-			<sf:input path="actorId" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
-			<sf:errors path="actorId" cssClass="invalid-feedback" />
+			<sf:input path="filmId" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
+			<sf:errors path="filmId" cssClass="invalid-feedback" />
 		</c:if>
 		<c:if test = '${modo != "add"}'>
-			${elemento.actorId}
-			<sf:hidden path="actorId"/>
-			<sf:errors path="actorId" cssClass="error" />
+			${elemento.filmId}
+			<sf:hidden path="filmId"/>
+			<sf:errors path="filmId" cssClass="error" />
 		</c:if>		
 	</div>
 	
 	
 	<div class="form-group">
-		<sf:label path="firstName"><s:message code="actores.form.nombre" /></sf:label>
-		<sf:input required="required" path="firstName" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
-		<sf:errors path="firstName" cssClass="invalid-feedback" />
+		<sf:label path="title">Titulo: </sf:label>
+		<sf:input required="required" path="title" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
+		<sf:errors path="title" cssClass="invalid-feedback" />
 	</div>
 	
 	
 	<div class="form-group">
-		<sf:label path="lastName"><s:message code="actores.form.apellidos" /></sf:label>
-		<sf:input path="lastName" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
-		<sf:errors path="lastName" cssClass="invalid-feedback" />
+		<sf:label path="description">Descripcion: </sf:label>
+		<sf:input path="description" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
+		<sf:errors path="description" cssClass="invalid-feedback" />
+	</div>
+	
+	<div class="form-group">
+		<sf:label path="language">Idioma: </sf:label>
+		<sf:input path="language" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
+		<sf:errors path="language" cssClass="invalid-feedback" />
+	</div>
+	
+	<div class="form-group">
+		<sf:label path="languageVO">IdiomaVO: </sf:label>
+		<sf:input path="languageVO" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
+		<sf:errors path="languageVO" cssClass="invalid-feedback" />
 	</div>
 	
 	
 	<div class="form-group">
 		<input type="submit" value="<s:message code="form.enviar" />" class="btn btn-primary">
-		<a href="/actores" class="btn btn-primary" ><s:message code="form.volver" /></a>
+		<a href="/peliculas" class="btn btn-primary" ><s:message code="form.volver" /></a>
 	</div>
 	
 </sf:form>
