@@ -45,7 +45,6 @@ import com.films.domains.entities.Language;
 import com.films.domains.entities.Film.Rating;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
-import com.mysql.cj.x.protobuf.Mysqlx.Error.Severity;
 
 
 @WebMvcTest(FilmResource.class)
