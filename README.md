@@ -59,6 +59,8 @@ General Readme for all packages and folders.
 - CategoryResourceTest
 - FilmResource
 - FilmResourceTest
+- CatalogueResource
+- CatalogueResourceTest
 
 Note: For run SakilaDb with docker:
 
@@ -68,11 +70,11 @@ Note: For run SakilaDb with docker:
 :warning: Attention! :warning:
 
 - Five tests skkiped not implemented yet.
-- Test Coverage 72,9% (lombok methods lower the percentage)
+- Test Coverage 80% (lombok methods lower the percentage)
 
 
 
-![Tests](/files/javaFilm_testsCoverage.jpg)
+![Tests](/files/javaFilm_testsCoverage_v2.jpg)
 
 
 ---
