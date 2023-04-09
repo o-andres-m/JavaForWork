@@ -1,5 +1,9 @@
 package com.example.application.controllers;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -33,6 +37,8 @@ import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
+import com.example.domains.entities.Language;
+import com.example.domains.entities.Film.Rating;
 
 import jakarta.validation.Valid;
 
@@ -72,7 +78,7 @@ public class FilmsController {
 	
 	// Recibe y valida
 	@PostMapping("/add")
-	public ModelAndView addPOST(@ModelAttribute("elemento") @Valid Film item, 
+	public ModelAndView addPOST(@ModelAttribute("elemento") Film item, 
 			BindingResult result, Locale locale){
 		
 		ModelAndView mv = new ModelAndView();
@@ -80,6 +86,22 @@ public class FilmsController {
 		if(!result.hasErrors()) {
 			try {
 
+				// Default Values:
+				item.setLastUpdate(Timestamp.from(Instant.now()));
+				item.setLength(1);
+				item.setRating(Rating.GENERAL_AUDIENCES);
+				item.setReleaseYear(Short.valueOf("2023"));
+				item.setRentalDuration(Byte.valueOf("1"));
+				item.setRentalRate(BigDecimal.valueOf(1));
+				item.setReplacementCost(BigDecimal.valueOf(1));
+				item.setLanguage(new Language(1));
+				
+				
+				//item.setActors(List.of());
+				//item.setCategories(List.of());
+				//item.setLanguageVO(new Language());
+
+				
 				srv.add(item);
 				mv.setViewName("redirect:/peliculas");
 
@@ -127,7 +149,11 @@ public class FilmsController {
 			if(!srv.getOne(item.getFilmId()).isPresent())
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			try {
-				srv.modify(item);
+				var film = srv.getOne(item.getFilmId()).orElseThrow(
+						()-> new NotFoundException());
+				film.setTitle(item.getTitle());
+				film.setDescription(item.getDescription());
+				srv.modify(film);
 			} catch (NotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			}

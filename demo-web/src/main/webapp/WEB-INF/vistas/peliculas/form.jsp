@@ -35,18 +35,6 @@
 		<sf:errors path="description" cssClass="invalid-feedback" />
 	</div>
 	
-	<div class="form-group">
-		<sf:label path="language">Idioma: </sf:label>
-		<sf:input path="language" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
-		<sf:errors path="language" cssClass="invalid-feedback" />
-	</div>
-	
-	<div class="form-group">
-		<sf:label path="languageVO">IdiomaVO: </sf:label>
-		<sf:input path="languageVO" cssClass="form-control" cssErrorClass="is-invalid form-control"/>
-		<sf:errors path="languageVO" cssClass="invalid-feedback" />
-	</div>
-	
 	
 	<div class="form-group">
 		<input type="submit" value="<s:message code="form.enviar" />" class="btn btn-primary">
