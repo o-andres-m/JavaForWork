@@ -94,8 +94,8 @@ Note: For run SakilaDb with docker:
 
 
 - Server with Web front
-- Actor List + actions
-- Films List and view Film
+- Actor controllers (view, add, edit, delete)
+- Films controllers (view, add, edit, delete)
 
 Defaults for use:
 
