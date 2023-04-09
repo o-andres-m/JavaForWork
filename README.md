@@ -118,7 +118,7 @@ password: admin
 
 ---
 
-### ms.eureka :busts_in_silhouette:
+### ms.eureka :cloud:
 
 - Growing... :construction:
 
