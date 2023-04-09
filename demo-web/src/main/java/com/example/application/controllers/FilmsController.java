@@ -37,7 +37,7 @@ import com.example.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping(path="/films")
+@RequestMapping(path="/peliculas")
 public class FilmsController {
 	
 	@Autowired
@@ -47,9 +47,9 @@ public class FilmsController {
 	private MessageSource ms;
 	
 	@GetMapping(path="")
-	public String list(Model model, @PageableDefault(size=10, sort = {"firstName", "lastName"})  Pageable page) {
+	public String list(Model model, @PageableDefault(size=50, sort = {"title"})  Pageable page) {
 		model.addAttribute("listado", srv.getAll(page));
-		return "films/list";
+		return "peliculas/list";
 	}
 	
 	
@@ -59,7 +59,7 @@ public class FilmsController {
 		if(!item.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		model.addAttribute("elemento", item.get());
-		return "films/view";
+		return "peliculas/view";
 	}
 	
 	@GetMapping("/add")
@@ -67,7 +67,7 @@ public class FilmsController {
 		model.addAttribute("modo", "add");
 		model.addAttribute("action", "actores/add");
 		model.addAttribute("elemento", new Actor());
-		return "films/form";
+		return "peliculas/form";
 	}
 	
 	// Recibe y valida

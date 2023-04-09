@@ -3,11 +3,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ include file="../parts/header.jsp" %>
 <p>
-Código: ${elemento.actorId}<br>
-Nombre: ${elemento.firstName}<br>
-Apellidos: ${elemento.lastName}
+Código: ${elemento.filmId}<br>
+Titulo: ${elemento.title}<br>
+Descripcion: ${elemento.description}<br>
+Año: ${elemento.releaseYear}<br>
+Categoria: categorias...<br>
 </p>
 <p>
-	<a href="/actores" class="btn btn-primary" >Volver</a>
+	<a href="/peliculas" class="btn btn-primary" >Volver</a>
 </p>
 <%@ include file="../parts/footer.jsp" %>
