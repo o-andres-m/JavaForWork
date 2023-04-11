@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -31,7 +32,19 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);
 		
 	}
+
+	
+	// Para ordenar los modelos alfabeticamente:
+//	@Bean
+//	public OpenApiCustomiser sortSchemasAlphabetically() {
+//	return openApi -> {
+//	var schemas = openApi.getComponents().getSchemas();
+//	openApi.getComponents().setSchemas(new TreeMap<>(schemas));
+//	};
+//	}
 		
+	
+	
 //	@Autowired
 //	ActorRepository dao;
 	
