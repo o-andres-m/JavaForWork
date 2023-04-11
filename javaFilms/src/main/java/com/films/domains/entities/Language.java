@@ -48,7 +48,8 @@ public class Language extends EntityBase<Language> implements Serializable {
 
 	@Column(name="last_update", insertable = false, updatable = false)
 //	@JsonView(Language.Complete.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonIgnore
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Film

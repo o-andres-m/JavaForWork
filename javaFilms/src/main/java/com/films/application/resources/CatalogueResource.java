@@ -21,8 +21,8 @@ public class CatalogueResource {
 	
 
 	@GetMapping
-	public NewsDto getAll(@RequestParam(required = false) Integer days){
-		if (days == null || days <= 0) return srv.news(null);
-		return srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)));
+	public NewsDto getAll(@RequestParam(required = false) Timestamp time){
+		if (time == null) return srv.news(null);
+		return srv.news(time);
 	}	
 }

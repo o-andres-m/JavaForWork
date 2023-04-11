@@ -39,6 +39,9 @@ public class CatalogueServiceImpl implements CatalogueService {
 		 * Default Time: 864.000 -> 10 days	
 		 */
 		
+		// Timestamp fecha = Timestamp.valueOf("2019-01-01 00:00:00");
+
+		
 		if(time == null)
 			time = Timestamp.from(Instant.now().minusSeconds(864000));
 		
