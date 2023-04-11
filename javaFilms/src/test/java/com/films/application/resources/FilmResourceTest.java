@@ -476,15 +476,12 @@ class FilmResourceTest {
 			film1.setTitle("A");
 			
 			var film2= new Film();
-			film2.setFilmId(1);
-			film2.setTitle("A");
+			film2.setFilmId(2);
+			film2.setTitle("B");
 			
 			List<Film> listOfFilms = new ArrayList<>(
 					Arrays.asList(film1, film2));
-			
-			var time = Timestamp.from(Instant.now().minusSeconds(864000));
-			
-			//when(srv.news(time)).thenReturn(listOfFilms);
+						
 			when(srv.news(any())).thenReturn(listOfFilms);
 			
 			mockMvc.perform(get("/api/films/v1/news").accept(MediaType.APPLICATION_JSON))
@@ -496,53 +493,28 @@ class FilmResourceTest {
 		}
 		
 		@Test
-		void testGetAllWith0Days() throws Exception {
+		void testGetAllWithTime() throws Exception {
 			
 			var film1 = new Film();
 			film1.setFilmId(1);
 			film1.setTitle("A");
 			
 			var film2= new Film();
-			film2.setFilmId(1);
-			film2.setTitle("A");
+			film2.setFilmId(2);
+			film2.setTitle("B");
 			
 			List<Film> listOfFilms = new ArrayList<>(
 					Arrays.asList(	film1,
 							   		film2));
 			
-			//when(srv.news(Timestamp.from(Instant.now().minusSeconds(864000)))).thenReturn(listOfFilms);
-			when(srv.news(any())).thenReturn(listOfFilms);
+			var stringTime = "2023-01-01 00:00:00";
+			
+			var time = Timestamp.valueOf(stringTime);
+			
+			when(srv.news(time)).thenReturn(listOfFilms);
 
 			mockMvc.perform(get("/api/films/v1/news")
-					.param("days", "0")
-					.accept(MediaType.APPLICATION_JSON))
-				.andExpectAll(
-					status().isOk(), 
-					content().contentType("application/json"),
-					jsonPath("$.size()").value(2)
-					).andDo(print());
-		}
-		@Test
-		void testGetAllWithDays() throws Exception {
-			
-			var days = 4;
-			
-			var film1 = new Film();
-			film1.setFilmId(1);
-			film1.setTitle("A");
-			
-			var film2= new Film();
-			film2.setFilmId(1);
-			film2.setTitle("A");
-			
-			List<Film> listOfFilms = new ArrayList<>(
-					Arrays.asList(	film1, film2));
-			
-			//when(srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)))).thenReturn(listOfFilms);
-			when(srv.news(any())).thenReturn(listOfFilms);
-
-			mockMvc.perform(get("/api/films/v1/news")
-					.param("days", String.valueOf(days))
+					.param("time", time.toString())
 					.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(
 					status().isOk(), 

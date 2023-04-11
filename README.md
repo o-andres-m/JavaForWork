@@ -31,6 +31,9 @@ General Readme for all packages and folders.
 - TestResources
 - Spring Rest + HATEOAS
 - Swagger(Not running..)
+- Eureka
+- SpringCloud
+- OpenFeign
 
 ---
 
@@ -53,7 +56,7 @@ General Readme for all packages and folders.
 - Testing (MockTest, DataJpaTest, SpringBootTest).
 
 
- Microservices:
+ Microservices: :desktop_computer:
  
 - ActorResource
 - ActorResourceTest
@@ -66,7 +69,27 @@ General Readme for all packages and folders.
 - LanguageResource
 - LanguageResourceTest
 
+ Documentation and Tools: :hammer_and_wrench:
+ 
 - Swagger
+
+ SpringCloud: :cloud:
+ 
+- SpringCloud
+- Eureka
+- OpenFeign
+
+:warning: Attention! :warning:
+
+Eureka Discovery Client is running and sending heartbeat! :gear:
+
+You can run Eureka Client in default port 8761.
+
+ PostMan API Tools: :triangular_flag_on_post:
+
+- [Download Postman file] (/files/JavaFilms_V1.postman_collection) to import all Api Requests and Tests.
+- Every request is prepared for run in http://localhost:8080/**
+
 
 Note: For run SakilaDb with docker:
 
@@ -76,11 +99,11 @@ Note: For run SakilaDb with docker:
 :warning: Attention! :warning:
 
 - Five tests skkiped not implemented yet.
-- Test Coverage 80% (lombok methods lower the percentage)
+- Test Coverage 80,6% (lombok methods lower the percentage)
 
 
 
-![Tests](/files/javaFilm_testsCoverage_v2.jpg)
+![Tests](/files/javaFilm_testsCoverage_v3.jpg)
 
 
 ---
@@ -126,5 +149,5 @@ password: admin
 
 ### ms.eureka :cloud:
 
-- 
+- Eureka Microservices Register
 

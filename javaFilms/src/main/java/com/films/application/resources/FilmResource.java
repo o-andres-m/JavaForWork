@@ -4,7 +4,6 @@ import java.net.URI;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.ArrayList;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
-import com.films.domains.entities.Film;
-import com.films.domains.entities.dto.ActorShortDTO;
 import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;

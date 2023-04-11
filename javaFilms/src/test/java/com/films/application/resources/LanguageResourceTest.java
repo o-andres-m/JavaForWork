@@ -1,6 +1,5 @@
 package com.films.application.resources;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,9 +31,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.films.domains.contracts.services.LanguageService;
 import com.films.domains.core.exceptions.InvalidDataException;
-import com.films.domains.entities.Category;
 import com.films.domains.entities.Film;
-import com.films.domains.entities.FilmCategory;
 import com.films.domains.entities.Language;
 
 

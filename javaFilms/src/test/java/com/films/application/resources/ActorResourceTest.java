@@ -16,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +42,6 @@ import com.films.domains.entities.Actor;
 import com.films.domains.entities.FilmActor;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.ActorShort;
-import com.films.domains.entities.dto.ActorShortDTO;
 
 import lombok.Value;
 
