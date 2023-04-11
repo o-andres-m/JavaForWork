@@ -27,6 +27,7 @@ import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.NewsDto;
 
+
 @WebMvcTest(CatalogueResource.class)
 class CatalogueResourceTest {
 	
@@ -68,11 +69,16 @@ class CatalogueResourceTest {
 		
 		newsDto.setCategories(new ArrayList<Category>());
 		newsDto.setLanguages(new ArrayList<Language>());
+		
+		
+		var stringTime = "2023-01-01 00:00:00";
+		
+		var time = Timestamp.valueOf(stringTime);
 
-		when(srv.news(any())).thenReturn(newsDto);
+		when(srv.news(time)).thenReturn(newsDto);
 		
 		mockMvc.perform(get("/api/catalogue/v1")
-				.param("days", "10")
+				.param("time", stringTime)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpectAll(
 				status().isOk(),

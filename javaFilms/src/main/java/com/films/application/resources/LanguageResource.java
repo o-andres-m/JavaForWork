@@ -22,7 +22,6 @@ import com.films.domains.core.exceptions.BadRequestException;
 import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
-import com.films.domains.entities.Category;
 import com.films.domains.entities.Language;
 import com.films.domains.entities.dto.ItemDto;
 
@@ -40,48 +39,47 @@ public class LanguageResource {
 	public List<Language> getAll() {
 		return srv.getByProjection(Language.class);
 	}
-//	
-//	@GetMapping(path = {"/{id:\\d+}"})
-//	public Category getOne(@PathVariable int id) throws NotFoundException{
-//		var cat = srv.getOne(id);
-//		if (cat.isEmpty()) throw new NotFoundException();
-//		return cat.get();
-//	}	
-//	
-//	@GetMapping(path = {"/{id}/films"}) 
-//	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
-//		var cat = srv.getOne(id);
-//		if (cat.isEmpty()) throw new NotFoundException();
-//		
-//		return cat.get().getFilmCategories().stream()
-//				.map(o -> new ItemDto<>(o.getFilm().getFilmId(), o.getFilm().getTitle()))
-//				.toList();
-//	}
-//
-//	@PostMapping
-//	public ResponseEntity<Object> create(@Valid @RequestBody Category item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
-//				
-//		srv.add(item);
-//		
-//		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//				.path("/{id}")
-//				.buildAndExpand(item.getCategoryId()).toUri();
-//
-//		return ResponseEntity.created(location).build();
-//	}
-//
-//	@PutMapping("/{id}")
-//	@ResponseStatus (HttpStatus.NO_CONTENT)
-//	public void update(@PathVariable int id, @Valid @RequestBody Category item) throws BadRequestException, NotFoundException, InvalidDataException {
-//		if (id != item.getCategoryId()) throw new BadRequestException("IDs doesnt match");
-//		srv.modify(item);
-//	}
-//	
-//	@DeleteMapping("/{id}")
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public void delete(@PathVariable int id) {
-//		srv.deleteById(id);
-//	}
+	
+	@GetMapping(path = {"/{id:\\d+}"})
+	public Language getOne(@PathVariable int id) throws NotFoundException{
+		var lan = srv.getOne(id);
+		if (lan.isEmpty()) throw new NotFoundException();
+		return lan.get();
+	}	
 
+	
+	@GetMapping(path = {"/{id}/films"}) 
+	public List<ItemDto<Integer, String>> getActorFilms(@PathVariable int id) throws NotFoundException{
+		var lan = srv.getOne(id);
+		if (lan.isEmpty()) throw new NotFoundException();
+		
+		return lan.get().getFilms().stream()
+				.map(o -> new ItemDto<>(o.getFilmId(), o.getTitle()))
+				.toList();
+	}
 
+	@PostMapping
+	public ResponseEntity<Object> create(@Valid @RequestBody Language item) throws BadRequestException, DuplicateKeyException, InvalidDataException{
+				
+		srv.add(item);
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(item.getLanguageId()).toUri();
+
+		return ResponseEntity.created(location).build();
+	}
+
+	@PutMapping("/{id}")
+	@ResponseStatus (HttpStatus.NO_CONTENT)
+	public void update(@PathVariable int id, @Valid @RequestBody Language item) throws BadRequestException, NotFoundException, InvalidDataException {
+		if (id != item.getLanguageId()) throw new BadRequestException("IDs doesnt match");
+		srv.modify(item);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id) {
+		srv.deleteById(id);
+	}
 }
