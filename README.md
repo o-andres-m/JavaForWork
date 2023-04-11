@@ -87,7 +87,7 @@ You can run Eureka Client in default port 8761.
 
  PostMan API Tools: :triangular_flag_on_post:
 
-- [Download Postman file] (/files/JavaFilms_V1.postman_collection) to import all Api Requests and Tests.
+- [Download Postman file](/files/JavaFilms_V1.postman_collection) to import all Api Requests and Tests.
 - Every request is prepared for run in http://localhost:8080/**
 
 
