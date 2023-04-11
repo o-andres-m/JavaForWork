@@ -37,6 +37,18 @@ public class FilmResource {
 	@Autowired
 	FilmService srv;
 	
+	//ESTO ES DE SWAGGER: Ver bien...
+//	@Operation(
+//			summary = "Listado de las peliculas", 
+//			description = "Recupera la lista de peliculas en formato corto o detallado, se puede paginar.", 
+//			parameters = {
+//					@Parameter(in = ParameterIn.QUERY, name = "mode", required = false, description = "Formato de las peliculas", schema = @Schema(type = "string", allowableValues = {
+//					"details", "short" }, defaultValue = "short")) },
+//			responses = {
+//					@ApiResponse(responseCode = "200", description = "OK", content = 
+//							@Content(mediaType = "application/json", schema = @Schema(anyOf = {FilmShortDTO.class, FilmDetailsDTO.class}) ))
+//			})
+	
 	@GetMapping
 	@Transactional
 	public List<FilmDetailsDTO> getAll() {

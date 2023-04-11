@@ -30,6 +30,7 @@ General Readme for all packages and folders.
 - Controller Advices
 - TestResources
 - Spring Rest + HATEOAS
+- Swagger(Not running..)
 
 ---
 
@@ -65,6 +66,8 @@ General Readme for all packages and folders.
 - LanguageResource
 - LanguageResourceTest
 
+- Swagger
+
 Note: For run SakilaDb with docker:
 
 `docker run -d --name mysql-sakila -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 jamarton/mysql-sakila`
@@ -98,7 +101,7 @@ Note: For run SakilaDb with docker:
 
 - Server with Web front
 - Actor controllers (view, add, edit, delete)
-- Films controllers (view, add, edit, delete)
+- Films controllers (view, add, edit, delete) - Short Version
 
 Defaults for use:
 
@@ -123,5 +126,5 @@ password: admin
 
 ### ms.eureka :cloud:
 
-- Growing... :construction:
+- 
 

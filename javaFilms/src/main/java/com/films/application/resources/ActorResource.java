@@ -33,6 +33,7 @@ import com.films.domains.entities.dto.ActorShort;
 import com.films.domains.entities.dto.ActorShortDTO;
 import com.films.domains.entities.dto.ItemDto;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 
 
@@ -51,7 +52,7 @@ public class ActorResource {
 		return srv.getByProjection(ActorShort.class);
 	}
 	
-	
+	@Hidden
 	@GetMapping(params = "page")
 	public Page<ActorDTO> getAllPageable(Pageable page) {
 		return srv.getByProjection(page, ActorDTO.class);

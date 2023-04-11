@@ -35,6 +35,7 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -59,7 +60,8 @@ public class ActorResource {
 	}
 	
 	
-	
+	@Hidden
+	//El hidden es para el SWAGGER, que "NO MUESTRE" si es mandatario o no
 	@GetMapping(params = "page")
 	public Page<ActorDto> getAllPageable(Pageable page) {
 		return srv.getByProjection(page, ActorDto.class);

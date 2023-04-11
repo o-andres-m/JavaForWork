@@ -11,6 +11,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 public interface RepositoryWithProjections {
 	
 	@RestResource(exported = false)
+	//El rest resource es para que "ignore" este metodo el Spring Data Rest
 	<T> List<T> findAllBy(Class<T> tipo);
 	
 	@RestResource(exported = false)

@@ -36,6 +36,7 @@ import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
 import com.films.domains.entities.dto.ItemDto;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 
 
@@ -46,12 +47,14 @@ public class FilmResource {
 	@Autowired
 	FilmService srv;
 	
+
 	@GetMapping
 	public List<FilmShortDTO> getAll(@RequestParam (required = false) String sort) {
 		if(sort==null) return srv.getByProjection(FilmShortDTO.class);
 		return (List<FilmShortDTO>) srv.getByProjection(Sort.by(sort), FilmShortDTO.class);
 	}
 	
+	@Hidden
 	@GetMapping(params = "page")
 	public Page<FilmShortDTO> getAllPageable(Pageable page) {
 		return srv.getByProjection(page, FilmShortDTO.class);
