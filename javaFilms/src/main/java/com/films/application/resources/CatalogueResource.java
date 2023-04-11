@@ -1,7 +1,6 @@
 package com.films.application.resources;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
