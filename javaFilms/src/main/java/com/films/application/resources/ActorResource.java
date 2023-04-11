@@ -106,7 +106,7 @@ public class ActorResource {
 	
 	@GetMapping("/news")
 	public List<ActorShortDTO> getAllNews(@RequestParam (required = false) Timestamp time) {
-		if (time != null) {
+		if (time == null) {
 			return srv.news(Timestamp.from(Instant.now().minusSeconds(864000)))
 					.stream().map(actor -> 
 					new ActorShortDTO(actor.getActorId(),actor.getFirstName()+ " "+ actor.getLastName())).toList();

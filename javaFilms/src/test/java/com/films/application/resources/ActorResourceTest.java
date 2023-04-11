@@ -329,8 +329,8 @@ class ActorResourceTest {
 			
 			when(srv.news(time)).thenReturn(listOfActors);
 			
-			mockMvc.perform(get("/api/actors/v1/news?time=2023-01-01%00:00:00")
-					//.param("time", stringTime)
+			mockMvc.perform(get("/api/actors/v1/news")
+					.param("time", stringTime)
 					)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.size()").value(3))

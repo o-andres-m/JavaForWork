@@ -31,6 +31,7 @@ import com.films.domains.core.exceptions.DuplicateKeyException;
 import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.Film;
+import com.films.domains.entities.dto.ActorShortDTO;
 import com.films.domains.entities.dto.FilmDetailsDTO;
 import com.films.domains.entities.dto.FilmEditDTO;
 import com.films.domains.entities.dto.FilmShortDTO;
@@ -115,28 +116,39 @@ public class FilmResource {
 	}
 	
 	
+//	@GetMapping("/news")
+//	public List<FilmShortDTO> getAllNews(@RequestParam (required = false) Integer days) {
+//
+//		
+//		List<Film> filmList = new ArrayList<>();
+//		
+//		if(days==null || days<=0 ) {
+//			
+//			/**
+//			 * Default Time: 864.000 -> 10 days	
+//			 */
+//			
+//			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(864000)));
+//		}else {
+//
+//			// 1 day = 86400 secs
+//			
+//			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)));
+//		}
+//		return filmList.stream()
+//				.map(item -> new FilmShortDTO(item.getFilmId(),item.getTitle()))
+//				.toList();
+//	}
+	
 	@GetMapping("/news")
-	public List<FilmShortDTO> getAllNews(@RequestParam (required = false) Integer days) {
-
-		
-		List<Film> filmList = new ArrayList<>();
-		
-		if(days==null || days<=0 ) {
-			
-			/**
-			 * Default Time: 864.000 -> 10 days	
-			 */
-			
-			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(864000)));
-		}else {
-
-			// 1 day = 86400 secs
-			
-			filmList = srv.news(Timestamp.from(Instant.now().minusSeconds(days*86400)));
+	public List<FilmShortDTO> getAllNews(@RequestParam (required = false) Timestamp time) {
+		if (time == null) {
+			return srv.news(Timestamp.from(Instant.now().minusSeconds(864000)))
+					.stream().map(film -> 
+					new FilmShortDTO(film.getFilmId(),film.getTitle())).toList();
 		}
-		return filmList.stream()
-				.map(item -> new FilmShortDTO(item.getFilmId(),item.getTitle()))
-				.toList();
+		return srv.news(time).stream().map(film -> 
+			new FilmShortDTO(film.getFilmId(),film.getTitle())).toList();
 	}
 
 }
