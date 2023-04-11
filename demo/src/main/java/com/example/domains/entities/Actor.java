@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import com.example.domains.core.entities.EntityBase;
 import com.example.domains.validations.NIF;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	// A veces es necesario tenerlo, pero consume mas recursos
 	// Si le ponemos el LAZY, podemos usar el @Transactional en donde usamos el ORM
 	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private List<FilmActor> filmActors = new ArrayList<>();
 
 	public Actor() {
