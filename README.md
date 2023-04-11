@@ -29,6 +29,7 @@ General Readme for all packages and folders.
 - Resources (Actor CRUD)
 - Controller Advices
 - TestResources
+- Spring Rest + HATEOAS
 
 ---
 
@@ -61,6 +62,8 @@ General Readme for all packages and folders.
 - FilmResourceTest
 - CatalogueResource
 - CatalogueResourceTest
+- LanguageResource
+- LanguageResourceTest
 
 Note: For run SakilaDb with docker:
 
