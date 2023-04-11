@@ -1,6 +1,8 @@
 package com.films.application.resources;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import com.films.domains.core.exceptions.InvalidDataException;
 import com.films.domains.core.exceptions.NotFoundException;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.ActorShort;
+import com.films.domains.entities.dto.ActorShortDTO;
 import com.films.domains.entities.dto.ItemDto;
 
 import jakarta.validation.Valid;
@@ -98,6 +101,17 @@ public class ActorResource {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable int id) {
 		srv.deleteById(id);
+	}
+	
+	@GetMapping("/news")
+	public List<ActorShortDTO> getAllNews(@RequestParam (required = false) Timestamp time) {
+		if (time != null) {
+			return srv.news(Timestamp.from(Instant.now().minusSeconds(864000)))
+					.stream().map(actor -> 
+					new ActorShortDTO(actor.getActorId(),actor.getFirstName()+ " "+ actor.getLastName())).toList();
+		}
+		return srv.news(time).stream().map(actor -> 
+		new ActorShortDTO(actor.getActorId(),actor.getFirstName()+ " "+ actor.getLastName())).toList();
 	}
 
 }

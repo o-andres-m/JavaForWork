@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,7 @@ import com.films.domains.entities.Actor;
 import com.films.domains.entities.FilmActor;
 import com.films.domains.entities.dto.ActorDTO;
 import com.films.domains.entities.dto.ActorShort;
+import com.films.domains.entities.dto.ActorShortDTO;
 
 import lombok.Value;
 
@@ -298,4 +300,41 @@ class ActorResourceTest {
 			verify(srv,times(1)).deleteById(1);
 		}
 	}
+	
+	@Nested
+	class News{
+		@Test
+		void testNews() throws JsonProcessingException, Exception {
+
+			var actor1= new Actor(1);
+			actor1.setFirstName("First1");
+			actor1.setLastName("Last1");
+
+			var actor2= new Actor(2);
+			actor2.setFirstName("First2");
+			actor2.setLastName("Last2");
+			
+			var actor3= new Actor(3);
+			actor3.setFirstName("First3");
+			actor3.setLastName("Last3");
+			
+			var listOfActors = new ArrayList<Actor>(
+			        Arrays.asList(actor1, actor2, actor3));
+			
+			var stringTime = "2023-01-01 00:00:00";
+			
+			var time = Timestamp.valueOf(stringTime);
+			
+			when(srv.news(time)).thenReturn(listOfActors);
+			
+			mockMvc.perform(get("/api/actors/v1/news")
+					.param("time", stringTime)
+					)
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$.size()").value(3))
+			        .andDo(print());	
+			
+		}
+	}
+	
 }
