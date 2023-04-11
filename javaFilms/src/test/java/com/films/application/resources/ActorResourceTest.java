@@ -1,5 +1,6 @@
 package com.films.application.resources;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -327,9 +329,36 @@ class ActorResourceTest {
 			
 			when(srv.news(time)).thenReturn(listOfActors);
 			
-			mockMvc.perform(get("/api/actors/v1/news")
-					.param("time", stringTime)
+			mockMvc.perform(get("/api/actors/v1/news?time=2023-01-01%00:00:00")
+					//.param("time", stringTime)
 					)
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$.size()").value(3))
+			        .andDo(print());	
+			
+		}
+		
+		@Test
+		void testNewsNull() throws JsonProcessingException, Exception {
+
+			var actor1= new Actor(1);
+			actor1.setFirstName("First1");
+			actor1.setLastName("Last1");
+
+			var actor2= new Actor(2);
+			actor2.setFirstName("First2");
+			actor2.setLastName("Last2");
+			
+			var actor3= new Actor(3);
+			actor3.setFirstName("First3");
+			actor3.setLastName("Last3");
+			
+			var listOfActors = new ArrayList<Actor>(
+			        Arrays.asList(actor1, actor2, actor3));
+			
+			when(srv.news(any())).thenReturn(listOfActors);
+			
+			mockMvc.perform(get("/api/actors/v1/news"))
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.size()").value(3))
 			        .andDo(print());	
