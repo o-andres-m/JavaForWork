@@ -153,7 +153,7 @@ password: admin
 
 ---
 
-### front! :cloud:
+### front! :spring:
 
-- Eureka Microservices Register
+- PruebaFrontEnd
 
