@@ -152,8 +152,3 @@ password: admin
 
 
 ---
-
-### front! :spring:
-
-- PruebaFrontEnd
-
