@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.films.domains.contracts.repository.FilmRepository;
 import com.films.domains.core.exceptions.DuplicateKeyException;
@@ -113,24 +116,140 @@ class FilmServiceImplTest {
 		
 	}
 	
-	
-	@Test
-	void testFindAll() throws DuplicateKeyException, InvalidDataException {
+	@Nested
+	class FindAll{
+		
+		@Test
+		void testFindAll() throws DuplicateKeyException, InvalidDataException {
 
-		List<Film> lista = new ArrayList<>(
-								Arrays.asList(
-									new Film(1),
-									new Film(2),
-									new Film(3)
-									));
-		when(dao.findAll()).thenReturn(lista);
+			List<Film> lista = new ArrayList<>(
+									Arrays.asList(
+										new Film(1),
+										new Film(2),
+										new Film(3)
+										));
+			when(dao.findAll()).thenReturn(lista);
+			
+			var returned = srv.getAll();
+			
+			assertTrue(returned instanceof List<Film>);
+			assertTrue(returned.size()>0);
+		}
 		
-		var returned = srv.getAll();
+		@Test
+		void testGetByProjection() {
+
+			List<Film> lista = new ArrayList<>(
+					Arrays.asList(
+						new Film(1),
+						new Film(2),
+						new Film(3)
+						));
+			
+			when(dao.findAllBy(Film.class)).thenReturn(lista);
+			
+			var filmList = srv.getByProjection(Film.class);
+			
+			assertAll("Propieties",
+					()-> assertNotNull(filmList),
+					()-> assertTrue(filmList.size()>0),
+					()-> assertEquals(1, filmList.get(0).getFilmId())
+					);
+		}
 		
-		assertTrue(returned instanceof List<Film>);
-		assertTrue(returned.size()>0);
+		@Test
+		void testGetSort() {
+			
+			var film1 = new Film(1);
+			film1.setTitle("C");
+
+			var film2 = new Film(2);
+			film2.setTitle("A");
+			
+			var film3 = new Film(3);
+			film3.setTitle("B");
+
+			List<Film> filmList = new ArrayList<>(
+					Arrays.asList(
+						film2,
+						film3,
+						film1
+						));
+			
+			when(dao.findAll(Sort.by("title"))).thenReturn(filmList);
+			
+			var filmList2 = (List<Film>)srv.getAll(Sort.by("title"));
+
+			
+			assertAll("Propieties",
+					()-> assertNotNull(filmList2),
+					()-> assertTrue(filmList2.size()==3),
+					()-> assertEquals("A", filmList2.get(0).getTitle())
+					);
+		}
+		
+		@Test
+		void testGetByProjectionSortClassOfT() {
+			
+			var film1 = new Film(1);
+			film1.setTitle("C");
+
+			var film2 = new Film(2);
+			film2.setTitle("A");
+			
+			var film3 = new Film(3);
+			film3.setTitle("B");
+
+			List<Film> filmList = new ArrayList<>(
+					Arrays.asList(
+						film2,
+						film3,
+						film1
+						));
+			
+			when(dao.findAllBy(Sort.by("title"), Film.class)).thenReturn(filmList);
+			
+			var filmList2 = (List<Film>)srv.getByProjection(Sort.by("title"), Film.class);
+
+			
+			assertAll("Propieties",
+					()-> assertNotNull(filmList2),
+					()-> assertTrue(filmList2.size()==3),
+					()-> assertEquals("A", filmList2.get(0).getTitle())
+					);
+		}
+		
+		@Test
+		void testGetByProjectionPageable() {
+			
+			var film1 = new Film(1);
+			film1.setTitle("A");
+
+			var film2 = new Film(2);
+			film2.setTitle("B");
+			
+
+			List<Film> filmList = new ArrayList<>(
+					Arrays.asList(
+						film1,
+						film2
+						));
+			
+			var page = new PageImpl<Film>(filmList);
+			
+			when(dao.findAll(Pageable.ofSize(2))).thenReturn(page);
+			
+			var pageFilms = srv.getAll(Pageable.ofSize(2));
+
+			
+			assertAll("Propieties",
+					()-> assertNotNull(pageFilms),
+					()-> assertTrue(pageFilms.getSize()==2),
+					()-> assertTrue(pageFilms.getContent().get(0).getTitle()=="A")
+
+					);
+		}
 	}
-
 	
 	@Nested
 	class Modify {

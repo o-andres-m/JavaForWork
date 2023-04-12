@@ -42,9 +42,7 @@ class ActorServiceImplTest {
 		void testGetByProjectionSortClassOfT() {
 
 			var actorList = (List<Actor>)srv.getByProjection(Sort.by("firstName"), Actor.class);
-			
-			System.out.println(actorList);
-			
+						
 			assertAll("Propieties",
 					()-> assertNotNull(actorList),
 					()-> assertTrue(actorList.size()>0),
