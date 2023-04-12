@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import io.swagger.v3.oas.models.Operation;
 
 import com.example.domains.contracts.services.FilmService;
 import com.example.domains.entities.dtos.ActorDto;
@@ -51,8 +52,8 @@ public class FilmResource {
 	
 	@GetMapping
 	@Transactional
-	public List<FilmDetailsDTO> getAll() {
-		return srv.getByProjection(FilmDetailsDTO.class);
+	public List<FilmShortDTO> getAll() {
+		return srv.getByProjection(FilmShortDTO.class);
 	}
 	
 	@GetMapping(path = {"/{id}"})
