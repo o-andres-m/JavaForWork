@@ -1,9 +1,27 @@
 package com.films;
 
 import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+
+
+@OpenAPIDefinition(
+        info = @Info(
+                title = "MicroService: Films Catalogue",
+                version = "1.0",
+                description = "Microservices Example with **SakilaDB** .",
+                license = @License(name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
+                contact = @Contact(name = "Osvaldo Andres MARTINEZ", url = "https://github.com/o-andres-m")
+        ),
+        externalDocs = @ExternalDocumentation(description = "Project Documentation", url = "https://github.com/o-andres-m/JavaForWork/tree/main/javaFilms")
+)
 @SpringBootApplication
 public class JavaFilmsApplication implements CommandLineRunner {
 	
