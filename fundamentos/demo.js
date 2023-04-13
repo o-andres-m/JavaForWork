@@ -83,3 +83,11 @@ for(a in t){
 for(a of t){
     console.log(a); //Aca obtenemos los VALORES
 }
+
+
+//Ternario:
+valor=1;
+//     condicion    true  :   false
+console.log( valor ? `Cierto` : `Falso`);
+//Ojo aca! valor es 1, entonces es TRUE!
+
