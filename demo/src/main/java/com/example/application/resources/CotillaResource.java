@@ -82,21 +82,24 @@ public class CotillaResource {
 	
 	@GetMapping(path = "/pelis/rt")
 	public List<PelisDto> getPelisRT() {
-//		ResponseEntity<List<PelisDto>> response = srvLB.exchange(
-//				"lb://JAVAFILMS-SERVICE/api/film/v1", 
-		ResponseEntity<List<PelisDto>> response = srv.exchange(
-				"http://localhost:8010/api/films/v1", 
+		ResponseEntity<List<PelisDto>> response = srvLB.exchange(
+				"lb://JAVAFILMS-SERVICE/api/films/v1", 
+//		ResponseEntity<List<PelisDto>> response = srv.exchange(
+//				"http://localhost:8010/api/films/v1", 
 				HttpMethod.GET,
 				HttpEntity.EMPTY, 
 				new ParameterizedTypeReference<List<PelisDto>>() {}
 		);
 		return response.getBody();
 	}
+	
 	@GetMapping(path = "/pelis/{id}/rt")
 	public PelisDto getPelisRT(@PathVariable int id) {
-		return srvLB.getForObject("lb://JAVAFILMS-SERVICE/peliculas/v1/{key}?mode=short", PelisDto.class, id);
-//		return srv.getForObject("http://localhost:8010/peliculas/v1/{key}?mode=short", PelisDto.class, id);
+		return srvLB.getForObject("lb://JAVAFILMS-SERVICE/api/films/v1/{key}", PelisDto.class, id);
+//		return srv.getForObject("http://localhost:8010/api/films/v1/{key}", PelisDto.class, id);
 	}
+	
+	//TODO Balancea RT (Ver Actuator en JAVAFILMS)
 	@GetMapping(path = "/balancea/rt")
 	public List<String> getBalanceoRT() {
 		List<String> rslt = new ArrayList<>();
@@ -128,7 +131,7 @@ public class CotillaResource {
 		return proxy.getPeli(id);
 	}
 	
-	//TODO
+	//TODO Balancea RT (Ver Actuator en JAVAFILMS)
 	@GetMapping(path = "/balancea/proxy")
 	public List<String> getBalanceoProxy() {
 		List<String> rslt = new ArrayList<>();
@@ -212,8 +215,5 @@ public class CotillaResource {
 	@GetMapping(path = "/fotos")
 	public List<PhotoDTO> getFotosProxy() {
 		return proxyExterno.getAll();
-	}
-
-	
-	
+	}	
 }
