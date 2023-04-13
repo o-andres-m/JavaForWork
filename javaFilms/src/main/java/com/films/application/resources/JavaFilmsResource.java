@@ -31,6 +31,7 @@ public class JavaFilmsResource {
 			private Href films = new Href("/api/films/v1");
 			private Href categories = new Href("/api/category/v1");
 			private Href languages = new Href("/api/language/v1");
+			private Href catalogue = new Href("/api/catalogue/v1");
 			private Href swagger = new Href("/open-api");
 		}
 
