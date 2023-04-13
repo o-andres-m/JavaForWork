@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.application.proxies.CatalogoProxy;
 import com.example.application.proxies.PhotoProxy;
+import com.example.domains.entities.dtos.FilmShortDTO;
 import com.example.domains.entities.dtos.PelisDto;
 
 //import com.example.application.proxies.CatalogoProxy;
@@ -118,7 +119,7 @@ public class CotillaResource {
 	CatalogoProxy proxy;
 
 	@GetMapping(path = "/pelis/proxy")
-	public List<PelisDto> getPelisProxy() {
+	public List<FilmShortDTO> getPelisProxy() {
 		return proxy.getPelis();
 	}
 
@@ -126,6 +127,8 @@ public class CotillaResource {
 	public PelisDto getPelisProxy(@PathVariable int id) {
 		return proxy.getPeli(id);
 	}
+	
+	//TODO
 	@GetMapping(path = "/balancea/proxy")
 	public List<String> getBalanceoProxy() {
 		List<String> rslt = new ArrayList<>();

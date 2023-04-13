@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.example.domains.entities.dtos.FilmShortDTO;
 import com.example.domains.entities.dtos.PelisDto;
 
 @FeignClient(name = "JAVAFILMS-SERVICE" /*, url = "http://localhost:8010"*/)
@@ -19,7 +20,7 @@ public interface CatalogoProxy {
 	String getInfo();
 	
 	@GetMapping(path = "/api/films/v1")
-	List<PelisDto> getPelis();
+	List<FilmShortDTO> getPelis();
 	
 	@GetMapping(path = "/films/v1?mode=details")
 	List<PelisDto> getPelisConDetalle();
