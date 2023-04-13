@@ -16,7 +16,7 @@ public interface CatalogoProxy {
 	@GetMapping(path = "/")
 	String getCatalogo();
 	
-	@GetMapping(path = "/actuator/info")
+	@GetMapping(path = "/actuator")
 	String getInfo();
 	
 	@GetMapping(path = "/api/films/v1")
@@ -28,9 +28,10 @@ public interface CatalogoProxy {
 	@GetMapping(path = "/api/films/v1/{id}")
 	PelisDto getPeli(@PathVariable int id);
 	
-	@PostMapping(path = "/peliculas/v1/{id}/like")
-	String meGusta(@PathVariable int id);
-	
-	@PostMapping(path = "/peliculas/v1/{id}/like")
-	String meGusta(@PathVariable int id, @RequestHeader(value = "Authorization", required = true) String authorization);
+//	 NO USADOS: 
+//	@PostMapping(path = "/peliculas/v1/{id}/like")
+//	String meGusta(@PathVariable int id);
+//	
+//	@PostMapping(path = "/peliculas/v1/{id}/like")
+//	String meGusta(@PathVariable int id, @RequestHeader(value = "Authorization", required = true) String authorization);
 }

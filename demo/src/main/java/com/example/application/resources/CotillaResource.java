@@ -99,7 +99,6 @@ public class CotillaResource {
 //		return srv.getForObject("http://localhost:8010/api/films/v1/{key}", PelisDto.class, id);
 	}
 	
-	//TODO Balancea RT (Ver Actuator en JAVAFILMS)
 	@GetMapping(path = "/balancea/rt")
 	public List<String> getBalanceoRT() {
 		List<String> rslt = new ArrayList<>();
@@ -108,7 +107,7 @@ public class CotillaResource {
 		for(int i = 0; i < 11; i++)
 			try {
 				LocalTime ini = LocalTime.now();
-				rslt.add(srvLB.getForObject("lb://JAVAFILMS-SERVICE/actuator/info", String.class)
+				rslt.add(srvLB.getForObject("lb://JAVAFILMS-SERVICE/actuator", String.class)
 						+ " (" + ini.until(LocalTime.now(), ChronoUnit.MILLIS) + " ms)" );
 			} catch (Exception e) {
 				rslt.add(e.getMessage());
@@ -131,7 +130,6 @@ public class CotillaResource {
 		return proxy.getPeli(id);
 	}
 	
-	//TODO Balancea RT (Ver Actuator en JAVAFILMS)
 	@GetMapping(path = "/balancea/proxy")
 	public List<String> getBalanceoProxy() {
 		List<String> rslt = new ArrayList<>();
