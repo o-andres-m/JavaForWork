@@ -3,6 +3,13 @@ a=5;
 b=6;
 console.log(`------> ${+a+b}`);
 
+
+//////////////////////
+// CONDICIONALES /////
+/////////////////////
+console.log('----------------------------------');
+console.log('-----------CONDICIONALES-----------');
+console.log('----------------------------------');
 /**
  * Operadores
     • Asignación
@@ -69,8 +76,12 @@ if(a=1){  //OJO CON ESTO!!!!! el signo  = es un operador que devuelve el valor a
  x=88;
  console.log(`------> ${x}`); //Aca Si funcionaria
 
-////////////7
-//Ojo con los FOR
+///////////////////
+// BUCLES FOR /////
+//////////////////
+console.log('----------------------------------');
+console.log('-----------BUCLES FOR-------------');
+console.log('----------------------------------');
 
 t = [10,20,30];  //una lista de 3 elementos numericos
 
@@ -91,11 +102,14 @@ valor=1;
 console.log( valor ? `Cierto` : `Falso`);
 //Ojo aca! valor es 1, entonces es TRUE!
 
+
+///////////////////
+// FUNCIONES /////
+//////////////////
 console.log('----------------------------------');
-console.log('----------------------------------');
+console.log('------------FUNCIONES--------------');
 console.log('----------------------------------');
 
-// Funciones:
 
 function nombreDeFuncion(atributos){
     return atributos + atributos;
@@ -166,7 +180,14 @@ var funcion = function(a,b) {return a+b};
 //la funcion anonima, desaparece esa variable i
 
 
-//////////
+
+///////////////
+// LAMBDAS ////
+//////////////
+console.log('----------------------------------');
+console.log('-------------LAMBDAS--------------');
+console.log('----------------------------------');
+
 // Funcion VS Funcion Lambda:
 function suma(a,b) { return a+b;}
 suma = (a,b) => a+b; // LAMBDA
@@ -207,9 +228,12 @@ for(let i = 0; i<10; i++){
 //Ver lo del profe de PUNTO
 punto = {x:1, y:2};
 
-////////
-
-// Arrays y Objetos:
+///////////////
+// ARRAYS ////
+//////////////
+console.log('----------------------------------');
+console.log('--------------ARRAYS--------------');
+console.log('----------------------------------');
 
 let tab = new Array();
 tab = [10,20,30];
@@ -258,7 +282,7 @@ for(b of tab){
 // OBJETOS ////
 //////////////
 console.log('----------------------------------');
-console.log('----------------------------------');
+console.log('---------------OBJETOS------------');
 console.log('----------------------------------');
 
 
@@ -279,7 +303,7 @@ console.log(o.nom()); //Imprimimos el RETORNO de la funcion nom
 // FUNCIONES CONSTRUCTORAS ////
 /////////////////////////////
 console.log('----------------------------------');
-console.log('----------------------------------');
+console.log('------FUNCIONES CONSTRUCTORAS----');
 console.log('----------------------------------');
 
 function MiClase(elId, elNombre) {
@@ -308,6 +332,10 @@ console.log(otroObjeto);
 ////////////////
 // PROTOTYPE ////
 /////////////////
+console.log('----------------------------------');
+console.log('-----------PROTOTYPE------------');
+console.log('----------------------------------');
+
 //Es para ir añadiendole cosas a los objetos:
 //Le vamos a agregar una funcion lambda que se llame cotilla:
 MiClase.prototype.cotilla = () => console.log('Estoy en el prototpo de MICLASE')
