@@ -12,16 +12,57 @@
     <b>Etiqueta B</b>
 
 
-
+<!--
 
     <script>
         x = "En la pagina";
         console.log('HolaJavascript!');
         kk();
     </script>
-
-    <!-- Lo busca en fichero: -->
+-->
+<!--    Lo busca en fichero: 
     <script src="demo.js"></script>
+-->
+
+
+    <!-- IMPORTANDO MODULOS: -->
+
+    <!-- Hay que poner el type="module" informando que estamos importando un modulo -->
+    <script type="module">
+        //se importa todo:
+        import * as m1 from './modulo1.js'
+
+
+        //Se importa solo lo que le pedimos:
+        import {nombre,calc,display} from './modulo2.js'
+
+
+        //Usamos algo del modulo 1 con el alias m1 que le hemos puesto:
+        console.log(m1.nombre + ` ` + m1.calc(2,2));
+
+        //Usamos algo del modulo 2 sin alias:
+        console.log(nombre + ` ` + calc(2,2));
+        display();
+
+        //Si quisieramos importar de diferentes modulos cosas con el mismo nombre podemos hacer:
+        import {nombre as nombre1} from './modulo1.js'
+
+        console.log(nombre + ` <- De modulo 2 \n` + nombre1 + ` <- De modulo 1`);
+
+
+        //ATENCION!!! Todo se importa como CONSTANTE:
+        // nombre = 'Nuevo nombre';   <----  esto DARIA ERROR
+        
+        //Para esto podemos hacer en el modulo, una nueva funcion que haga de modificador de variables:
+        import {setNuevoNombre} from './modulo1.js';
+
+        setNuevoNombre("NuevoNombre");
+        console.log(m1.nombre);
+
+
+
+
+    </script>
     
 
 
