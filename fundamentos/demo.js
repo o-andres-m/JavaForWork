@@ -340,6 +340,170 @@ console.log('----------------------------------');
 //Le vamos a agregar una funcion lambda que se llame cotilla:
 MiClase.prototype.cotilla = () => console.log('Estoy en el prototpo de MICLASE')
 
-
 var otroObjeto2 = new MiClase("99", "Objeto de prueba");
 otroObjeto2.cotilla();
+
+//otroObjeto.cotilla();
+//Aqui no funcionaria, porque fue creado antes de asignarle el prototipo!
+
+//Esto sirve para "construirle" cosas a los objetos
+//Estamos construyendole metodos internos
+
+Array.prototype.kk = () => console.log('Ahora Array tiene un metodo kk()');
+t = [];
+t.kk();
+
+////////////////
+// GLOBAL ////
+/////////////////
+console.log('----------------------------------');
+console.log('-------------GLOBAL--------------');
+console.log('----------------------------------');
+
+// Es una variable que tiene a todas las variables usadas en la aplicacion:
+// console.log(globalThis);
+
+
+////////////////
+////// THIS ////
+/////////////////
+console.log('----------------------------------');
+console.log('-------------THIS----------------');
+console.log('----------------------------------');
+
+//El this hace referencia a un objeto, y eso cambia en funcion al contexto
+//si es dentro de una funcion constructora, hace referencia al objeto que se esta inicializando
+//si es dentro de una funcion comun, hace referencia a la propia funcion
+//si esta dentro del ambito global, hace referencia a la variable thisGlobal
+
+let obj = new Object();
+obj = {};
+
+obj.nombre = "Nombre";
+obj.apellidos= "Apellidos"; 
+obj.nom = () => this.nombre + ' ' + this.apellidos; //Le asignamos una funcion anonima
+
+console.log(obj.nom()); //Imprimimos el RETORNO de la funcion nom
+//OJO!!! UNDEFINED!!! Porque??? Porque usa el THIS de GLOBAL
+
+const ponerNombre = function(tratamiento){
+    return tratamiento + ' ' + this.nombre + ' ' + this.apellidos
+}
+// Creamos una funcion CONSTANTE que devuelve el tratamiento, y "nombre" y "apellidos"
+//Lo que hacemos ahora, es a esa funcion "ponerNombre" se la  "APLICAMOS" un objeto con apply:
+console.log(ponerNombre.apply(obj, ["Sr"]));
+// Si la funcion tiene atributos, con el apply hay que mandarselos con array, sino con call:
+console.log(ponerNombre.call(obj, "Sr"));
+//Lo que hace esto es ejecutar la funcion ponerNombre con los ATRIBUTOS PROPIOS DEL OBJETO
+//Es decir, ahora ponerNombre con su "this" buscara las cosas propias del OBJETO que le hemos enviado
+
+//////////////////////
+
+// Al this podemos meterlo en una variable:
+
+function MiClase(elId, elNombre) {
+    let nuevoThis = this;
+    nuevoThis.id = elId;
+    nuevoThis.nombre = elNombre;
+    nuevoThis.muestraId = function() {
+        console.log("El ID del objeto es " + this.id);
+    }
+    nuevoThis.ponNombre = function(nom) {
+        nuevoThis.nombre=nom.toUpperCase();
+    }
+    return 'Retorno comun';
+}
+
+// Esto se hace para evitar inconvenientes con la palabra "this"
+// Aca el THIS hace referencia al THIS DE ESE OBJETO EN SI (ver como usa su "nuevo this")
+// Porque podriamos hacer:
+var obj1= new MiClase('11', 'Nombre 11');
+var obj2= new MiClase('22', 'Nombre 22');
+
+obj1.muestraId();
+//hasta ahi nada raro, ahora...
+obj1.muestraId.call(obj2);
+//Vemos que llamamos la funcion muestraId DESDE EL OBJ1, pero con el OBJ2
+//Entonces, al usar el THIS en la funcion muestraId, muestra el ID del OBJ2 que le mandamos a llamar
+
+// Hay que estar atentos a como se usa el THIS y como reacciona segun donde se aplica
+
+
+////////////////////////////////////////////////
+////// NOMBRES VARIABLES EN OBJETOS ////
+/////////////////////////////////////////////////
+console.log('----------------------------------');
+console.log('--NOMBRES DE VARIABLES EN OBJETOS--');
+console.log('----------------------------------');
+
+let x1 = 10, y1 = 20;
+
+//Lo correcto seria:
+let punto1 = { x1 : x1 , y1 : y1 }
+
+//Pero se puede hacer:
+punto1 = { x1 , y1 }
+//Es exactamente lo mismo, lo que hace es asignar la "key" x1 con el nombre de la variable x1
+//y ademas le asigna el valor de x1. Para esto es importante asignar bien los nombres de variables
+
+//Con funciones se puede hacer:
+
+punto1 = { x1 : x1 , y1 : y1 , suma : function() {return this.x1 + this.x2} } //old
+
+punto1 = { x1 , y1 , suma() {return this.x1 + this.x2} } //new!
+
+// En este caso, la funcion suma dentro del objeto, podremos acceder con la key 'suma'
+
+
+///////////////////
+////// CLASES ////
+//////////////////
+console.log('----------------------------------');
+console.log('--------------CLASES--------------');
+console.log('----------------------------------');
+
+class Rectangle {
+    constructor(width,height){
+        this._width = width;
+        this._height = height;
+    }
+    set width (width) { this._width = width; }
+    get width () { return this._width ; }
+
+    set height (height) { this._height = height; }
+    get height () { return this._height ; }
+
+    get area() { return this._width * this._height; }
+}
+
+var rectangulo = new Rectangle(10,20);
+console.log(rectangulo.area);
+
+// Las clases pueden heredar:
+
+class Persona {
+    constructor(id, nombre, apellidos){
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
+    //al tener el get, lo llamaremos como si fuera una PROPIEDAD SIN PARENTESIS
+    get nombreCompleto(){
+        return this.nombre + ', ' + this.apellidos;
+    } 
+
+    //metodo de clase: a este lo llamaremos CON PARENTESIS
+    pinta(){
+        console.log(this.nombreCompleto)
+    }
+}
+
+let persona1 = new Persona(1,"Juan","Gomez");
+let persona2 = new Persona(2,"Martin","Perez");
+let persona3 = new Persona(3,"Jose","Martinez");
+
+persona1.pinta()
+
+//ATENCION!!! Que tipo es Persona???
+console.log(typeof(Persona));
+// Es una FUNCION CONSTRUCTORA!
