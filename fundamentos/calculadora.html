@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+
+
+    <div>
+        <output id = "result"></output>
+        <table border="1">
+            <tr>
+                <td><input type="button" id="n7" value="7"></td>
+                <td><input type="button" id="n8" value="8"></td>
+                <td><input type="button" id="n9" value="9"></td>
+                <td><input type="button" id="op*" value="*"></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="n4" value="4"></td>
+                <td><input type="button" id="n5" value="5"></td>
+                <td><input type="button" id="n6" value="6"></td>
+                <td><input type="button" id="op-" value="-"></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="n1" value="1"></td>
+                <td><input type="button" id="n2" value="2"></td>
+                <td><input type="button" id="n3" value="3"></td>
+                <td><input type="button" id="op+" value="+"></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="c" value="C"></td>
+                <td><input type="button" id="n0" value="0"></td>
+                <td><input type="button" id="op," value=","></td>
+                <td><input type="button" id="op/" value="/"></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="op=" value="="></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <script>
+
+        (function(){
+            let result = document.querySelector('#result');
+            result.value=0; 
+
+            let acumulador = 0;
+            let operation = '+';
+
+            let waitingForOperation = true;
+
+            document.getElementById('n1').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 1;
+                else {
+                    result.value = 1;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n2').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 2;
+                else {
+                    result.value = 2;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n3').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 3;
+                else {
+                    result.value = 3;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n4').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 4;
+                else {
+                    result.value = 4;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n5').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 5;
+                else {
+                    result.value = 5;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n6').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 6;
+                else {
+                    result.value = 6;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n7').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 7;
+                else {
+                    result.value = 7;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n8').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 8;
+                else {
+                    result.value = 8;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('n9').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + 9;
+                else {
+                    result.value = 9;
+                    waitingForOperation = true;
+                }
+            })
+            document.getElementById('op,').addEventListener('click', ev =>{
+                if(waitingForOperation) result.value = result.value + '.';
+                else {
+                    result.value = '0.';
+                    waitingForOperation = true;
+                }
+            })
+
+
+            //Operations
+            document.getElementById('c').addEventListener('click', ev =>{
+                result.value = 0;
+            })
+
+            function calcular(newop) {
+                let operando2 = +result.value;
+                switch(operation){
+                    case '+':{
+                        acumulador+=operando2;
+                        break;
+                    }
+                    case '-':{
+                        acumulador-=operando2;
+                        break;
+                    }
+                    case '*':{
+                        acumulador*=operando2;
+                        break;
+                    }
+                    case '/':{
+                        acumulador/=operando2;
+                        break;
+                    }
+
+                }
+                result.value = acumulador;
+                operation = newop;
+                waitingForOperation=false;
+
+                if(newop=="=") {
+                    acumulador=0;
+                    operation="+";
+                }
+
+            }
+
+            document.getElementById('op+').addEventListener('click', ev =>{
+                calcular('+');
+            })
+            document.getElementById('op-').addEventListener('click', ev =>{
+                calcular('-');
+            })
+            document.getElementById('op/').addEventListener('click', ev =>{
+                calcular('/');
+            })
+            document.getElementById('op*').addEventListener('click', ev =>{
+                calcular('*');
+            })
+            document.getElementById('op=').addEventListener('click', ev =>{
+                calcular('=');
+
+            })
+
+        })();
+
+    </script>
+    
+</body>
+</html>
