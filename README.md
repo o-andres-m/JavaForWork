@@ -34,16 +34,9 @@ General Readme for all packages and folders.
 - Eureka
 - SpringCloud
 - OpenFeign
+- ExternalProxies
 
 ---
-
-
-### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
-
-- Exercise for testing and refactoring.
-
----
-
 
 
 ### javaFilms :film_projector:
@@ -68,6 +61,7 @@ General Readme for all packages and folders.
 - CatalogueResourceTest
 - LanguageResource
 - LanguageResourceTest
+- ExternalResources
 
  Documentation and Tools: :hammer_and_wrench:
  
@@ -108,6 +102,24 @@ Note: For run SakilaDb with docker:
 ---
 
 
+### fundamentos (front-end) :basecamp:
+
+- Hello JavaScript!
+- Conditionals
+- Loops
+- Functions
+- Lambdas
+- Arrays
+- Objects
+- Prototype
+- Global/This
+- Classes
+- Modules (import/export)
+- Calculator
+
+
+---
+
 ### lotes-batch :robot:
 
 - Processor for insert CSV data to DB
@@ -134,21 +146,43 @@ password: admin
 
 ---
 
+
+### gildedRose (kata :martial_arts_uniform:): [GildedRose Repository](https://github.com/emilybache/GildedRose-Refactoring-Kata)
+
+- Exercise for testing and refactoring.
+
+---
+
+
 ### contactos :busts_in_silhouette:
 
-- Growing... :construction:
+- API REST for manage Contacts with MongoDb
 
 ---
 
 ### ms.apigateway :building_construction:
 
-- Growing... :construction:
+- Gateway for Services:
+
+```
+http://localhost:8080/  <- eureka
+http://localhost:8080/javafilms  <- javaFilms
+http://localhost:8080/contactos-service  <- contactos
+http://localhost:8080/demos  <- demoService
+http://localhost:8080/search  <- gateway to Google
+```
+
 
 ---
 
 ### ms.eureka :cloud:
 
 - Eureka Microservices Register
+
+```
+http://localhost:8761
+
+```
 
 
 ---

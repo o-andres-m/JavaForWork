@@ -25,47 +25,55 @@ spring:
       - id: serv-catalogo
           #lb:// cuando se va a acceder a través de Eureka
         predicates:
-          - Path=/catalogo/**
+          - Path=/javafilms/**
         uri: lb://JAVAFILMS-SERVICE
         filters:
-          - RewritePath=/catalogo, /
+          - RewritePath=/javafilms, /
           - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+          
       - id: contactos-service
         predicates:
           - Path=/api/contactos/**
         uri: lb://contactos-service
         filters:
           - RewritePath=/api/contactos, /api/v1/contactos
+          
       - id: serv-demos
         predicates:
           - Path=/demos/**
         uri: lb://demo-service
         filters:
           - RewritePath=/demos, /
-      - id: serv-autentication
-        predicates:
-          - Path=/login/**
-        uri: lb://autentication-service
-      - id: serv-autentication-user
-        predicates:
-          - Path=/auth/**
-        uri: lb://autentication-service
-        filters:
-          - RewritePath=/auth, /
+#          
+#      - id: serv-autentication
+#        predicates:
+#          - Path=/login/**
+#        uri: lb://autentication-service
+#        
+#      - id: serv-autentication-user
+#        predicates:
+#          - Path=/auth/**
+#        uri: lb://autentication-service
+#        filters:
+#          - RewritePath=/auth, /
+          
       - id: serv-search
         predicates:
           - Path=/search/**
         uri: https://www.google.com/
         filters:
           - RewritePath=/search, /
-      - id: mock-server
-        predicates:
-          - Path=/api/**
-        uri: http://localhost:4321
+          
+#      - id: mock-server
+#        predicates:
+#          - Path=/api/**
+#        uri: http://localhost:4321
+        
       - id: front-end
         predicates:
           - Path=/**
-        uri: ${FRONTEND_URL:http://localhost:4200}
+        uri: ${FRONTEND_URL:http://localhost:8761}
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
