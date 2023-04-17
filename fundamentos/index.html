@@ -7,8 +7,9 @@
     <title>Hello Front-end!</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <script>
-        document.onload = ev => {
-            console.log('Documento Cargado');
+        //Cuando cargue la ventana, saldra el log de "documento cargado totalmente"
+        window.onload = ev => {
+            console.log('Documento Cargado Totalmente');
         };
     </script>
 </head>
@@ -83,6 +84,7 @@
         <input type="button" value="=">
         <output>0</output>
     </div>
+    <br>
     <div>
         <button type="button" id="idLista">Lista</button>
         <ul id="lista"></ul>
@@ -93,6 +95,15 @@
             //Buscamos la etiqueta con el document.querySelector()
             //Si hay 1 solo, dvuelve ese, sino devuelve el primero
             let result = document.querySelector('output'); 
+
+            //Vemos si el localstorage esta, y si localstorage.result tiene valor, entonces
+            //a result, con el .textContent le cambiamos el valor, y le asignamos el result de localstorage
+            //Recordems qe result es lo que obtiene con el querySelector de  las etiquetas output
+            if(localStorage && localStorage.result){
+                result.textContent = localStorage.result;
+            }
+
+
             //Buscamos el boton
             //por el momento es el unico que tiene "input type button":
             let btn = document.querySelector('input[type=button]'); 
@@ -100,7 +111,13 @@
             let suma = ev =>{
                 //result.textContent = +document.querySelector('#op1').value + +document.getElementById('op2').value;
                 result.innerHTML = `<b>${+document.querySelector('#op1').value + +document.getElementById('op2').value}</b>`;
-
+                
+                
+                //preguntamos si el navegador soporta local storage:
+                //Si lo soporta, asignamos en "result" el valor de la suma:
+                if(localStorage){
+                    localStorage.result =  +document.querySelector('#op1').value + +document.getElementById('op2').value;
+                }
             }
             
             //Al boton le agregamos que este "atento" al click, cuando se hace click almacena eso en variable "ev",
@@ -114,8 +131,10 @@
 
             //El boton tiene OTRO CONTROLADOR DE EVENTO
             btn.addEventListener('click' , ev =>{
-                suma();
-                console.log('Boton Pulsado, muestra SUMA');
+                if(window.confirm("Desea sumar?")){
+                    suma();
+                    console.log('Boton Pulsado, muestra SUMA');
+                }
             })
 
             //Eliminamos el controlador de eventos
