@@ -54,68 +54,108 @@
             let waitingForOperation = true;
 
             document.getElementById('n1').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 1;
-                else {
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 1;
+                   else result.value = result.value + 1;
+                }
+                 else {
                     result.value = 1;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n2').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 2;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 2;
+                   else result.value = result.value + 2;
+                }
                 else {
                     result.value = 2;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n3').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 3;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 3;
+                   else result.value = result.value + 3;
+                }
                 else {
                     result.value = 3;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n4').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 4;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 4;
+                   else result.value = result.value + 4;
+                }
                 else {
                     result.value = 4;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n5').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 5;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 5;
+                   else result.value = result.value + 5;
+                }
                 else {
                     result.value = 5;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n6').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 6;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 6;
+                   else result.value = result.value + 6;
+                }
                 else {
                     result.value = 6;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n7').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 7;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 7;
+                   else result.value = result.value + 7;
+                } 
                 else {
                     result.value = 7;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n8').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 8;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 8;
+                   else result.value = result.value + 8;
+                }
                 else {
                     result.value = 8;
                     waitingForOperation = true;
                 }
             })
             document.getElementById('n9').addEventListener('click', ev =>{
-                if(waitingForOperation) result.value = result.value + 9;
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 9;
+                   else result.value = result.value + 9;
+                }
                 else {
                     result.value = 9;
                     waitingForOperation = true;
                 }
             })
+            document.getElementById('n0').addEventListener('click', ev =>{
+                if(waitingForOperation){
+                   if(result.value==0)result.value = 0;
+                   else result.value = result.value + 0;
+                }
+                else {
+                    result.value = 0;
+                    waitingForOperation = true;
+                }
+            })
+
+
+
             document.getElementById('op,').addEventListener('click', ev =>{
                 if(waitingForOperation) result.value = result.value + '.';
                 else {
@@ -146,7 +186,8 @@
                         break;
                     }
                     case '/':{
-                        acumulador/=operando2;
+                        if(operando2 == 0) result.value = "Infinito";
+                        else acumulador/=operando2;
                         break;
                     }
 

@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.ExternalDocumentation;
         externalDocs = @ExternalDocumentation(description = "Project Documentation", url = "https://github.com/o-andres-m/JavaForWork/tree/main/javaFilms")
 )
 @SpringBootApplication
-@EnableFeignClients(basePackages = "com.example.application.proxies")
+@EnableFeignClients(basePackages = "com.films.application.proxies")
 public class JavaFilmsApplication implements CommandLineRunner {
 	
 //	@Autowired

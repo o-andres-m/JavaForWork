@@ -103,6 +103,11 @@
                 result.textContent = localStorage.result;
             }
 
+            //Vamos a guardar en la key kk de localstorage un JSON:
+            localStorage.kk = JSON.stringify({ id: 1, nombre: 'kk'})
+            //JSON Stringify crea un json con las claves y valores que le enviemos
+
+
 
             //Buscamos el boton
             //por el momento es el unico que tiene "input type button":
@@ -158,6 +163,7 @@
             })
 
         })();
+        
 
     </script>
 
