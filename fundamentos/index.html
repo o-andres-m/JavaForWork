@@ -6,8 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Front-end!</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>
+        document.onload = ev => {
+            console.log('Documento Cargado');
+        };
+    </script>
 </head>
 <body>
+    <main class="container-fluid">
     <h1 class="alert-primary">Hello Front-end!</h1>
     <b>Etiqueta B</b>
 
@@ -28,7 +34,7 @@
     <!-- IMPORTANDO MODULOS: -->
 
     <!-- Hay que poner el type="module" informando que estamos importando un modulo -->
-    <script type="module">
+<!--     <script type="module">
         //se importa todo:
         import * as m1 from './modulos/modulo1.js'
 
@@ -63,12 +69,78 @@
         console.log(m1.nombre);
 
         // DEBUGGER -> Parada incondicional:
-        debugger;
+        //debugger;
         console.log("ANTES DE ESTO SE DETIENE Y LUEGO CONTINUA");
 
 
-    </script>
+    </script> -->
     
+    <div>
+
+        <input type="number" id ="op1" value = "0">
+        <span>+</span>
+        <input type="number" id ="op2" value = "0">
+        <input type="button" value="=">
+        <output>0</output>
+    </div>
+    <div>
+        <button type="button" id="idLista">Lista</button>
+        <ul id="lista"></ul>
+    </div>
+</main>
+    <script>
+        (function() {
+            //Buscamos la etiqueta con el document.querySelector()
+            //Si hay 1 solo, dvuelve ese, sino devuelve el primero
+            let result = document.querySelector('output'); 
+            //Buscamos el boton
+            //por el momento es el unico que tiene "input type button":
+            let btn = document.querySelector('input[type=button]'); 
+
+            let suma = ev =>{
+                //result.textContent = +document.querySelector('#op1').value + +document.getElementById('op2').value;
+                result.innerHTML = `<b>${+document.querySelector('#op1').value + +document.getElementById('op2').value}</b>`;
+
+            }
+            
+            //Al boton le agregamos que este "atento" al click, cuando se hace click almacena eso en variable "ev",
+            //  cuando haga click, modifica "result"
+/*             btn.addEventListener('click' , ev =>{
+                result.textContent = +document.querySelector('#op1').value + +document.getElementById('op2').value;
+            }) */
+
+            //Le modificamos el controlador de eventos
+            btn.addEventListener('click',suma)
+
+            //El boton tiene OTRO CONTROLADOR DE EVENTO
+            btn.addEventListener('click' , ev =>{
+                suma();
+                console.log('Boton Pulsado, muestra SUMA');
+            })
+
+            //Eliminamos el controlador de eventos
+            btn.removeEventListener('click',suma)
+
+            //Le agregamos un controlador de eventos a las etiquetas "span":
+            //Ese controlador de eventos
+            document.querySelector('span').addEventListener('click',suma)
+
+            //Creamos una cadena vacia, iteramos y le agregamos el string de debajo:
+            let cad = '';
+            for(let i =0; i < 10; i++){
+                cad +=`<li>Elemento ${i+1}</li>`
+            }
+
+            //tomamos "idLista" y le creamos un eventlistener al click
+            //Ese eventlistener lo que hace es "mostrar" dentro de #lista como innerhtml la cad de arriba
+            document.querySelector('#idLista').addEventListener('click', ev=>{
+                document.querySelector('#lista').innerHTML = cad;
+
+            })
+
+        })();
+
+    </script>
 
 
 </body>
