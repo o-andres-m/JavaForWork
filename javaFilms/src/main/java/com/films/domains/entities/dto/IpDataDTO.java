@@ -1,7 +1,5 @@
 package com.films.domains.entities.dto;
 
-import javax.tools.DocumentationTool.Location;
-
 import lombok.Data;
 
 @Data
