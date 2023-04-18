@@ -4,16 +4,23 @@ import './App.css';
 //Al poner rcc el vscode nos crea un componente y nos importa lo necesario:
 import React, { Component } from 'react'
 
+//
+import { Contador } from './componentes';
+
 //Componente "App"
 export default class App extends Component {
   render() {
     return (
       <>
-        <Home />
-{/*         <Calculadora />
+        {/*PARA PODER VERLOS HAY QUE DESCOMENTARLOS!!!!*/}
+        {/*<Home />*/}
+        {/*<Calculadora />*/}
+        {/*<DemosJSX/>  */}
 
- */}
-        <DemosJSX/>      
+        {/*El Contador esta en otro archivo, pero cuando lo ponemos, lo importa solo!*/}
+        <main className=''>
+        <Contador init={10} delta={2}/>
+        </main>    
     </>
     )
   }
