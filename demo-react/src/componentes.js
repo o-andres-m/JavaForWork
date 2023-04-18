@@ -6,6 +6,16 @@ function Pantalla(props){
 
 }
 
+function Botonera (onSube, onBaja){
+    return(
+        <div>
+            <input type="button" value="-" onClick={() => onBaja && onBaja()}/>
+            {/* <input type="button" value="+" onClick={this.sube}/> */}
+            {onSube && <input type="button" value="+" onClick={onSube}/>}
+            <input type="button" value="Init" onClick={() => this.setState({contador:0})}/>
+        </div>
+    );
+}
 export class Contador extends Component {
 
     constructor(props){
@@ -24,7 +34,15 @@ export class Contador extends Component {
     }
 
     changeContador(value){
-        this.setState(prev => ({contador : prev.contador + value}))
+        this.setState(prev => ({contador: prev.contador + value}))
+        //this.setState(prev => ({contador: prev.contador + value}));
+        this.setState(prev => {
+            let result = {contador: prev.contador + value}
+            if(this.props.onChange){
+                this.props.onChange(result.contador);
+            }
+            return result;
+        });
     }
 
     sube(){
@@ -34,15 +52,27 @@ export class Contador extends Component {
     return (
       <div>
         <Pantalla valor={this.state.contador} />
+        <Botonera onBaja={this.baja} onSube={this.sube.bind(this)} />
         
-        <div>
+{/*     Forma anterior de Botonera:
+         <div>
             <input type="button" value="-" onClick={this.baja}/>
             <input type="button" value="+" onClick={this.sube}/>
             <input type="button" value="Init" onClick={() => this.setState({contador:0})}/>
-
         </div>
+ */}
+      </div>
+    )
+  }
+}
 
+export class Card extends Component {
+  render() {
+    return (
 
+      <div>
+        <h1>{this.props.title}</h1>
+        {this.props.children}
       </div>
     )
   }

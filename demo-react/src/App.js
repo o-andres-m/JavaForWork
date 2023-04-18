@@ -5,10 +5,18 @@ import './App.css';
 import React, { Component } from 'react'
 
 //
-import { Contador } from './componentes';
+import { Card, Contador } from './componentes';
 
 //Componente "App"
 export default class App extends Component {
+
+constructor(props){
+  super(props)
+  this.state = {
+    cont : 0
+  }
+}
+
   render() {
     return (
       <>
@@ -18,8 +26,11 @@ export default class App extends Component {
         {/*<DemosJSX/>  */}
 
         {/*El Contador esta en otro archivo, pero cuando lo ponemos, lo importa solo!*/}
-        <main className=''>
-        <Contador init={10} delta={2}/>
+        <main className='container-fluid'>
+          <Card title = "Ejemplo de Componente">
+            <Contador init={10} delta={2} onChange={num => this.setState({cont: num})}/>
+          </Card>
+          <p>El contador: {this.state.cont}</p>
         </main>    
     </>
     )

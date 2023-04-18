@@ -4,26 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-        box-sizing: border-box;
-        margin: 0px;
-        padding: 0px;
-        }
-        #calculadora{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flexbox;
+        @import url('https://fonts.cdnfonts.com/css/calculator');
+
+        *{
+            margin: auto;
+            margin-top: 10px;
+            background-color: rgb(223, 246, 232);
+
         }
 
-        #tabla {
-            margin:auto;
-            display:block;
-            position: relative;
-            border: 1;
+        .title{
+            width: 300px;
+            text-align: right;
+            font-family: 'Calculator', sans-serif;
+            font-size: 43px;
+            color: rgb(142, 142, 225);
 
+        }
+        .box-result{
+            background-color: rgb(120, 120, 120);
+            width: 300px;
+            height: 50px;
+            text-align: right;
+        }
+        .result{
+            border-color: red;
+            border-style: unset;
+            background-color: rgb(120, 120, 120);
+            text-align: right;
+            color: rgb(236, 193, 63);
+            font-family: 'Calculator', sans-serif;
+            font-size: 43px;
+        }
 
+        table{
+            width: 300px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        table td { 
+            width: 50px;
+            height: 50px; 
+        }
+        table td input[type="button"] {
+             width: 100%; height: 100%; 
         }
         .button{
             background-color: #4CAF50; /* Green */
@@ -34,18 +58,34 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            border-radius: 8px;
         }
-
+        .button:hover{
+            background-color: #1c9720; /* Green */
+            border-radius: 13px;
+        }
+        footer{
+            margin-right: 20px;
+            text-align: right;
+            color: darkgrey;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        a{
+            outline: none;
+            text-decoration: none;
+            padding: 2px 1px 0;
+        }
 
 
     </style>
     <title>Calculadora</title>
 </head>
 <body>
-
-
     <div id="calculadora">
-        <output class="result"></output>
+        <div class="title">JS Calculator</div>
+        <div class="box-result">
+            <output class="result" id="result"></output>
+        </div>
         <table id="tabla">
             <tr>
                 <td><input type="button" id="n7" value="7" class="button"></td>
@@ -72,7 +112,7 @@
                 <td><input type="button" id="op/" value="/" class="button"></td>
             </tr>
             <tr>
-                <td><input type="button" id="op=" value="=" class="button"></td>
+                <td></td><td><input type="button" id="op=" value="=" class="button"></td><td></td>
             </tr>
 
         </table>
@@ -222,13 +262,13 @@
                         break;
                     }
                     case '/':{
-                        if(operando2 == 0) result.value = "Infinito";
-                        else acumulador/=operando2;
+                         acumulador/=operando2;
                         break;
                     }
 
                 }
-                result.value = acumulador;
+                if(operando2 == 0) result.value = "Infinito";
+                else result.value = acumulador;
                 operation = newop;
                 waitingForOperation=false;
 
@@ -261,4 +301,5 @@
     </script>
     
 </body>
+<footer><a href="https://github.com/o-andres-m/JavaForWork">Osvaldo Andres Martinez</a></footer>
 </html>
