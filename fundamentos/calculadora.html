@@ -3,40 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px;
+        }
+        #calculadora{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flexbox;
+        }
+
+        #tabla {
+            margin:auto;
+            display:block;
+            position: relative;
+            border: 1;
+
+
+        }
+        .button{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+
+
+    </style>
     <title>Calculadora</title>
 </head>
 <body>
 
 
-    <div>
-        <output id = "result"></output>
-        <table border="1">
+    <div id="calculadora">
+        <output class="result"></output>
+        <table id="tabla">
             <tr>
-                <td><input type="button" id="n7" value="7"></td>
-                <td><input type="button" id="n8" value="8"></td>
-                <td><input type="button" id="n9" value="9"></td>
-                <td><input type="button" id="op*" value="*"></td>
+                <td><input type="button" id="n7" value="7" class="button"></td>
+                <td><input type="button" id="n8" value="8" class="button"></td>
+                <td><input type="button" id="n9" value="9" class="button"></td>
+                <td><input type="button" id="op*" value="*" class="button"></td>
             </tr>
             <tr>
-                <td><input type="button" id="n4" value="4"></td>
-                <td><input type="button" id="n5" value="5"></td>
-                <td><input type="button" id="n6" value="6"></td>
-                <td><input type="button" id="op-" value="-"></td>
+                <td><input type="button" id="n4" value="4" class="button"></td>
+                <td><input type="button" id="n5" value="5" class="button"></td>
+                <td><input type="button" id="n6" value="6" class="button"></td>
+                <td><input type="button" id="op-" value="-" class="button"></td>
             </tr>
             <tr>
-                <td><input type="button" id="n1" value="1"></td>
-                <td><input type="button" id="n2" value="2"></td>
-                <td><input type="button" id="n3" value="3"></td>
-                <td><input type="button" id="op+" value="+"></td>
+                <td><input type="button" id="n1" value="1" class="button"></td>
+                <td><input type="button" id="n2" value="2" class="button"></td>
+                <td><input type="button" id="n3" value="3" class="button"></td>
+                <td><input type="button" id="op+" value="+" class="button"></td>
             </tr>
             <tr>
-                <td><input type="button" id="c" value="C"></td>
-                <td><input type="button" id="n0" value="0"></td>
-                <td><input type="button" id="op," value=","></td>
-                <td><input type="button" id="op/" value="/"></td>
+                <td><input type="button" id="c" value="C" class="button"></td>
+                <td><input type="button" id="n0" value="0" class="button"></td>
+                <td><input type="button" id="op," value="," class="button"></td>
+                <td><input type="button" id="op/" value="/" class="button"></td>
             </tr>
             <tr>
-                <td><input type="button" id="op=" value="="></td>
+                <td><input type="button" id="op=" value="=" class="button"></td>
             </tr>
 
         </table>
