@@ -100,24 +100,90 @@ class Calculadora extends Component {
 
 class DemosJSX extends Component {
   render() {
-    let nombre = 'mundo';
+    let nombre = '<b>mundo</b>';
     let saluda = <h1>Hola {nombre.toUpperCase() + '!'} - !!</h1>;
     let estilo = 'App-link';
     let dim = {width:100, heigth:50};
     let errorStyle = {color:'white',backgroundColor:'red'};
+    let limpia = true;
+    let falsa = { persona : { nombre: "Tiene nombre!" } };
+    //let persona = 'Yo!';
+    let espacio = <br/>;
+
+    let lista = [
+      {id:1 , nombre:'Nombre 1'},
+      {id:2 , nombre:'Nombre 2'},
+      {id:3 , nombre:'Nombre 3'},
+      {id:4 , nombre:'Nombre 4'}
+  ];
+
+
+
     return (
       <>
+        {/** imprimimos variables: */}
         {saluda}
+        {espacio}
+        {/** imprimimos booleanos, ojo! Con ternarios: */}
+        {limpia ? 'verdadero' : 'falso'}
+        {espacio}
+
+        {/** imprimimos con ternarios con HTML: */}
+        {limpia ? <b>verdadero</b> : <b>falso</b>}
+        {espacio}
+
+        {/** imprimimos con ternarios con HTML y variables: */}
+        {limpia ? <b>verdadero - {nombre}</b> : <b>falso - {nombre}</b>}
+        {espacio}
+
+        {/** Solo si es TRUE , que devuelva lo de al lado, en este caso LIMPIA */}
+        {limpia && <h2>Limpia</h2>}
+        {espacio}
+
+        {/** doble ?? indica imprimir el valor, a menos que no exista: */}
+        {limpia ?? <b>no existe!</b>}
+        {espacio}
+
+
+        {/** doble ?? indica imprimir el valor, a menos que no exista: */}
+        {falsa ? <b>Existe</b>:<b>no existe!</b>}
+        {espacio}
+
+
+        {/** Verificamos si son nulos, cortocircuitando, caso que validen, imprime el ultimo valor de la expresion: */}
+        {falsa !== null && falsa.persona !== null && falsa.persona.nombre}
+        {espacio}
+
+        {/** Esto mismo que arriba pero mas corto, esto se llama COMPROBACION DE NULOS */}
+        {falsa?.persona?.nombre}
+        {espacio}
+
+        {/** Igual que arriba, pero con un imprimir NO EXISTE en caso de que haya un nulo*/}
+        {falsa?.persona?.nombre ?? <b>no existe</b>}
+        {espacio}
+
         <div style={{color:'white',backgroundColor:'red'}}>
           DemosJSX
         </div>
         <h2>Hola {nombre}</h2>
         <h2 className="App-link">Hola {nombre} con class</h2>
-        <h2 className={estilo}>Hola {nombre} con class estilo en variable</h2>
+        <h2 className={estilo}>Hola - - <span dangerouslySetInnerHTML={{__html: nombre}}/> con class estilo en variable</h2>
         <h2 className={estilo} style={errorStyle}>Hola {nombre} con estilo de variable</h2>
         <img src={logo} className="App-logo" alt="logo" width={100} hidden={false} />
         <p>Ahora Logo con desestructurar componentes:</p>
         <img src={logo} className="App-logo" alt="logo" {...dim} hidden={false} />
+
+        <p>Probamos con coleccion de numeros:</p>
+        <ul>
+        {[1,2,3,4,5].map((item,index) => <li key={index}>Elemento {item}</li>)}
+        </ul>
+
+        <p>Probamos con una lista de objetos:</p>
+        <ul>
+          <select>
+            {lista.map(item => <option key={item.id} value={item.id}>{item.nombre}</option>)}
+          </select>
+        </ul>
 
 
       </>
