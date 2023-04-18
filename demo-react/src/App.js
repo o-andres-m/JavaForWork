@@ -3,9 +3,12 @@ import './App.css';
 
 function App() {
   return (
+    // eslint-disable-next-line jsx-quotes
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <h1>Hello React!</h1>
+        <h2>{process.env.API_URL}</h2>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
