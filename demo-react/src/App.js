@@ -5,6 +5,8 @@ import './App.css';
 import React, { Component } from 'react'
 import { Card, Contador } from './componentes';
 import { ErrorBoundary } from './comunes';
+import Muro from './ejercicios/muro';
+import { CalculadoraReact } from './calculadora';
 
 export default class App extends Component {
   constructor(props) {
@@ -18,6 +20,9 @@ export default class App extends Component {
       { texto: 'demos', url: '/demos', componente: <DemosJSX /> },
       { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
+      { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
+      { texto: 'muro', url: '/muro', componente: <Muro />},
+
     ]
   }
 

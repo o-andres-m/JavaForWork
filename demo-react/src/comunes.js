@@ -1,4 +1,6 @@
 import React from 'react';
+import imgAjaxLoading from './imagenes/loading.gif'
+
 
 export class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -21,4 +23,16 @@ export class ErrorBoundary extends React.Component {
         }
         return this.props.children;
     }
+}
+
+export function Esperando() {
+    return (
+        <img src={imgAjaxLoading} alt='Esperando respuesta del servidor' />
+    )
+}
+
+export function ErrorMessage({msg}) {
+    return (
+        <output style={{color: 'red'}}>{msg}</output>
+    )
 }
