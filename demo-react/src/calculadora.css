@@ -1,0 +1,70 @@
+@import url('https://fonts.cdnfonts.com/css/calculator');
+
+*{
+    margin: auto;
+    margin-top: 10px;
+    background-color: rgb(223, 246, 232);
+
+}
+
+.title{
+    width: 300px;
+    text-align: right;
+    font-family: 'Calculator', sans-serif;
+    font-size: 43px;
+    color: rgb(142, 142, 225);
+
+}
+.box-result{
+    background-color: rgb(120, 120, 120);
+    width: 300px;
+    height: 80px;
+    text-align: right;
+}
+.result{
+
+    background-color: rgb(120, 120, 120);
+    text-align: right;
+    color: rgb(236, 193, 63);
+    font-family: 'Calculator', sans-serif;
+    font-size: 43px;
+}
+
+table{
+    width: 300px;
+    text-align: center;
+    vertical-align: middle;
+}
+table td { 
+    width: 50px;
+    height: 50px; 
+}
+table td input[type="button"] {
+     width: 100%; height: 100%; 
+}
+.button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
+.button:hover{
+    background-color: #1c9720; /* Green */
+    border-radius: 13px;
+}
+footer{
+    margin-right: 20px;
+    text-align: right;
+    color: darkgrey;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+a{
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}

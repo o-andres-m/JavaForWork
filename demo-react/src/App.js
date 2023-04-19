@@ -106,7 +106,7 @@ class DemosJSX extends Component {
         {/* {falsa !== null && falsa.persona !== null && falsa.persona.nombre} */}
         {falsa?.persona?.nombre ?? <b>no existe</b>}
         <div style={{ color: 'white', backgroundColor: 'red' }}>DemosJSX</div>
-        <h2 className={estilo} style={errorStyle} >Hola
+        <h2 className={estilo}  style={errorStyle} >Hola
           <span dangerouslySetInnerHTML={{ __html: nombre }} /></h2>
           <ul>
             {[1,2,3,4, 3, 2, 1].map((item,index) => <li key={index}>Elemento {item}</li>)}
