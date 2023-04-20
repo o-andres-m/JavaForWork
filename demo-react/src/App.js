@@ -11,6 +11,7 @@ import { PadreFormulario } from './formulario';
 import { ActoresMnt } from './componentes/actores';
 import { Peliculas } from './componentes/peliculas';
 import { CategoriasMnt } from './componentes/categorias';
+import { IdiomasMnt } from './componentes/idiomas';
 
 export default class App extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class App extends Component {
       { texto: 'actores', url: '/actores', componente: <ActoresMnt />},
       { texto: 'peliculas', url: '/peliculas', componente: <Peliculas />},
       { texto: 'categorias', url: '/categorias', componente: <CategoriasMnt />},
-
+      { texto: 'idiomas', url: '/idiomas', componente: <IdiomasMnt />},
 
 
 

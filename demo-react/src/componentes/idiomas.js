@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ValidationMessage, ErrorMessage, Esperando, } from "../biblioteca/comunes";
 
-export class CategoriasMnt extends Component {
+export class IdiomasMnt extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ export class CategoriasMnt extends Component {
     };
     this.idOriginal = null;
     this.url =
-     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/category/v1";
+     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/language/v1";
   }
 
   setError(msg) {
@@ -42,7 +42,7 @@ export class CategoriasMnt extends Component {
   add() {
     this.setState({
       modo: "add",
-      elemento: { id: 0, category: ""},
+      elemento: { id: 0, language: ""},
     });
   }
 
@@ -55,7 +55,7 @@ export class CategoriasMnt extends Component {
             ? (data) => {
                 this.setState({
                   modo: "edit",
-                  elemento: {id: data.id, categoria: data.category},
+                  elemento: {id: data.id, language: data.language},
                   loading: false,
                 }
                 );
@@ -68,7 +68,7 @@ export class CategoriasMnt extends Component {
   }
 
   delete(key) {
-    if (!window.confirm('¿Desea eliminar la categoria?')) return;
+    if (!window.confirm('¿Desea eliminar el Idioma?')) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -92,7 +92,7 @@ export class CategoriasMnt extends Component {
   send(elemento) {
     this.setState({ loading: true });
     // eslint-disable-next-line default-case
-    let elementoToSend = {id : elemento.id, category : elemento.categoria}
+    let elementoToSend = {id : elemento.id, language : elemento.language}
     switch (this.state.modo) {
       case "add":
         fetch(`${this.url}`, {
@@ -151,7 +151,7 @@ export class CategoriasMnt extends Component {
       case "add":
       case "edit":
         result.push(
-          <CategoriaForm
+          <LanguageForm
             key="main"
             isAdd={this.state.modo === "add"}
             elemento={this.state.elemento}
@@ -163,7 +163,7 @@ export class CategoriasMnt extends Component {
       default:
         if (this.state.listado)
           result.push(
-            <CategoriasList
+            <IdiomasList
               key="main"
               listado={this.state.listado}
               onAdd={(e) => this.add()}
@@ -178,13 +178,13 @@ export class CategoriasMnt extends Component {
   }
 }
 
-function CategoriasList(props) {
+function IdiomasList(props) {
   return (
     <>
       <table className="table table-hover table-striped">
         <thead className="table-info">
           <tr>
-            <th>Lista de Categorias</th>
+            <th>Lista de Idiomas</th>
             <th className="text-end">
               <input
                 type="button"
@@ -198,7 +198,7 @@ function CategoriasList(props) {
         <tbody className="table-group-divider">
           {props.listado.map((item) => (
             <tr key={item.id}>
-              <td>{item.category}</td>
+              <td>{item.language}</td>
               <td className="text-end">
                 <div className="btn-group text-end" role="group">
                   <input
@@ -224,7 +224,7 @@ function CategoriasList(props) {
 }
 
 
-class CategoriaForm extends Component {
+class LanguageForm extends Component {
   constructor(props) {
     super(props);
     this.state = { elemento: props.elemento, msgErr: [], invalid: false };
@@ -298,19 +298,19 @@ class CategoriaForm extends Component {
           <ValidationMessage msg={this.state.msgErr.id} />
         </div>
         <div className="form-group">
-          <label htmlFor="categoria">Categoria: </label>
+          <label htmlFor="language">Idioma: </label>
           <input
             type="text"
             className="form-control"
-            id="categoria"
-            name="categoria"
-            value={this.state.elemento.categoria}
+            id="language"
+            name="language"
+            value={this.state.elemento.language}
             onChange={this.handleChange}
             required
             minLength="2"
             maxLength="45"
           />
-          <ValidationMessage msg={this.state.msgErr.categoria} />
+          <ValidationMessage msg={this.state.msgErr.language} />
         </div>
 
         <div className="form-group">
