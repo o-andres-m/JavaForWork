@@ -9,6 +9,8 @@ import Muro from './ejercicios/muro';
 import { CalculadoraReact } from './calculadora';
 import { PadreFormulario } from './formulario';
 import { ActoresMnt } from './componentes/actores';
+import { Peliculas } from './componentes/peliculas';
+import { CategoriasMnt } from './componentes/categorias';
 
 export default class App extends Component {
   constructor(props) {
@@ -26,6 +28,9 @@ export default class App extends Component {
       { texto: 'muro', url: '/muro', componente: <Muro />},
       { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />},
       { texto: 'actores', url: '/actores', componente: <ActoresMnt />},
+      { texto: 'peliculas', url: '/peliculas', componente: <Peliculas />},
+      { texto: 'categorias', url: '/categorias', componente: <CategoriasMnt />},
+
 
 
 

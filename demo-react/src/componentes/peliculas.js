@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ValidationMessage, ErrorMessage, Esperando, PaginacionCmd as Paginacion,} from "../biblioteca/comunes";
 import { titleCase } from "../biblioteca/formateadores";
-export class ActoresMnt extends Component {
+export class Peliculas extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ export class ActoresMnt extends Component {
     };
     this.idOriginal = null;
     this.url =
-     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/actors/v1";
+     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/films/v1";
   }
 
   setError(msg) {
@@ -26,7 +26,7 @@ export class ActoresMnt extends Component {
     let pagina = this.state.pagina;
     if (num || num === 0) pagina = num;
     this.setState({ loading: true });
-    fetch(`${this.url}?sort=firstName&page=${pagina}&size=50`)
+    fetch(`${this.url}?page=${pagina}&size=50`)
       .then((response) => {
         response.json().then(
           response.ok
@@ -219,7 +219,7 @@ function ActoresList(props) {
       <table className="table table-hover table-striped">
         <thead className="table-info">
           <tr>
-            <th>Lista de Actores y Actrices</th>
+            <th>Lista de Peliculas</th>
             <th className="text-end">
               <input
                 type="button"
@@ -232,27 +232,27 @@ function ActoresList(props) {
         </thead>
         <tbody className="table-group-divider">
           {props.listado.map((item) => (
-            <tr key={item.actorId}>
-              <td>{item.name} {item.lastName}</td>
+            <tr key={item.filmId}>
+              <td>{item.title}</td>
               <td className="text-end">
                 <div className="btn-group text-end" role="group">
                   <input
                     type="button"
                     className="btn btn-primary"
                     value="Ver"
-                    onClick={(e) => props.onView(item.id)}
+                    onClick={(e) => props.onView(item.filmId)}
                   />
                   <input
                     type="button"
                     className="btn btn-primary"
                     value="Editar"
-                    onClick={(e) => props.onEdit(item.id)}
+                    onClick={(e) => props.onEdit(item.filmId)}
                   />
                   <input
                     type="button"
                     className="btn btn-danger"
                     value="Borrar"
-                    onClick={(e) => props.onDelete(item.id)}
+                    onClick={(e) => props.onDelete(item.filmId)}
                   />
                 </div>
               </td>
@@ -274,9 +274,9 @@ function ActoresView({ elemento, onCancel }) {
     <div>
         <br/>
       <p>
-        <b>Código:</b> {elemento.id}
+        <b>Codigo:</b> {elemento.filmId}
         <br />
-        <b>Nombre:</b> {elemento.name}
+        <b>Titulo:</b> {elemento.title}
         <br />
         <b>Apellidos:</b> {elemento.lastName}
       </p>

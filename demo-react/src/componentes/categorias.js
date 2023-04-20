@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { ValidationMessage, ErrorMessage, Esperando, PaginacionCmd as Paginacion,} from "../biblioteca/comunes";
-import { titleCase } from "../biblioteca/formateadores";
-export class ActoresMnt extends Component {
+import { ValidationMessage, ErrorMessage, Esperando, } from "../biblioteca/comunes";
+
+export class CategoriasMnt extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,33 +10,27 @@ export class ActoresMnt extends Component {
       elemento: null,
       error: null,
       loading: true,
-      pagina: 0,
-      paginas: 0,
     };
     this.idOriginal = null;
     this.url =
-     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/actors/v1";
+     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/category/v1";
   }
 
   setError(msg) {
     this.setState({ error: msg, loading: false });
   }
 
-  list(num) {
-    let pagina = this.state.pagina;
-    if (num || num === 0) pagina = num;
+  list() {
     this.setState({ loading: true });
-    fetch(`${this.url}?sort=firstName&page=${pagina}&size=50`)
+    fetch(`${this.url}`)
       .then((response) => {
         response.json().then(
           response.ok
             ? (data) => {
                 this.setState({
                   modo: "list",
-                  listado: data.content,
+                  listado: data,
                   loading: false,
-                  pagina: data.number,
-                  paginas: data.totalPages,
                 });
               }
             : (error) => this.setError(`${error.status}: ${error.error}`)
@@ -48,7 +42,7 @@ export class ActoresMnt extends Component {
   add() {
     this.setState({
       modo: "add",
-      elemento: { actorId: 0, firstName: "", lastName: "" },
+      elemento: { id: 0, category: ""},
     });
   }
   edit(key) {
@@ -60,7 +54,7 @@ export class ActoresMnt extends Component {
             ? (data) => {
                 this.setState({
                   modo: "edit",
-                  elemento: {id: data.id, nombre: data.name, apellidos: data.lastName},
+                  elemento: {id: data.id, nombre: data.category},
                   loading: false,
                 }
                 
@@ -72,24 +66,7 @@ export class ActoresMnt extends Component {
       })
       .catch((error) => this.setError(error));
   }
-  view(key) {
-    this.setState({ loading: true });
-    fetch(`${this.url}/${key}`)
-      .then((response) => {
-        response.json().then(
-          response.ok
-            ? (data) => {
-                this.setState({
-                  modo: "view",
-                  elemento: data,
-                  loading: false,
-                });
-              }
-            : (error) => this.setError(`${error.status}: ${error.error}`)
-        );
-      })
-      .catch((error) => this.setError(error));
-  }
+
   delete(key) {
     if (!window.confirm("¿Seguro?")) return;
     this.setState({ loading: true });
@@ -219,7 +196,7 @@ function ActoresList(props) {
       <table className="table table-hover table-striped">
         <thead className="table-info">
           <tr>
-            <th>Lista de Actores y Actrices</th>
+            <th>Lista de Categorias</th>
             <th className="text-end">
               <input
                 type="button"
@@ -232,16 +209,10 @@ function ActoresList(props) {
         </thead>
         <tbody className="table-group-divider">
           {props.listado.map((item) => (
-            <tr key={item.actorId}>
-              <td>{item.name} {item.lastName}</td>
+            <tr key={item.id}>
+              <td>{item.category}</td>
               <td className="text-end">
                 <div className="btn-group text-end" role="group">
-                  <input
-                    type="button"
-                    className="btn btn-primary"
-                    value="Ver"
-                    onClick={(e) => props.onView(item.id)}
-                  />
                   <input
                     type="button"
                     className="btn btn-primary"
@@ -260,11 +231,6 @@ function ActoresList(props) {
           ))}
         </tbody>
       </table>
-      <Paginacion
-        actual={props.pagina}
-        total={props.paginas}
-        onChange={(num) => props.onChangePage(num)}
-      />
     </>
   );
 }
