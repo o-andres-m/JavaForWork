@@ -90,8 +90,8 @@ export class Peliculas extends Component {
       })
       .catch((error) => this.setError(error));
   }
-  delete(key) {
-    if (!window.confirm("¿Seguro?")) return;
+  delete(key,peliName) {
+    if (!window.confirm("Eliminar pelicula "+peliName +"?")) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -203,7 +203,7 @@ export class Peliculas extends Component {
               onAdd={(e) => this.add()}
               onView={(key) => this.view(key)}
               onEdit={(key) => this.edit(key)}
-              onDelete={(key) => this.delete(key)}
+              onDelete={(key, peliName) => this.delete(key, peliName)}
               onChangePage={(num) => this.list(num)}
             />
           );
@@ -252,7 +252,7 @@ function ActoresList(props) {
                     type="button"
                     className="btn btn-danger"
                     value="Borrar"
-                    onClick={(e) => props.onDelete(item.filmId)}
+                    onClick={(e) => props.onDelete(item.filmId, item.title)}
                   />
                 </div>
               </td>

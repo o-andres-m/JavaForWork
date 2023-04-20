@@ -67,8 +67,8 @@ export class CategoriasMnt extends Component {
       .catch((error) => this.setError(error));
   }
 
-  delete(key) {
-    if (!window.confirm('¿Desea eliminar la categoria?')) return;
+  delete(key, nombre) {
+    if (!window.confirm('¿Desea eliminar la categoria "'+nombre.toUpperCase()+'"?')) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -169,7 +169,7 @@ export class CategoriasMnt extends Component {
               onAdd={(e) => this.add()}
               onView={(key) => this.view(key)}
               onEdit={(key) => this.edit(key)}
-              onDelete={(key) => this.delete(key)}
+              onDelete={(key, nombre) => this.delete(key, nombre)}
             />
           );
         break;
@@ -211,7 +211,7 @@ function CategoriasList(props) {
                     type="button"
                     className="btn btn-danger"
                     value="Borrar"
-                    onClick={(e) => props.onDelete(item.id)}
+                    onClick={(e) => props.onDelete(item.id, item.category)}
                   />
                 </div>
               </td>

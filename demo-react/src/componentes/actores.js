@@ -90,8 +90,8 @@ export class ActoresMnt extends Component {
       })
       .catch((error) => this.setError(error));
   }
-  delete(key) {
-    if (!window.confirm("¿Seguro?")) return;
+  delete(key, actorName, actorLastName) {
+    if (!window.confirm("Desea eliminar el actor id Nº "+key+" ("+actorName+" "+actorLastName+")?")) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -203,7 +203,7 @@ export class ActoresMnt extends Component {
               onAdd={(e) => this.add()}
               onView={(key) => this.view(key)}
               onEdit={(key) => this.edit(key)}
-              onDelete={(key) => this.delete(key)}
+              onDelete={(key, name, lastName) => this.delete(key, name, lastName)}
               onChangePage={(num) => this.list(num)}
             />
           );
@@ -252,7 +252,7 @@ function ActoresList(props) {
                     type="button"
                     className="btn btn-danger"
                     value="Borrar"
-                    onClick={(e) => props.onDelete(item.id)}
+                    onClick={(e) => props.onDelete(item.id, item.name, item.lastName)}
                   />
                 </div>
               </td>
