@@ -7,6 +7,7 @@ import { Card, Contador } from './componentes';
 import { ErrorBoundary } from './comunes';
 import Muro from './ejercicios/muro';
 import { CalculadoraReact } from './calculadora';
+import { PadreFormulario } from './formulario';
 
 export default class App extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ export default class App extends Component {
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
       { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
+      { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />},
+
 
     ]
   }
