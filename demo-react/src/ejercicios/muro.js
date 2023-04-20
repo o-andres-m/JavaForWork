@@ -20,15 +20,38 @@ export default class Muro extends Component {
             {this.state.error && <ErrorMessage msg={this.state.error} />}
 
             <h1>Muro</h1>
-            <input type='button' defaultValue={1} onClick={()=> this.load(1)} />
-            <input type='button' defaultValue={2} onClick={()=> this.load(2)} />
-            <input type='button' defaultValue={3} onClick={()=> this.load(3)} />
-            <input type='button' defaultValue={4} onClick={()=> this.load(4)} />
-            <input type='button' defaultValue={5} onClick={()=> this.load(5)} />
+
+            <nav aria-label="...">
+                <ul className="pagination pagination-sm">
+                <li className="page-item">
+                    <a className="page-link" onClick={()=> this.load(1)}>
+                        1
+                    </a>
+                    </li>
+                    <li className="page-item">
+                    <a className="page-link" onClick={()=> this.load(2)}>
+                        2
+                    </a>
+                    </li>
+                    <li className="page-item">
+                    <a className="page-link" onClick={()=> this.load(3)}>
+                        3
+                    </a>
+                    </li>
+                    <li className="page-item">
+                    <a className="page-link" onClick={()=> this.load(4)}>
+                        4
+                    </a>
+                    </li>
+                    <li className="page-item">
+                    <a className="page-link" onClick={()=> this.load(5)}>
+                        5
+                    </a>
+                    </li>
+                </ul>
+                </nav>
 
             <br></br>
-            <br></br>
-
 
 {/*             {JSON.stringify(this.state.listado)}
  */}
@@ -44,7 +67,7 @@ export default class Muro extends Component {
                                     }
                             <div className="card-body">
                                 <h5 className="card-title">{item.author}</h5>
-                                <p className="card-text">Dimension: {item.width}*{item.height}</p>
+                                <p className="card-text">Dimension: {item.width}x{item.height}</p>
                                 <button type='button' href="#" className="btn btn-primary" onClick={()=> {
                                         this.setEstado(index)
                                     }}>
@@ -57,6 +80,7 @@ export default class Muro extends Component {
                             ))}
                 </div>
             </div>
+            <br></br>
         </>
     )
   }
@@ -71,7 +95,7 @@ export default class Muro extends Component {
   }
   load(num) {
     this.setState({loading: true})
-    fetch('https://picsum.photos/v2/list?page='+num+'&limit=10')
+    fetch('https://picsum.photos/v2/list?page='+num+'&limit=9')
         .then(resp => {
             if(resp.ok) {
                 resp.json().then(
