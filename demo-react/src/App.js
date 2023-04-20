@@ -8,6 +8,7 @@ import { ErrorBoundary } from './comunes';
 import Muro from './ejercicios/muro';
 import { CalculadoraReact } from './calculadora';
 import { PadreFormulario } from './formulario';
+import { ActoresMnt } from './componentes/actores';
 
 export default class App extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ export default class App extends Component {
       { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
       { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />},
+      { texto: 'actores', url: '/actores', componente: <ActoresMnt />},
+
 
 
     ]

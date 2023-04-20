@@ -32,17 +32,9 @@ export default class Peliculas extends Component {
     this.setState({error: msg})
   }
   load(num) {
-    let headers = new Headers();
 
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
-    
     this.setState({loading: true})
-    fetch('http://localhost:8010/api/films/v1', {
-        mode: 'no-cors',
-        headers: {'Access-Control-Allow-Origin': '*'}
-      })
+    fetch('http://localhost:8010/api/films/v1')
         .then(resp => {
             if(resp.ok) {
                 resp.json().then(
