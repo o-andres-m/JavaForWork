@@ -67,8 +67,8 @@ export class IdiomasMnt extends Component {
       .catch((error) => this.setError(error));
   }
 
-  delete(key) {
-    if (!window.confirm('¿Desea eliminar el Idioma?')) return;
+  delete(key, nombre) {
+    if (!window.confirm('¿Desea eliminar el Idioma "'+nombre.toUpperCase()+'"?')) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -169,7 +169,7 @@ export class IdiomasMnt extends Component {
               onAdd={(e) => this.add()}
               onView={(key) => this.view(key)}
               onEdit={(key) => this.edit(key)}
-              onDelete={(key) => this.delete(key)}
+              onDelete={(key, nom) => this.delete(key, nom)}
             />
           );
         break;
@@ -211,7 +211,7 @@ function IdiomasList(props) {
                     type="button"
                     className="btn btn-danger"
                     value="Borrar"
-                    onClick={(e) => props.onDelete(item.id)}
+                    onClick={(e) => props.onDelete(item.id, item.language)}
                   />
                 </div>
               </td>
@@ -293,7 +293,7 @@ class LanguageForm extends Component {
             value={this.state.elemento.id}
             onChange={this.handleChange}
             required
-            readOnly={!this.props.isAdd}
+            readOnly="true"
           />
           <ValidationMessage msg={this.state.msgErr.id} />
         </div>

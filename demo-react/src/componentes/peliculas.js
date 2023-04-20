@@ -362,7 +362,7 @@ class ActoresForm extends Component {
             value={this.state.elemento.id}
             onChange={this.handleChange}
             required
-            readOnly={!this.props.isAdd}
+            readOnly="true"
           />
           <ValidationMessage msg={this.state.msgErr.id} />
         </div>
