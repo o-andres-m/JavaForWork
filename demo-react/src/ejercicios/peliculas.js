@@ -36,12 +36,12 @@ export default class Peliculas extends Component {
 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+    headers.append('Access-Control-Allow-Origin', '*');
     
     this.setState({loading: true})
-    fetch('http://localhost:8010/api/films/v1/1', {
+    fetch('http://localhost:8010/api/films/v1', {
         mode: 'no-cors',
-        headers: headers
+        headers: {'Access-Control-Allow-Origin': '*'}
       })
         .then(resp => {
             if(resp.ok) {
