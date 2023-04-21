@@ -270,6 +270,30 @@ function ActoresList(props) {
 }
 
 function ActoresView({ elemento, onCancel }) {
+  let ratingName;
+  switch (elemento.rating){
+    case 'G':
+      ratingName = 'GENERAL_AUDIENCES';
+      break;
+    case 'PG':
+        ratingName = 'PARENTAL_GUIDANCE_SUGGESTED';
+        break;
+    case 'PG-13':
+        ratingName = 'PARENTS_STRONGLY_CAUTIONED';
+        break;
+    case 'R':
+        ratingName = 'RESTRICTED';
+        break;
+    case 'NC-17':
+          ratingName = 'ADULTS_ONLY';
+          break;
+    default:
+      ratingName ='NO_RATING';
+      break;
+  }
+
+
+
   return (
     <div>
         <br/>
@@ -278,7 +302,19 @@ function ActoresView({ elemento, onCancel }) {
         <br />
         <b>Titulo:</b> {elemento.title}
         <br />
-        <b>Apellidos:</b> {elemento.lastName}
+        <b>Descripción:</b> {elemento.description}
+        <br />
+        <b>Año:</b> {elemento.releaseYear}
+        <br />
+        <b>Rating:</b> {ratingName }
+        <br />
+        <b>Idioma original:</b> {elemento.languageVO}
+        <br />
+        <b>Idioma secundario:</b> {elemento.language}
+        <br />
+        <b>Actores:</b> {elemento.actors.join(", ")}
+        <br />
+        <b>Categorias:</b> {elemento.categories.join(", ")}
       </p>
       <p>
         <button

@@ -21,17 +21,17 @@ export default class App extends Component {
         main: 0
     }
     this.menu = [
-      { texto: 'inicio', url: '/', componente: <Home />},
+/*       { texto: 'inicio', url: '/', componente: <Home />},
       { texto: 'demos', url: '/demos', componente: <DemosJSX /> },
       { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
       { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
-      { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />},
-      { texto: 'actores', url: '/actores', componente: <ActoresMnt />},
-      { texto: 'peliculas', url: '/peliculas', componente: <Peliculas />},
-      { texto: 'categorias', url: '/categorias', componente: <CategoriasMnt />},
-      { texto: 'idiomas', url: '/idiomas', componente: <IdiomasMnt />},
+      { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />}, */
+      { texto: 'Peliculas', url: '/peliculas', componente: <Peliculas />},
+      { texto: 'Actores', url: '/actores', componente: <ActoresMnt />},
+      { texto: 'Categorias', url: '/categorias', componente: <CategoriasMnt />},
+      { texto: 'Idiomas', url: '/idiomas', componente: <IdiomasMnt />},
 
 
 
@@ -63,11 +63,18 @@ function Cabecera(props) {
 
 function Menu({menu, onSelectMenu}) {
   return (
-    <nav>
+    <div class="p-3 bg-info bg-opacity-10 border border-info border-start-0 rounded-end">
+        <nav>
       {menu.map((item, index) => 
-        <button key={index} type='button' onClick={() => onSelectMenu && onSelectMenu(index)}>{item.texto}</button>)
+      <>
+      <div className="btn-group" role="group" aria-label="Basic example">
+      <button key={index} className="btn btn-primary" type='button' onClick={() => onSelectMenu && onSelectMenu(index)}>{item.texto}</button>
+      </div>
+      </>
+        )
       }
-    </nav>
+      </nav>
+    </div>
   );
 }
 
@@ -82,10 +89,7 @@ function Pie() {
       <div className="container p-4 pb-0">
         <section className="">
           <p className="d-flex justify-content-center align-items-center">
-            <span className="me-3">Register for free</span>
-            <button type="button" className="btn btn-outline-light btn-rounded">
-              Sign up!
-            </button>
+            <span className="me-3">Catalogo Front por Osvaldo Andres Martinez</span>
           </p>
         </section>
       </div>
