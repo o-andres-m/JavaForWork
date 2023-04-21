@@ -151,7 +151,7 @@ export class IdiomasMnt extends Component {
       case "add":
       case "edit":
         result.push(
-          <LanguageForm
+          <IdiomasForm
             key="main"
             isAdd={this.state.modo === "add"}
             elemento={this.state.elemento}
@@ -224,7 +224,7 @@ function IdiomasList(props) {
 }
 
 
-class LanguageForm extends Component {
+class IdiomasForm extends Component {
   constructor(props) {
     super(props);
     this.state = { elemento: props.elemento, msgErr: [], invalid: false };

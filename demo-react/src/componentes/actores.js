@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ValidationMessage, ErrorMessage, Esperando, PaginacionCmd as Paginacion,} from "../biblioteca/comunes";
-import { titleCase } from "../biblioteca/formateadores";
 export class ActoresMnt extends Component {
   constructor(props) {
     super(props);

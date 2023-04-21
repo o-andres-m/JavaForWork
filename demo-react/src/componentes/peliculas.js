@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ValidationMessage, ErrorMessage, Esperando, PaginacionCmd as Paginacion,} from "../biblioteca/comunes";
-import { titleCase } from "../biblioteca/formateadores";
+
 export class Peliculas extends Component {
   constructor(props) {
     super(props);
@@ -84,8 +84,8 @@ export class Peliculas extends Component {
                     rentalRate: data.rentalRate,
                     replacementCost: data.replacementCost,
                     title: data.title,
-                    languageId: data.languageId,
-                    languageVOId: data.languageVOId,
+                    languageId: data.language,
+                    languageVOId: data.languageVO ,
                     actors: data.actors,
                     categories: data.categories
                   },
@@ -143,7 +143,27 @@ export class Peliculas extends Component {
   send(elemento) {
     this.setState({ loading: true });
     // eslint-disable-next-line default-case
-    let elementoToSend = {actorId : elemento.id, firstName : elemento.nombre, lastName : elemento.apellidos}
+    let actorsArr = elemento.actors.split(',').map(x=>+x)
+    let categoryArr = elemento.categories.split(',').map(x=>+x)
+
+    let elementoToSend = {
+      filmId: elemento.filmId,
+      description: elemento.description,
+      length: +elemento.length,
+      rating: elemento.rating,
+      releaseYear: +elemento.releaseYear,
+      rentalDuration: +elemento.rentalDuration,
+      rentalRate: +elemento.rentalRate,
+      replacementCost: +elemento.replacementCost,
+      title: elemento.title,
+      languageId: +elemento.languageId,
+      languageVOId: +elemento.languageVOId ,
+      actors: actorsArr,
+      categories: categoryArr
+    }
+
+    console.log(elementoToSend)
+
     switch (this.state.modo) {
       case "add":
         fetch(`${this.url}`, {
@@ -202,7 +222,7 @@ export class Peliculas extends Component {
       case "add":
       case "edit":
         result.push(
-          <ActoresForm
+          <PeliculasForm
             key="main"
             isAdd={this.state.modo === "add"}
             elemento={this.state.elemento}
@@ -213,7 +233,7 @@ export class Peliculas extends Component {
         break;
       case "view":
         result.push(
-          <ActoresView
+          <PeliculasView
             key="main"
             elemento={this.state.elemento}
             onCancel={(e) => this.cancel()}
@@ -223,7 +243,7 @@ export class Peliculas extends Component {
       default:
         if (this.state.listado)
           result.push(
-            <ActoresList
+            <PeliculasList
               key="main"
               listado={this.state.listado}
               pagina={this.state.pagina}
@@ -241,7 +261,7 @@ export class Peliculas extends Component {
   }
 }
 
-function ActoresList(props) {
+function PeliculasList(props) {
   return (
     <>
       <table className="table table-hover table-striped">
@@ -297,7 +317,7 @@ function ActoresList(props) {
   );
 }
 
-function ActoresView({ elemento, onCancel }) {
+function PeliculasView({ elemento, onCancel }) {
   let ratingName;
   switch (elemento.rating){
     case 'G':
@@ -320,8 +340,6 @@ function ActoresView({ elemento, onCancel }) {
       break;
   }
 
-
-
   return (
     <div>
         <br/>
@@ -336,13 +354,22 @@ function ActoresView({ elemento, onCancel }) {
         <br />
         <b>Rating:</b> {ratingName }
         <br />
-        <b>Idioma original:</b> {elemento.languageVO ? elemento.languageVO : 'No Posee'}
+        <b>Idioma:</b> {elemento.language ? elemento.language : 'No Posee'}
         <br />
-        <b>Idioma secundario:</b> {elemento.language ? elemento.language : 'No Posee'}
+        <b>IdiomaVO:</b> {elemento.languageVO ? elemento.languageVO : 'No Posee'}
+        <br />
+        <b>length:</b> {elemento.length ? elemento.length : 'No Posee'}
+        <br />
+        <b>rentalDuration:</b> {elemento.rentalDuration ? elemento.rentalDuration : 'No Posee'}
+        <br />
+        <b>rentalRate:</b> {elemento.rentalRate ? elemento.rentalRate : 'No Posee'}
+        <br />
+        <b>replacementCost:</b> {elemento.rentalRate ? elemento.rentalRate : 'No Posee'}
         <br />
         <b>Actores:</b> {elemento.actors.join(", ")}
         <br />
         <b>Categorias:</b> {elemento.categories.join(", ") ? elemento.categories.join(", ") : 'No posee'}
+
       </p>
       <p>
         <button
@@ -357,7 +384,7 @@ function ActoresView({ elemento, onCancel }) {
   );
 }
 
-class ActoresForm extends Component {
+class PeliculasForm extends Component {
   constructor(props) {
     super(props);
     this.state = { elemento: props.elemento, msgErr: [], invalid: false };
@@ -430,6 +457,7 @@ class ActoresForm extends Component {
           />
           <ValidationMessage msg={this.state.msgErr.id} />
         </div>
+
         <div className="form-group">
           <label htmlFor="title">Titulo</label>
           <input
@@ -443,7 +471,7 @@ class ActoresForm extends Component {
             minLength="2"
             maxLength="45"
           />
-          <ValidationMessage msg={this.state.msgErr.nombre} />
+
         </div>
         <div className="form-group">
           <label htmlFor="description">Descripción: </label>
@@ -471,7 +499,128 @@ class ActoresForm extends Component {
             onChange={this.handleChange}
             required
           />
-          <ValidationMessage msg={this.state.msgErr.apellidos} />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="rating">Rating: </label><br/>
+          <select 
+            name="rating"
+            id="rating"
+            onChange={this.handleChange}
+            value = {this.state.elemento.rating}
+            >
+            <option value="G">GENERAL_AUDIENCES</option>
+            <option value="PG">PARENTAL_GUIDANCE_SUGGESTED</option>
+            <option value="PG-13">PARENTS_STRONGLY_CAUTIONED</option>
+            <option value="R">RESTRICTED</option>
+            <option value="NC-17">ADULTS_ONLY</option>
+          </select>
+
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="languageId">Idioma: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="languageId"
+            name="languageId"
+            value={this.state.elemento.languageId}
+            onChange={this.handleChange}
+            required
+          />
+
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="languageVOId">IdiomaVO: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="languageVOId"
+            name="languageVOId"
+            value={this.state.elemento.languageVOId}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="actors">Actores: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="actors"
+            name="actors"
+            value={this.state.elemento.actors}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="categories">Categorias: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="categories"
+            name="categories"
+            value={this.state.elemento.categories}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="length">length: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="length"
+            name="length"
+            value={this.state.elemento.length}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="releaseYear">rentalDuration: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="rentalDuration"
+            name="rentalDuration"
+            value={this.state.elemento.rentalDuration}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="rentalRate">rentalRate: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="rentalRate"
+            name="rentalRate"
+            value={this.state.elemento.rentalRate}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="replacementCost">replacementCost: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="replacementCost"
+            name="replacementCost"
+            value={this.state.elemento.replacementCost}
+            onChange={this.handleChange}
+            required
+          />
         </div>
 
         <div className="form-group">
