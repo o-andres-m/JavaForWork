@@ -482,8 +482,6 @@ class PeliculasForm extends Component {
             name="description"
             value={this.state.elemento.description}
             onChange={this.handleChange}
-            minLength="2"
-            maxLength="10"
           />
           <ValidationMessage msg={this.state.msgErr.apellidos} />
         </div>
@@ -509,6 +507,7 @@ class PeliculasForm extends Component {
             onChange={this.handleChange}
             value = {this.state.elemento.rating}
             >
+            <option value="NORATING" selected>Seleccione Rating...</option>
             <option value="G">GENERAL_AUDIENCES</option>
             <option value="PG">PARENTAL_GUIDANCE_SUGGESTED</option>
             <option value="PG-13">PARENTS_STRONGLY_CAUTIONED</option>
