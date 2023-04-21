@@ -3,7 +3,7 @@ import './App.css';
 
 
 import React, { Component } from 'react'
-import { Card, Contador } from './componentes';
+import { Card, Contador, Coordenadas } from './componentes';
 import { ErrorBoundary } from './comunes';
 import Muro from './ejercicios/muro';
 import { CalculadoraReact } from './calculadora';
@@ -21,9 +21,9 @@ export default class App extends Component {
         main: 0
     }
     this.menu = [
-/*       { texto: 'inicio', url: '/', componente: <Home />},
+/*       { texto: 'inicio', url: '/', componente: <Home />}, */
       { texto: 'demos', url: '/demos', componente: <DemosJSX /> },
-      { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
+/*      { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
       { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
@@ -64,6 +64,7 @@ function Cabecera(props) {
 function Menu({menu, onSelectMenu}) {
   return (
     <div class="p-3 bg-info bg-opacity-10 border border-info border-start-0 rounded-end">
+      <h1>javaFilms</h1>
         <nav>
       {menu.map((item, index) => 
       <>
@@ -150,6 +151,10 @@ class DemosJSX extends Component {
     ]
     return (
       <>
+      <hr/>
+      <Coordenadas/>
+      <hr/>
+
         {saluda}
         {limpia ? <b>verdadero</b> : <i>falso {nombre}</i>}
         {limpia && <h2>Limpia</h2>}

@@ -48,7 +48,21 @@ export class Peliculas extends Component {
   add() {
     this.setState({
       modo: "add",
-      elemento: { actorId: 0, firstName: "", lastName: "" },
+      elemento: {
+        filmId: 0,
+        description: "",
+        length: 0,
+        rating: "",
+        releaseYear: "",
+        rentalDuration: 0,
+        rentalRate: 0,
+        replacementCost: 0,
+        title: "",
+        languageId: 0,
+        languageVOId: 0,
+        actors: [],
+        categories: []
+      },
     });
   }
   edit(key) {
@@ -60,7 +74,21 @@ export class Peliculas extends Component {
             ? (data) => {
                 this.setState({
                   modo: "edit",
-                  elemento: {id: data.id, nombre: data.name, apellidos: data.lastName},
+                  elemento: {
+                    filmId: data.filmId,
+                    description: data.description,
+                    length: data.length,
+                    rating: data.rating,
+                    releaseYear: data.releaseYear,
+                    rentalDuration: data.rentalDuration,
+                    rentalRate: data.rentalRate,
+                    replacementCost: data.replacementCost,
+                    title: data.title,
+                    languageId: data.languageId,
+                    languageVOId: data.languageVOId,
+                    actors: data.actors,
+                    categories: data.categories
+                  },
                   loading: false,
                 }
                 
@@ -308,13 +336,13 @@ function ActoresView({ elemento, onCancel }) {
         <br />
         <b>Rating:</b> {ratingName }
         <br />
-        <b>Idioma original:</b> {elemento.languageVO}
+        <b>Idioma original:</b> {elemento.languageVO ? elemento.languageVO : 'No Posee'}
         <br />
-        <b>Idioma secundario:</b> {elemento.language}
+        <b>Idioma secundario:</b> {elemento.language ? elemento.language : 'No Posee'}
         <br />
         <b>Actores:</b> {elemento.actors.join(", ")}
         <br />
-        <b>Categorias:</b> {elemento.categories.join(", ")}
+        <b>Categorias:</b> {elemento.categories.join(", ") ? elemento.categories.join(", ") : 'No posee'}
       </p>
       <p>
         <button
@@ -389,13 +417,13 @@ class ActoresForm extends Component {
         }}
       >
         <div className="form-group">
-          <label htmlFor="id">Código</label>
+          <label htmlFor="filmId">Código</label>
           <input
             type="number"
             className={"form-control" + (this.props.isAdd ? "" : "-plaintext")}
-            id="id"
-            name="id"
-            value={this.state.elemento.id}
+            id="filmId"
+            name="filmId"
+            value={this.state.elemento.filmId}
             onChange={this.handleChange}
             required
             readOnly="true"
@@ -403,13 +431,13 @@ class ActoresForm extends Component {
           <ValidationMessage msg={this.state.msgErr.id} />
         </div>
         <div className="form-group">
-          <label htmlFor="nombre">Nombre</label>
+          <label htmlFor="title">Titulo</label>
           <input
             type="text"
             className="form-control"
-            id="nombre"
-            name="nombre"
-            value={this.state.elemento.nombre}
+            id="title"
+            name="title"
+            value={this.state.elemento.title}
             onChange={this.handleChange}
             required
             minLength="2"
@@ -418,19 +446,34 @@ class ActoresForm extends Component {
           <ValidationMessage msg={this.state.msgErr.nombre} />
         </div>
         <div className="form-group">
-          <label htmlFor="apellidos">Apellidos</label>
+          <label htmlFor="description">Descripción: </label>
           <input
             type="text"
             className="form-control"
-            id="apellidos"
-            name="apellidos"
-            value={this.state.elemento.apellidos}
+            id="description"
+            name="description"
+            value={this.state.elemento.description}
             onChange={this.handleChange}
             minLength="2"
             maxLength="10"
           />
           <ValidationMessage msg={this.state.msgErr.apellidos} />
         </div>
+
+        <div className="form-group">
+          <label htmlFor="releaseYear">Año: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="releaseYear"
+            name="releaseYear"
+            value={this.state.elemento.releaseYear}
+            onChange={this.handleChange}
+            required
+          />
+          <ValidationMessage msg={this.state.msgErr.apellidos} />
+        </div>
+
         <div className="form-group">
           <button
             className="btn btn-primary"
