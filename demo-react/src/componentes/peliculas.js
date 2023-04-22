@@ -12,7 +12,7 @@ export class Peliculas extends Component {
       loading: true,
       pagina: 0,
       paginas: 0,
-    };
+      };
     this.idOriginal = null;
     this.url =
      (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/films/v1";
@@ -161,8 +161,6 @@ export class Peliculas extends Component {
       actors: actorsArr,
       categories: categoryArr
     }
-
-    console.log(elementoToSend)
 
     switch (this.state.modo) {
       case "add":
@@ -387,7 +385,14 @@ function PeliculasView({ elemento, onCancel }) {
 class PeliculasForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { elemento: props.elemento, msgErr: [], invalid: false };
+    this.state = { 
+      elemento: props.elemento,
+      msgErr: [], 
+      invalid: false,
+      listadoCategorias : [],
+      listadoActores : []
+
+     };
     this.handleChange = this.handleChange.bind(this);
     this.onSend = () => {
       if (this.props.onSend) this.props.onSend(this.state.elemento);
@@ -395,6 +400,7 @@ class PeliculasForm extends Component {
     this.onCancel = () => {
       if (this.props.onCancel) this.props.onCancel();
     };
+    
   }
   handleChange(event) {
     const cmp = event.target.name;
@@ -433,8 +439,46 @@ class PeliculasForm extends Component {
       this.setState({ msgErr: errors, invalid: invalid });
     }
   }
+
+  getCategories() {
+    this.setState({ loading: true });
+    fetch(`http://localhost:8080/javafilms/api/category/v1`)
+      .then((response) => {
+        response.json().then(
+          response.ok
+            ? (data) => {
+                this.setState({
+                  listadoCategorias: data,
+                  loading: false,
+                });
+              }
+            : (error) => this.setError(`${error.status}: ${error.error}`)
+        );
+      })
+      .catch((error) => this.setError(error));
+  }
+
+  getActores() {
+    this.setState({ loading: true });
+    fetch(`http://localhost:8080/javafilms/api/actors/v1`)
+      .then((response) => {
+        response.json().then(
+          response.ok
+            ? (data) => {
+                this.setState({
+                  listadoActores: data,
+                  loading: false,
+                });
+              }
+            : (error) => this.setError(`${error.status}: ${error.error}`)
+        );
+      })
+      .catch((error) => this.setError(error));
+  }
+
   componentDidMount() {
     this.validar();
+    this.getCategories()
   }
   render() {
     return (
@@ -483,7 +527,6 @@ class PeliculasForm extends Component {
             value={this.state.elemento.description}
             onChange={this.handleChange}
           />
-          <ValidationMessage msg={this.state.msgErr.apellidos} />
         </div>
 
         <div className="form-group">
@@ -493,8 +536,10 @@ class PeliculasForm extends Component {
             className="form-control"
             id="releaseYear"
             name="releaseYear"
-            value={this.state.elemento.releaseYear}
+            value={this.state.elemento.releaseYear ? this.state.elemento.releaseYear : 2023}
             onChange={this.handleChange}
+            min="1000"
+            max="2023"
             required
           />
         </div>
@@ -540,7 +585,7 @@ class PeliculasForm extends Component {
             name="languageVOId"
             value={this.state.elemento.languageVOId}
             onChange={this.handleChange}
-            required
+            
           />
         </div>
 
@@ -553,9 +598,10 @@ class PeliculasForm extends Component {
             name="actors"
             value={this.state.elemento.actors}
             onChange={this.handleChange}
-            required
+            
           />
         </div>
+
 
         <div className="form-group">
           <label htmlFor="categories">Categorias: </label>
@@ -566,9 +612,9 @@ class PeliculasForm extends Component {
             name="categories"
             value={this.state.elemento.categories}
             onChange={this.handleChange}
-            required
           />
-        </div>
+
+        </div>         
 
         <div className="form-group">
           <label htmlFor="length">length: </label>
@@ -642,4 +688,8 @@ class PeliculasForm extends Component {
       </form>
     );
   }
+
+
+
+
 }
