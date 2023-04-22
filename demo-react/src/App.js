@@ -21,9 +21,9 @@ export default class App extends Component {
         main: 0
     }
     this.menu = [
-/*       { texto: 'inicio', url: '/', componente: <Home />}, */
+/*       { texto: 'inicio', url: '/', componente: <Home />},
       { texto: 'demos', url: '/demos', componente: <DemosJSX /> },
-/*      { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
+      { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
       { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
