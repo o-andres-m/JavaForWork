@@ -141,6 +141,9 @@ export class Peliculas extends Component {
     this.list();
   }
   send(elemento) {
+    console.log(elemento)
+    console.log(elemento.categories2)
+
     this.setState({ loading: true });
     // eslint-disable-next-line default-case
     let actorsArr = elemento.actors.split(',').map(x=>+x)
@@ -422,6 +425,55 @@ class PeliculasForm extends Component {
               : ""
           );
           break;
+        case "title":
+          cntr.setCustomValidity(
+            cntr.value.length <2
+              ? "Minimo 2 caracteres"
+              : ""
+          );
+          break;
+        case "releaseYear":
+          cntr.setCustomValidity(
+            cntr.value < 1895 || cntr.value > 2023
+              ? "Valor entre 1895 y 2023"
+              : ""
+          );
+          break;
+        case "languageId":
+          cntr.setCustomValidity(
+            isNaN(cntr.value) || cntr.value === 0
+              ? "Ingrese un ID de idioma"
+              : ""
+          );
+          break;
+        case "length":
+          cntr.setCustomValidity(
+            cntr.value < 0
+              ? "Length mayor que 0"
+              : ""
+          );
+          break;
+        case "rentalDuration":
+          cntr.setCustomValidity(
+            cntr.value < 0
+              ? "RentalDuration mayor que 0"
+              : ""
+          );
+          break;
+        case "rentalRate":
+          cntr.setCustomValidity(
+            cntr.value < 0
+              ? "RentalRate mayor que 0"
+              : ""
+          );
+          break;
+        case "replacementCost":
+          cntr.setCustomValidity(
+            cntr.value < 0
+              ? "ReplacementCost mayor que 0"
+              : ""
+          );
+          break;
       }
     }
   }
@@ -515,8 +567,9 @@ class PeliculasForm extends Component {
             minLength="2"
             maxLength="45"
           />
-
+          <ValidationMessage msg={this.state.msgErr.title} />
         </div>
+
         <div className="form-group">
           <label htmlFor="description">Descripción: </label>
           <input
@@ -538,10 +591,11 @@ class PeliculasForm extends Component {
             name="releaseYear"
             value={this.state.elemento.releaseYear ? this.state.elemento.releaseYear : 2023}
             onChange={this.handleChange}
-            min="1000"
+            min="1895"
             max="2023"
             required
           />
+            <ValidationMessage msg={this.state.msgErr.releaseYear} />
         </div>
 
         <div className="form-group">
@@ -569,11 +623,11 @@ class PeliculasForm extends Component {
             className="form-control"
             id="languageId"
             name="languageId"
-            value={this.state.elemento.languageId}
+            value={this.state.elemento.languageId ? this.state.elemento.languageId : ''}
             onChange={this.handleChange}
             required
           />
-
+          <ValidationMessage msg={this.state.msgErr.languageId} />
         </div>
 
         <div className="form-group">
@@ -583,14 +637,14 @@ class PeliculasForm extends Component {
             className="form-control"
             id="languageVOId"
             name="languageVOId"
-            value={this.state.elemento.languageVOId}
+            value={this.state.elemento.languageVOId ? this.state.elemento.languageVOId : ''}
             onChange={this.handleChange}
-            
+            required = {false}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="actors">Actores: </label>
+          <label htmlFor="actors">Actores: (Solo numeros de actores, separados por ',')</label>
           <input
             type="text"
             className="form-control"
@@ -604,7 +658,7 @@ class PeliculasForm extends Component {
 
 
         <div className="form-group">
-          <label htmlFor="categories">Categorias: </label>
+          <label htmlFor="categories">Categorias: (Solo numeros de categorias, separados por ',') </label>
           <input
             type="text"
             className="form-control"
@@ -613,8 +667,28 @@ class PeliculasForm extends Component {
             value={this.state.elemento.categories}
             onChange={this.handleChange}
           />
+        </div>     
 
-        </div>         
+{/*         <div className="form-group">
+          <label htmlFor="categories2">Categorias2: </label>
+          {this.state.listadoCategorias.map((item) =>
+                    <>
+                    <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultValue=""
+                    id="categories2"
+                    name="categories2"
+                    defaultChecked="true"
+                    onChange={this.handleChange}
+                    checked={this.state.elemento.categorias}
+                    />
+                  <label className="form-check-label" htmlFor="flexCheckChecked">
+                    {item.category}
+                  </label>
+                  </>
+          )}
+        </div>      */}
 
         <div className="form-group">
           <label htmlFor="length">length: </label>
@@ -623,10 +697,11 @@ class PeliculasForm extends Component {
             className="form-control"
             id="length"
             name="length"
-            value={this.state.elemento.length}
+            value={this.state.elemento.length ? this.state.elemento.length : ''}
             onChange={this.handleChange}
             required
           />
+        <ValidationMessage msg={this.state.msgErr.length} />
         </div>
 
         <div className="form-group">
@@ -636,10 +711,12 @@ class PeliculasForm extends Component {
             className="form-control"
             id="rentalDuration"
             name="rentalDuration"
-            value={this.state.elemento.rentalDuration}
+            value={this.state.elemento.rentalDuration ? this.state.elemento.rentalDuration : ''}
             onChange={this.handleChange}
             required
           />
+          <ValidationMessage msg={this.state.msgErr.rentalDuration} />
+
         </div>
 
         <div className="form-group">
@@ -649,10 +726,12 @@ class PeliculasForm extends Component {
             className="form-control"
             id="rentalRate"
             name="rentalRate"
-            value={this.state.elemento.rentalRate}
+            value={this.state.elemento.rentalRate ? this.state.elemento.rentalRate : ''}
             onChange={this.handleChange}
             required
           />
+          <ValidationMessage msg={this.state.msgErr.rentalRate} />
+
         </div>
 
         <div className="form-group">
@@ -662,10 +741,11 @@ class PeliculasForm extends Component {
             className="form-control"
             id="replacementCost"
             name="replacementCost"
-            value={this.state.elemento.replacementCost}
+            value={this.state.elemento.replacementCost ? this.state.elemento.replacementCost : ''}
             onChange={this.handleChange}
             required
           />
+        <ValidationMessage msg={this.state.msgErr.replacementCost} />
         </div>
 
         <div className="form-group">
