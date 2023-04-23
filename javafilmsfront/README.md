@@ -1,8 +1,8 @@
-# Welcome to JavaFilmsFront
+# Welcome to JavaFilmsFront :film_projector:
 
-Web Front-End for manage JavaFilms Catalog. Made with React.
+Web Front-End for manage JavaFilms Catalog. Made with React. :atom:
 
-## Requeriments
+## Requeriments :hammer_and_wrench:
 
 You will need extra folders:
 
@@ -12,9 +12,9 @@ node_modules
 
 Servers:
 
-- ms.eureka
-- ms.gateway
-- javaFilms
+- ms.eureka (port 8761)
+- ms.gateway (port 8080)
+- javaFilms (port 8010)
 
 ## Start Running:
 
