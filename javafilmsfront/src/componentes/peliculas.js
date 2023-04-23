@@ -617,7 +617,7 @@ class PeliculasForm extends Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="languageId">Idioma: </label>
+          <label htmlFor="languageId">Idioma: Nº de id de Idioma en DB </label>
           <input
             type="text"
             className="form-control"
@@ -631,13 +631,13 @@ class PeliculasForm extends Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="languageVOId">IdiomaVO: </label>
+          <label htmlFor="languageVOId">IdiomaVO: Nº de id de Idioma en DB</label>
           <input
             type="text"
             className="form-control"
             id="languageVOId"
             name="languageVOId"
-            value={this.state.elemento.languageVOId ? this.state.elemento.languageVOId : ''}
+            value={this.state.elemento.languageVOId ? this.state.elemento.languageVOId : '0'}
             onChange={this.handleChange}
             required = {false}
           />

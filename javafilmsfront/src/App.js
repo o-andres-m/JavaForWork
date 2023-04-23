@@ -75,7 +75,7 @@ function Pie() {
       <div className="container p-4 pb-0">
         <section className="">
           <p className="d-flex justify-content-center align-items-center">
-            <span className="me-3">Catalogo Front por Osvaldo Andres Martinez</span>
+            <span className="me-3" >Catalogo Front por <a href='https://github.com/o-andres-m/JavaForWork' target='blank'>Osvaldo Andres Martinez</a></span>
           </p>
         </section>
       </div>
