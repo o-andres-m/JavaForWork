@@ -12,6 +12,7 @@ import { ActoresMnt } from './componentes/actores';
 import { Peliculas } from './componentes/peliculas';
 import { CategoriasMnt } from './componentes/categorias';
 import { IdiomasMnt } from './componentes/idiomas';
+import Calculadora from './ejercicios/calculadora';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,13 +26,14 @@ export default class App extends Component {
       { texto: 'demos', url: '/demos', componente: <DemosJSX /> },
       { texto: 'contador', url: '/contador', componente: <Contador init={69} />},
       { texto: 'ejemplos', url: '/ejemplos', componente: <Ejemplos />},
-      { texto: 'calculadora', url: '/calculadora', componente: <CalculadoraReact />},
       { texto: 'muro', url: '/muro', componente: <Muro />},
       { texto: 'formulario', url: '/formulario', componente: <PadreFormulario />}, */
       { texto: 'Peliculas', url: '/peliculas', componente: <Peliculas />},
       { texto: 'Actores', url: '/actores', componente: <ActoresMnt />},
       { texto: 'Categorias', url: '/categorias', componente: <CategoriasMnt />},
       { texto: 'Idiomas', url: '/idiomas', componente: <IdiomasMnt />},
+      { texto: 'calculadora', url: '/calculadora', componente: <Calculadora />},
+
 
 
 
