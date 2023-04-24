@@ -134,7 +134,7 @@ Note: For run SakilaDb with docker:
 
 Web Front-End for manage JavaFilms Catalog. Made with React. :atom:
 
-[View Readme] (https://github.com/o-andres-m/JavaForWork/tree/main/javafilmsfront#readme)
+View Readme -> (https://github.com/o-andres-m/JavaForWork/tree/main/javafilmsfront#readme)
 
 ---
 
