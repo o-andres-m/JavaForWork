@@ -24,3 +24,8 @@ From console, in this folder:
 npm start
 ```
 
+## Selenium Tests: :alembic:
+
+Run with SeleniumIde files in ``` 2e2 ``` folder
+
+Java files inside folder too.

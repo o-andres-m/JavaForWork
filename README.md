@@ -125,8 +125,16 @@ Note: For run SakilaDb with docker:
 - React Calculator
 - Muro (with fetch)
 - Formulario
+- Catalogo
+- 2e2 - Pruebas de entorno
 
+---
 
+### javafilmsfront (front-end) :electron:
+
+Web Front-End for manage JavaFilms Catalog. Made with React. :atom:
+
+[View Readme] (https://github.com/o-andres-m/JavaForWork/tree/main/javafilmsfront#readme)
 
 ---
 
