@@ -1,0 +1,266 @@
+{
+  "id": "3cc90bfc-d663-4975-a9de-64af0f458b18",
+  "version": "2.0",
+  "name": "javaFilmsSeleniumTests",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "d9bdb985-f83f-4189-ac4d-b8f6107b2777",
+    "name": "testInicioYSecciones",
+    "commands": [{
+      "id": "86893837-34e4-421a-b16b-7327cd1d6aa7",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "debd847a-c841-40e9-acd6-094ca3247563",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "950x578",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "22b45cc0-1210-4af9-9f39-da5dd1897f0b",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//div[@id='root']/header/div/h1", "xpath:idRelative"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'javaFilms')]", "xpath:innerText"]
+      ],
+      "value": "javaFilms"
+    }, {
+      "id": "ae179688-b401-48e0-be92-cb70e6f9eaac",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Peliculas')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Peliculas"
+    }, {
+      "id": "d9e2550c-0c50-4a50-ac6e-4a6fc5a94b8e",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "JavaFilms Catalogo",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d21fa4c0-64ef-4ef2-af02-192e3c483e80",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.me-3",
+      "targets": [
+        ["css=.me-3", "css:finder"],
+        ["xpath=//div[@id='root']/div/section/footer/div/section/p/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Catalogo Front por Osvaldo Andres Martinez')]", "xpath:innerText"]
+      ],
+      "value": "Catalogo Front por Osvaldo Andres Martinez"
+    }, {
+      "id": "980dda02-fc09-4419-8c28-f7b5a61c7e09",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-group:nth-child(2) > .btn",
+      "targets": [
+        ["css=.btn-group:nth-child(2) > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/nav/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Actores')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdf2c135-0cde-4589-b3e0-a0b4d706ad2a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Actores y Actrices')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Actores y Actrices"
+    }, {
+      "id": "17fb56ab-b077-4d09-b744-7f97528e31fa",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-group:nth-child(3) > .btn",
+      "targets": [
+        ["css=.btn-group:nth-child(3) > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/nav/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Categorias')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0ca027eb-9508-4baa-93a9-9952b09912dd",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Categorias')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Categorias"
+    }, {
+      "id": "490bc5dd-9d9f-4a13-b5fe-ca4876e8d84a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-group:nth-child(4) > .btn",
+      "targets": [
+        ["css=.btn-group:nth-child(4) > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/nav/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Idiomas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b59c7c5-ef0b-4736-88ee-1094ae0c4995",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-group:nth-child(4) > .btn",
+      "targets": [
+        ["css=.btn-group:nth-child(4) > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/nav/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Idiomas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4732d960-26a2-4837-9299-25d5ff06fc78",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-group:nth-child(4) > .btn",
+      "targets": [
+        ["css=.btn-group:nth-child(4) > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div/nav/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Idiomas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd6b9dc1-ca13-4389-a624-d83d0e1a45c3",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Idiomas')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Idiomas"
+    }]
+  }, {
+    "id": "28f81215-0a11-483f-90e7-56afa1c26c12",
+    "name": "testVerPelicula",
+    "commands": [{
+      "id": "b87b0168-d7ea-4fb5-a829-352e6452b1ba",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b46295d-0927-421a-874c-72988358fece",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "950x578",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4297373-bd65-4d7d-ade6-759f5a0d7795",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Peliculas')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Peliculas"
+    }, {
+      "id": "509411b1-e307-49fc-b83a-efbbbd3f656f",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) .btn-group > .btn:nth-child(1)",
+      "targets": [
+        ["css=tr:nth-child(1) .btn-group > .btn:nth-child(1)", "css:finder"],
+        ["xpath=//input[@value='Ver']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/table/tbody/tr/td[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75b2301b-ecaa-4615-8ec2-81d668e24732",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=p > .btn",
+      "targets": [
+        ["css=p > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/p[2]/button", "xpath:idRelative"],
+        ["xpath=//p[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Volver')]", "xpath:innerText"]
+      ],
+      "value": "Volver"
+    }, {
+      "id": "01e9e402-6f60-46e5-b1f6-a815ec60eb0c",
+      "comment": "",
+      "command": "click",
+      "target": "css=p > .btn",
+      "targets": [
+        ["css=p > .btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/p[2]/button", "xpath:idRelative"],
+        ["xpath=//p[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Volver')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "be434165-3c3b-40d2-afce-a79e2099d020",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,0)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "665e9391-152d-432c-8fe9-ff8d2f13d35a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/main/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Lista de Peliculas')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Peliculas"
+    }]
+  }],
+  "suites": [{
+    "id": "156fc54a-e5fb-4ad3-b03d-2ea362aa0a81",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["d9bdb985-f83f-4189-ac4d-b8f6107b2777"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

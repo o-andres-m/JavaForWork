@@ -65,6 +65,13 @@ public class FilmResource {
 		return FilmDetailsDTO.from(film.get());
 	}
 	
+	@GetMapping(path = {"/{id}"}, params = {"mode=edit"})
+	public FilmEditDTO getOneEdit(@PathVariable int id) throws NotFoundException{
+		var film = srv.getOne(id);
+		if (film.isEmpty()) throw new NotFoundException();
+		return FilmEditDTO.from(film.get());
+	}
+	
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody FilmEditDTO item) throws DuplicateKeyException, InvalidDataException{
 		
