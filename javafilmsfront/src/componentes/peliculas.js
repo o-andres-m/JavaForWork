@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { ValidationMessage, ErrorMessage, Esperando, PaginacionCmd as Paginacion,} from "../biblioteca/comunes";
+import {
+  ValidationMessage,
+  ErrorMessage,
+  Esperando,
+  PaginacionCmd as Paginacion,
+} from "../biblioteca/comunes";
 
 export class Peliculas extends Component {
   constructor(props) {
@@ -12,10 +17,11 @@ export class Peliculas extends Component {
       loading: true,
       pagina: 0,
       paginas: 0,
-      };
+    };
     this.idOriginal = null;
     this.url =
-     (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +"/api/films/v1";
+      (process.env.REACT_APP_API_URL || "http://localhost:8080/javafilms") +
+      "/api/films/v1";
   }
 
   setError(msg) {
@@ -61,13 +67,13 @@ export class Peliculas extends Component {
         languageId: 0,
         languageVOId: 0,
         actors: [],
-        categories: []
+        categories: [],
       },
     });
   }
   edit(key) {
     this.setState({ loading: true });
-    fetch(`${this.url}/${key}`)
+    fetch(`${this.url}/${key}?mode=edit`)
       .then((response) => {
         response.json().then(
           response.ok
@@ -85,14 +91,12 @@ export class Peliculas extends Component {
                     replacementCost: data.replacementCost,
                     title: data.title,
                     languageId: data.language,
-                    languageVOId: data.languageVO ,
+                    languageVOId: data.languageVO,
                     actors: data.actors,
-                    categories: data.categories
+                    categories: data.categories,
                   },
                   loading: false,
-                }
-                
-                );
+                });
                 this.idOriginal = key;
               }
             : (error) => this.setError(`${error.status}: ${error.error}`)
@@ -118,8 +122,8 @@ export class Peliculas extends Component {
       })
       .catch((error) => this.setError(error));
   }
-  delete(key,peliName) {
-    if (!window.confirm("Eliminar pelicula "+peliName +"?")) return;
+  delete(key, peliName) {
+    if (!window.confirm("Eliminar pelicula " + peliName + "?")) return;
     this.setState({ loading: true });
     fetch(`${this.url}/${key}`, { method: "DELETE" })
       .then((response) => {
@@ -141,13 +145,13 @@ export class Peliculas extends Component {
     this.list();
   }
   send(elemento) {
-    console.log(elemento)
-    console.log(elemento.categories2)
-
+    console.log(elemento);
     this.setState({ loading: true });
     // eslint-disable-next-line default-case
-    let actorsArr = elemento.actors.split(',').map(x=>+x)
-    let categoryArr = elemento.categories.split(',').map(x=>+x)
+    let actorsArr = null;
+    if (!Array.isArray(elemento.actors))
+      actorsArr = elemento.actors.split(",").map((x) => +x);
+    else actorsArr = elemento.actors;
 
     let elementoToSend = {
       filmId: elemento.filmId,
@@ -160,10 +164,12 @@ export class Peliculas extends Component {
       replacementCost: +elemento.replacementCost,
       title: elemento.title,
       languageId: +elemento.languageId,
-      languageVOId: +elemento.languageVOId ,
+      languageVOId: elemento.languageVOId == 0 ?  null : +elemento.languageVOId ,
       actors: actorsArr,
-      categories: categoryArr
-    }
+      categories: elemento.categories,
+    };
+    console.log(elementoToSend);
+
 
     switch (this.state.modo) {
       case "add":
@@ -192,7 +198,6 @@ export class Peliculas extends Component {
           headers: {
             "Content-Type": "application/json",
           },
-          
         })
           .then((response) => {
             if (response.ok) this.cancel();
@@ -205,8 +210,8 @@ export class Peliculas extends Component {
           })
           .catch((error) => this.setError(error));
         break;
-        default:
-            break;
+      default:
+        break;
     }
   }
 
@@ -320,30 +325,30 @@ function PeliculasList(props) {
 
 function PeliculasView({ elemento, onCancel }) {
   let ratingName;
-  switch (elemento.rating){
-    case 'G':
-      ratingName = 'GENERAL_AUDIENCES';
+  switch (elemento.rating) {
+    case "G":
+      ratingName = "GENERAL_AUDIENCES";
       break;
-    case 'PG':
-        ratingName = 'PARENTAL_GUIDANCE_SUGGESTED';
-        break;
-    case 'PG-13':
-        ratingName = 'PARENTS_STRONGLY_CAUTIONED';
-        break;
-    case 'R':
-        ratingName = 'RESTRICTED';
-        break;
-    case 'NC-17':
-          ratingName = 'ADULTS_ONLY';
-          break;
+    case "PG":
+      ratingName = "PARENTAL_GUIDANCE_SUGGESTED";
+      break;
+    case "PG-13":
+      ratingName = "PARENTS_STRONGLY_CAUTIONED";
+      break;
+    case "R":
+      ratingName = "RESTRICTED";
+      break;
+    case "NC-17":
+      ratingName = "ADULTS_ONLY";
+      break;
     default:
-      ratingName ='NO_RATING';
+      ratingName = "NO_RATING";
       break;
   }
 
   return (
     <div>
-        <br/>
+      <br />
       <p>
         <b>Codigo:</b> {elemento.filmId}
         <br />
@@ -353,24 +358,30 @@ function PeliculasView({ elemento, onCancel }) {
         <br />
         <b>Año:</b> {elemento.releaseYear}
         <br />
-        <b>Rating:</b> {ratingName }
+        <b>Rating:</b> {ratingName}
         <br />
-        <b>Idioma:</b> {elemento.language ? elemento.language : 'No Posee'}
+        <b>Idioma:</b> {elemento.language ? elemento.language : "No Posee"}
         <br />
-        <b>IdiomaVO:</b> {elemento.languageVO ? elemento.languageVO : 'No Posee'}
+        <b>IdiomaVO:</b>{" "}
+        {elemento.languageVO ? elemento.languageVO : "No Posee"}
         <br />
-        <b>length:</b> {elemento.length ? elemento.length : 'No Posee'}
+        <b>length:</b> {elemento.length ? elemento.length : "No Posee"}
         <br />
-        <b>rentalDuration:</b> {elemento.rentalDuration ? elemento.rentalDuration : 'No Posee'}
+        <b>rentalDuration:</b>{" "}
+        {elemento.rentalDuration ? elemento.rentalDuration : "No Posee"}
         <br />
-        <b>rentalRate:</b> {elemento.rentalRate ? elemento.rentalRate : 'No Posee'}
+        <b>rentalRate:</b>{" "}
+        {elemento.rentalRate ? elemento.rentalRate : "No Posee"}
         <br />
-        <b>replacementCost:</b> {elemento.rentalRate ? elemento.rentalRate : 'No Posee'}
+        <b>replacementCost:</b>{" "}
+        {elemento.rentalRate ? elemento.rentalRate : "No Posee"}
         <br />
         <b>Actores:</b> {elemento.actors.join(", ")}
         <br />
-        <b>Categorias:</b> {elemento.categories.join(", ") ? elemento.categories.join(", ") : 'No posee'}
-
+        <b>Categorias:</b>{" "}
+        {elemento.categories.join(", ")
+          ? elemento.categories.join(", ")
+          : "No posee"}
       </p>
       <p>
         <button
@@ -388,14 +399,15 @@ function PeliculasView({ elemento, onCancel }) {
 class PeliculasForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       elemento: props.elemento,
-      msgErr: [], 
+      msgErr: [],
       invalid: false,
-      listadoCategorias : [],
-      listadoActores : []
+      listadoCategorias: [],
+      listadoActores: [],
+      listadoLanguages: [],
 
-     };
+    };
     this.handleChange = this.handleChange.bind(this);
     this.onSend = () => {
       if (this.props.onSend) this.props.onSend(this.state.elemento);
@@ -403,7 +415,6 @@ class PeliculasForm extends Component {
     this.onCancel = () => {
       if (this.props.onCancel) this.props.onCancel();
     };
-    
   }
   handleChange(event) {
     const cmp = event.target.name;
@@ -414,6 +425,43 @@ class PeliculasForm extends Component {
     });
     this.validar();
   }
+
+  categoriaChange(event) {
+    if (event.target.checked) {
+      if (this.state.elemento.categories.includes(+event.target.value)) return;
+      this.state.elemento.categories.push(+event.target.value);
+      this.setState({
+        elemento: { ...this.state.elemento },
+      });
+    } else {
+      if (!this.state.elemento.categories.includes(+event.target.value)) return;
+      this.state.elemento.categories = this.state.elemento.categories.filter(
+        (item) => item !== +event.target.value
+      );
+      this.setState({
+        elemento: { ...this.state.elemento },
+      });
+    }
+  }
+
+  actoresChange(event) {
+    if (event.target.checked) {
+      if (this.state.elemento.actors.includes(+event.target.value)) return;
+      this.state.elemento.actors.push(+event.target.value);
+      this.setState({
+        elemento: { ...this.state.elemento },
+      });
+    } else {
+      if (!this.state.elemento.actors.includes(+event.target.value)) return;
+      this.state.elemento.actors = this.state.elemento.actors.filter(
+        (item) => item !== +event.target.value
+      );
+      this.setState({
+        elemento: { ...this.state.elemento },
+      });
+    }
+  }
+
   validarCntr(cntr) {
     if (cntr.name) {
       // eslint-disable-next-line default-case
@@ -427,9 +475,7 @@ class PeliculasForm extends Component {
           break;
         case "title":
           cntr.setCustomValidity(
-            cntr.value.length <2
-              ? "Minimo 2 caracteres"
-              : ""
+            cntr.value.length < 2 ? "Minimo 2 caracteres" : ""
           );
           break;
         case "releaseYear":
@@ -439,39 +485,22 @@ class PeliculasForm extends Component {
               : ""
           );
           break;
-        case "languageId":
-          cntr.setCustomValidity(
-            isNaN(cntr.value) || cntr.value === 0
-              ? "Ingrese un ID de idioma"
-              : ""
-          );
-          break;
         case "length":
-          cntr.setCustomValidity(
-            cntr.value < 0
-              ? "Length mayor que 0"
-              : ""
-          );
+          cntr.setCustomValidity(cntr.value < 0 ? "Length mayor que 0" : "");
           break;
         case "rentalDuration":
           cntr.setCustomValidity(
-            cntr.value < 0
-              ? "RentalDuration mayor que 0"
-              : ""
+            cntr.value < 0 ? "RentalDuration mayor que 0" : ""
           );
           break;
         case "rentalRate":
           cntr.setCustomValidity(
-            cntr.value < 0
-              ? "RentalRate mayor que 0"
-              : ""
+            cntr.value < 0 ? "RentalRate mayor que 0" : ""
           );
           break;
         case "replacementCost":
           cntr.setCustomValidity(
-            cntr.value < 0
-              ? "ReplacementCost mayor que 0"
-              : ""
+            cntr.value < 0 ? "ReplacementCost mayor que 0" : ""
           );
           break;
       }
@@ -528,9 +557,30 @@ class PeliculasForm extends Component {
       .catch((error) => this.setError(error));
   }
 
+  getLanguages() {
+    this.setState({ loading: true });
+    fetch(`http://localhost:8080/javafilms/api/language/v1`)
+      .then((response) => {
+        response.json().then(
+          response.ok
+            ? (data) => {
+                this.setState({
+                  listadoLanguages: data,
+                  loading: false,
+                });
+              }
+            : (error) => this.setError(`${error.status}: ${error.error}`)
+        );
+      })
+      .catch((error) => this.setError(error));
+  }
+
   componentDidMount() {
     this.validar();
-    this.getCategories()
+    this.getCategories();
+    this.getActores();
+    this.getLanguages();
+
   }
   render() {
     return (
@@ -589,106 +639,198 @@ class PeliculasForm extends Component {
             className="form-control"
             id="releaseYear"
             name="releaseYear"
-            value={this.state.elemento.releaseYear ? this.state.elemento.releaseYear : 2023}
+            value={
+              this.state.elemento.releaseYear
+                ? this.state.elemento.releaseYear
+                : 2023
+            }
             onChange={this.handleChange}
             min="1895"
             max="2023"
             required
           />
-            <ValidationMessage msg={this.state.msgErr.releaseYear} />
+          <ValidationMessage msg={this.state.msgErr.releaseYear} />
         </div>
 
         <div className="form-group">
-          <label htmlFor="rating">Rating: </label><br/>
-          <select 
+          <label htmlFor="rating">Rating: </label>
+          <br />
+          <select
             name="rating"
             id="rating"
             onChange={this.handleChange}
-            value = {this.state.elemento.rating}
-            >
-            <option value="NORATING" selected>Seleccione Rating...</option>
+            value={this.state.elemento.rating}
+          >
+            <option value="NORATING" selected disabled>
+              Seleccione Rating...
+            </option>
             <option value="G">GENERAL_AUDIENCES</option>
             <option value="PG">PARENTAL_GUIDANCE_SUGGESTED</option>
             <option value="PG-13">PARENTS_STRONGLY_CAUTIONED</option>
             <option value="R">RESTRICTED</option>
             <option value="NC-17">ADULTS_ONLY</option>
           </select>
-
         </div>
 
         <div className="form-group">
+          <label htmlFor="languageId">Idioma: </label>
+          <br />
+          <select
+            name="languageId"
+            id="languageId"
+            onChange={this.handleChange}
+            value={this.state.elemento.language}
+          >
+            <option value="" disabled selected>
+              Seleccione Idioma...
+            </option>
+            {
+            this.state.listadoLanguages.map((item) => (
+              <option value={item.id}>{item.language}</option>
+            )
+            )}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="languageVOId">IdiomaVO: </label>
+          <br />
+          <select
+            name="languageVOId"
+            id="languageVOId"
+            onChange={this.handleChange}
+            value={this.state.elemento.languageVO}
+          >
+            <option value="0" disabled selected>
+              Seleccione Idioma...
+            </option>
+            {
+            this.state.listadoLanguages.map((item) => (
+              <option value={item.id}>{item.language}</option>
+            )
+            )}
+          </select>
+        </div>
+
+{/*         <div className="form-group">
           <label htmlFor="languageId">Idioma: Nº de id de Idioma en DB </label>
           <input
             type="text"
             className="form-control"
             id="languageId"
             name="languageId"
-            value={this.state.elemento.languageId ? this.state.elemento.languageId : ''}
+            value={
+              this.state.elemento.languageId
+                ? this.state.elemento.languageId
+                : ""
+            }
             onChange={this.handleChange}
             required
           />
           <ValidationMessage msg={this.state.msgErr.languageId} />
-        </div>
+        </div> */}
 
-        <div className="form-group">
-          <label htmlFor="languageVOId">IdiomaVO: Nº de id de Idioma en DB</label>
+{/*         <div className="form-group">
+          <label htmlFor="languageVOId">
+            IdiomaVO: Nº de id de Idioma en DB
+          </label>
           <input
             type="text"
             className="form-control"
             id="languageVOId"
             name="languageVOId"
-            value={this.state.elemento.languageVOId ? this.state.elemento.languageVOId : '0'}
+            value={
+              this.state.elemento.languageVOId
+                ? this.state.elemento.languageVOId
+                : "0"
+            }
             onChange={this.handleChange}
-            required = {false}
+            required={false}
           />
+        </div> */}
+
+        <br />
+        <div className="form-group">
+          <label htmlFor="actors">
+            <div className="accordion" id="accordionExample">
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="headingOne">
+                  <button
+                    className="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    Actores :
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  className="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion-body">
+                    {this.state.listadoActores.map((item) => (
+                      <>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="actors"
+                          name="actors"
+                          defaultValue={item.actorId}
+                          onChange={this.actoresChange.bind(this)}
+                          checked={this.state.elemento.actors.includes(
+                            item.actorId
+                          )}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexCheckChecked"
+                        >
+                          {item.name}
+                        </label>
+                        <br></br>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </label>
         </div>
 
+        <br />
         <div className="form-group">
-          <label htmlFor="actors">Actores: (Solo numeros de actores, separados por ',')</label>
-          <input
-            type="text"
-            className="form-control"
-            id="actors"
-            name="actors"
-            value={this.state.elemento.actors}
-            onChange={this.handleChange}
-            
-          />
-        </div>
-
-
-        <div className="form-group">
-          <label htmlFor="categories">Categorias: (Solo numeros de categorias, separados por ',') </label>
-          <input
-            type="text"
-            className="form-control"
-            id="categories"
-            name="categories"
-            value={this.state.elemento.categories}
-            onChange={this.handleChange}
-          />
-        </div>     
-
-{/*         <div className="form-group">
-          <label htmlFor="categories2">Categorias2: </label>
-          {this.state.listadoCategorias.map((item) =>
-                    <>
-                    <input
-                    className="form-check-input"
+          <div className="card">
+            <div className="card-body">
+              <label htmlFor="categories"> Categorias:</label>
+              <br />
+              {this.state.listadoCategorias.map((item) => (
+                <>
+                  <input
+                    className="form-check-input ms-4"
                     type="checkbox"
-                    defaultValue=""
-                    id="categories2"
-                    name="categories2"
-                    defaultChecked="true"
-                    onChange={this.handleChange}
-                    checked={this.state.elemento.categorias}
-                    />
-                  <label className="form-check-label" htmlFor="flexCheckChecked">
+                    id="categories"
+                    name="categories"
+                    defaultValue={item.id}
+                    onChange={this.categoriaChange.bind(this)}
+                    checked={this.state.elemento.categories.includes(item.id)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexCheckChecked"
+                  >
                     {item.category}
                   </label>
-                  </>
-          )}
-        </div>      */}
+                  <br />
+                </>
+              ))}
+            </div>
+          </div>
+        </div>
 
         <div className="form-group">
           <label htmlFor="length">length: </label>
@@ -697,11 +839,11 @@ class PeliculasForm extends Component {
             className="form-control"
             id="length"
             name="length"
-            value={this.state.elemento.length ? this.state.elemento.length : ''}
+            value={this.state.elemento.length ? this.state.elemento.length : ""}
             onChange={this.handleChange}
             required
           />
-        <ValidationMessage msg={this.state.msgErr.length} />
+          <ValidationMessage msg={this.state.msgErr.length} />
         </div>
 
         <div className="form-group">
@@ -711,12 +853,15 @@ class PeliculasForm extends Component {
             className="form-control"
             id="rentalDuration"
             name="rentalDuration"
-            value={this.state.elemento.rentalDuration ? this.state.elemento.rentalDuration : ''}
+            value={
+              this.state.elemento.rentalDuration
+                ? this.state.elemento.rentalDuration
+                : ""
+            }
             onChange={this.handleChange}
             required
           />
           <ValidationMessage msg={this.state.msgErr.rentalDuration} />
-
         </div>
 
         <div className="form-group">
@@ -726,12 +871,15 @@ class PeliculasForm extends Component {
             className="form-control"
             id="rentalRate"
             name="rentalRate"
-            value={this.state.elemento.rentalRate ? this.state.elemento.rentalRate : ''}
+            value={
+              this.state.elemento.rentalRate
+                ? this.state.elemento.rentalRate
+                : ""
+            }
             onChange={this.handleChange}
             required
           />
           <ValidationMessage msg={this.state.msgErr.rentalRate} />
-
         </div>
 
         <div className="form-group">
@@ -741,11 +889,15 @@ class PeliculasForm extends Component {
             className="form-control"
             id="replacementCost"
             name="replacementCost"
-            value={this.state.elemento.replacementCost ? this.state.elemento.replacementCost : ''}
+            value={
+              this.state.elemento.replacementCost
+                ? this.state.elemento.replacementCost
+                : ""
+            }
             onChange={this.handleChange}
             required
           />
-        <ValidationMessage msg={this.state.msgErr.replacementCost} />
+          <ValidationMessage msg={this.state.msgErr.replacementCost} />
         </div>
 
         <div className="form-group">
@@ -768,8 +920,4 @@ class PeliculasForm extends Component {
       </form>
     );
   }
-
-
-
-
 }
